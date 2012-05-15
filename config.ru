@@ -1,2 +1,2 @@
-require File.join(File.dirname(_FILE_), 'rook.rb')
+require File.join(File.dirname(__FILE__), 'rook.rb')
 run Rook.new

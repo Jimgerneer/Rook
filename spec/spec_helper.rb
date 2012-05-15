@@ -17,3 +17,12 @@ require_relative '../lib/profile'
 require_relative '../lib/opportunity'
 DataMapper.finalize
 DataMapper.auto_upgrade!
+
+module AcceptanceHelper
+ require 'capybara'
+ require 'capybara/dsl'
+ include Capybara::DSL
+
+  Capybara.app = Rook
+  #Capybara.javascript_driver = :webkit
+end 

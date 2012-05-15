@@ -4,7 +4,17 @@ GEM
     addressable (2.2.7)
     ansi (1.4.2)
     bcrypt-ruby (3.0.1)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.2)
+      ffi (~> 1.0.6)
     coderay (1.0.6)
+    daemons (1.1.8)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
       dm-constraints (~> 1.2.0)
@@ -53,6 +63,7 @@ GEM
       dm-core (~> 1.2.0)
     do_mysql (0.10.8)
       data_objects (= 0.10.8)
+    eventmachine (0.12.10)
     fastercsv (1.5.4)
     ffi (1.0.11)
     growl (1.0.3)
@@ -63,15 +74,20 @@ GEM
       thor (~> 0.14.6)
     guard-minitest (0.5.0)
       guard (>= 0.4)
+    haml (3.0.13)
     json (1.6.7)
     json_pure (1.6.7)
+    libwebsocket (0.1.3)
+      addressable
     method_source (0.7.1)
+    mime-types (1.18)
     minitest (2.12.1)
     minitest-reporters (0.6.0)
       ansi
       minitest (~> 2.0)
       ruby-progressbar
     multi_json (1.0.4)
+    nokogiri (1.5.2)
     pry (0.9.9.4)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
@@ -81,31 +97,53 @@ GEM
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
+    rack-test (0.6.1)
+      rack (>= 1.0)
     rb-appscript (0.6.1)
     rb-fsevent (0.9.1)
     ruby-progressbar (0.0.10)
     ruby_gntp (0.3.4)
+    rubyzip (0.9.8)
+    selenium-webdriver (2.21.2)
+      childprocess (>= 0.2.5)
+      ffi (~> 1.0)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
+    shotgun (0.9)
+      rack (>= 1.0)
     sinatra (1.3.2)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
     slop (2.4.4)
     stringex (1.3.3)
+    thin (1.3.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.3.3)
     uuidtools (2.1.2)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara
   data_mapper
   dm-mysql-adapter
   growl
   growl_notify
   guard-minitest
+  haml
   minitest-reporters
   pry-nav
+  rack-test
   rb-fsevent
   ruby_gntp
+  shotgun
   sinatra
+  thin

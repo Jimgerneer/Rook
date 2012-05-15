@@ -10,11 +10,13 @@ group :development, :test do
   gem 'shotgun'
   gem 'capybara'
   gem 'rack-test'
-  gem 'guard-minitest'
   gem 'pry-nav'
-  gem 'growl'
-  gem 'growl_notify'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  if RUBY_PLATFORM =~ /darwin/i
+    gem 'guard-minitest'
+    gem 'growl'
+    gem 'growl_notify'
+    gem 'rb-fsevent', :require => false
+  end
   gem 'minitest-reporters'
   gem 'ruby_gntp'
   #gem 'guard-livereload' #guard init livereload #also install live reload ext in browser

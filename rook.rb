@@ -1,12 +1,14 @@
 require 'sinatra'
 require 'data_mapper'
 require 'haml'
+require_relative 'routes/init'
 
 DataMapper.setup(:default, 'mysql://root@localhost/rook')
 
 class Rook < Sinatra::Base
-  get '/' do
-    haml :index
+
+  configure do
+    set :app_file, __FILE__
   end
 end
 

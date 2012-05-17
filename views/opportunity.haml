@@ -3,13 +3,13 @@
   %fieldset
     %ol
       %li
-        %label{:for => "Title"} Title:
-        %input{:type => "text", :name => "Title", :value => @title}
+        %label{:for => "title"} Title:
+        %input{:type => "text", :name => "opportunity[title]", :value => @title, :id => 'title'}
       %li
-        %label{:for => "Skills"} Skills:
-        %input{:type => "text", :name => "Skills", :value => @skills}
+        %label{:for => "skills"} Skills:
+        %input{:type => "text", :name => "opportunity[skills]", :value => @skills, :id => 'skills'}
       %li
-        %label{:for => "Description"} Description:
-        %textarea{:name => "Description", :value => @description}
+        %label{:for => "desc"} Description:
+        %textarea{:name => "opportunity[description]", :value => @description, :id => 'desc'}
       %input{:type => "submit", :value => "Submit", :class => "button"}    
 

@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require 'pry'
 
 describe "Creating an Opportunity" do
   
@@ -16,15 +17,14 @@ describe "Creating an Opportunity" do
     assert has_content?("Create an Opportunity")
   end
 
-  it "has a title field" do
-   fill_in('Title', :with => 'Ruby for Beginners')
-  end
-  
-  it "has a skills field" do
-    fill_in('Skills', :with => 'Ruby')
-  end
+  it "Creates an opportunity" do
+    before = Rook::Opportunity.count
+    fill_in('Title:', :with => 'Ruby for Beginners')
+    fill_in('Skills:', :with => 'Ruby')
+    fill_in('Description:', :with => 'Learn Ruby from the basics')
+    click_button('Submit')
 
-  it "has a description field" do
-    fill_in('Description', :with => 'Learn Ruby from the basics')
+    assert_equal before + 1, Rook::Opportunity.count
+    assert_equal "/", page.current_path
   end
 end

@@ -16,6 +16,7 @@ require_relative '../models/user'
 require_relative '../models/profile'
 require_relative '../models/opportunity'
 require_relative '../models/course'
+
 DataMapper.finalize
 DataMapper.auto_upgrade!
 

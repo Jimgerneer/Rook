@@ -2,6 +2,7 @@ require 'sinatra'
 require 'data_mapper'
 require 'haml'
 require_relative 'routes/init'
+require_relative 'models/init'
 
 DataMapper.setup(:default, 'mysql://root@localhost/rook')
 

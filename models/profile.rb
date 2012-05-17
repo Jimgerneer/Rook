@@ -12,3 +12,4 @@ class Rook::Profile
   #belongs_to :user
 end
 
+DataMapper.finalize

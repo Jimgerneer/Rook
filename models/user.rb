@@ -12,3 +12,5 @@ class Rook::User
  # has n, :courses
  # has n, :opportunities
 end
+
+DataMapper.finalize

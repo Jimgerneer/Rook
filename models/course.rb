@@ -11,3 +11,5 @@ class Rook::Course
 
   #belongs_to :user
 end
+
+DataMapper.finalize

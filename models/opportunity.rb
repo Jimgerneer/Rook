@@ -9,3 +9,4 @@ class Rook::Opportunity
   property :description,  String
 end
 
+DataMapper.finalize

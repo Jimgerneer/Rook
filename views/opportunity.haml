@@ -1,1 +1,15 @@
 %h2 Create an Opportunity
+%form{ :action => "/opportunity", :method => "POST"}
+  %fieldset
+    %ol
+      %li
+        %label{:for => "Title"} Title:
+        %input{:type => "text", :name => "Title", :value => @title}
+      %li
+        %label{:for => "Skills"} Skills:
+        %input{:type => "text", :name => "Skills", :value => @skills}
+      %li
+        %label{:for => "Description"} Description:
+        %textarea{:name => "Description", :value => @description}
+      %input{:type => "submit", :value => "Submit", :class => "button"}    
+

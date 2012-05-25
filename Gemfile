@@ -5,8 +5,12 @@ gem 'thin'
 gem 'data_mapper'
 gem 'haml'
 gem 'dm-mysql-adapter'
+gem 'dm-chunked_query'
+gem 'dm-migrations'
+gem 'will_paginate', '~> 3.0.0'
 
 group :development, :test do
+  gem 'dm-sweatshop'
   gem 'shotgun'
   gem 'capybara'
   gem 'rack-test'

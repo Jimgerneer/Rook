@@ -5,6 +5,7 @@ require 'guard/minitest'
 require 'pry'
 require 'growl_notify'
 require 'data_mapper'
+require 'dm-migrations'
 
 ENV["RACK_ENV"] = "test"
 
@@ -19,6 +20,8 @@ require_relative '../models/course'
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
+
+require_relative 'spec_fixtures'
 
 module AcceptanceHelper
  require 'capybara'

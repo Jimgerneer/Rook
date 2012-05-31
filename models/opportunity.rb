@@ -11,6 +11,7 @@ class Rook::Opportunity
 end
 
 DataMapper.finalize
+DataMapper.auto_upgrade!
 
 #def paginate(query) 
 #  @page = (params[:page] || 1).to_i

@@ -1,4 +1,18 @@
 %h2 Welcome to Rook
-%a(href="opportunity")
-  %li Create
-= will_paginate @opportunites
+%li
+  %a(href="opportunity")Create
+%table
+  %thead
+    %tr
+      %th(colspan="3")Available Opportunities!
+    %tr
+      %th Title
+      %th Skills
+      %th Description
+  %tbody
+    - @opportunities.each do |opportunity|
+      %tr
+        %td= opportunity.title
+        %td= opportunity.skills 
+        %td= opportunity.description
+= will_paginate @opportunities

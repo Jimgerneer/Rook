@@ -6,6 +6,7 @@ require 'pry'
 require 'growl_notify'
 require 'data_mapper'
 require 'dm-migrations'
+require 'rake/testtask'
 
 ENV["RACK_ENV"] = "test"
 

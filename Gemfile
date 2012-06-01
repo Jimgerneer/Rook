@@ -18,6 +18,7 @@ group :development, :test do
   gem 'capybara'
   gem 'rack-test'
   gem 'pry-nav'
+  gem 'rake'
   #if RUBY_PLATFORM =~ /darwin/i
     gem 'guard-minitest'
     gem 'growl'

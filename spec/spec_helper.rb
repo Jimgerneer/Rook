@@ -19,7 +19,7 @@ require_relative '../models/opportunity'
 require_relative '../models/course'
 
 DataMapper.finalize
-DataMapper.auto_upgrade!
+DataMapper.auto_migrate!
 
 require_relative 'spec_fixtures'
 

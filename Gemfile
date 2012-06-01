@@ -7,6 +7,9 @@ gem 'haml'
 gem 'dm-mysql-adapter'
 gem 'dm-chunked_query'
 gem 'dm-migrations'
+gem 'dm-core'
+gem 'dm-timestamps'
+gem 'dm-validations'
 gem 'will_paginate', '~> 3.0.0'
 
 group :development, :test do

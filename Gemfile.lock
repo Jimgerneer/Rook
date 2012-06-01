@@ -153,9 +153,12 @@ DEPENDENCIES
   capybara
   data_mapper
   dm-chunked_query
+  dm-core
   dm-migrations
   dm-mysql-adapter
   dm-sweatshop
+  dm-timestamps
+  dm-validations
   growl
   growl_notify
   guard-minitest

@@ -5,3 +5,11 @@ Rook::Opportunity.fixture(:random) {{
   :skills => %w(Ruby)[rand(1)],
   :description => %w(This is a description)[rand(4)]
 }}
+
+Rook::User.fixture {{
+  :username => 'DecoyDrone',
+  :email => 'faker@me.com',
+  :password => 'doobar',
+  :password_confirmation => 'doobar'
+}}
+

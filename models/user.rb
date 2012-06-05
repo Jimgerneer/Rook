@@ -1,6 +1,7 @@
-require_relative '../rook'
+#require_relative '../rook'
 
-class Rook::User
+class Rook
+class User
   include DataMapper::Resource
 
   attr_accessor :password, :password_confirmation
@@ -16,13 +17,15 @@ class Rook::User
   property :account_type, String, :required => true, :default => 'standard',
            :writer => :protected
   property :active, Boolean, :default => true, :writer => :protected
+  
+  has n, :opportunities, :model => "Rook::Opportunity" 
 
   validates_presence_of :password_confirmation
   validates_confirmation_of :password
 
   def self.authenticate(username_or_email, pass)
-    current_user = first(:username => username_or_email) || first(:email => username_or_email)
-    return nil if current_user.nil? || self.class.encrypt(pass, current_user.salt) != current_user.hashed_password
+    current_user = first(:username => username_or_email)# || first(:email => username_or_email)
+    return nil if current_user.nil? || self.encrypt(pass, current_user.salt) != current_user.hashed_password
     current_user
   end
 
@@ -37,11 +40,8 @@ class Rook::User
     Digest::SHA1.hexdigest(pass+salt)
   end
 end
+end
 
-DataMapper.finalize
-DataMapper.auto_upgrade!
 
  # has n, :profile
  # has n, :courses
- # has n, :opportunities
-

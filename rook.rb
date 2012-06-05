@@ -36,7 +36,3 @@ require_relative 'models/init'
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
-
-#class Rook::Subscription
-#  include DataMapper::Resource
-#end

@@ -1,12 +1,4 @@
 require_relative '../spec_helper'
-require 'pry'
-
-def sign_in(user)
-  visit "/login"
-  fill_in('username', :with => 'DecoyDrone')
-  fill_in('password', :with => 'doobar')
-  click_button('Submit')
-end
 
 describe "Creating an Opportunity" do
   

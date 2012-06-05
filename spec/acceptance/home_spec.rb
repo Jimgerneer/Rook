@@ -16,11 +16,6 @@ describe "Home page" do
     assert has_content?("Welcome to Rook")
   end
 
-  it "has a button to create opportunity" do
-    click_link('Create')
-    assert_equal "/opportunity", page.current_path
-  end
-
   describe "signup" do
 
     it "has a sign up button" do
@@ -34,11 +29,10 @@ describe "Home page" do
     assert_equal "/login", page.current_path
   end
 
-
   describe "pagination" do
 
     before(:each) do
-      11.times { Rook::Opportunity.gen(:random) }
+      11.times { Rook::User.gen(:opp) }
       visit "/"
     end
 

@@ -1,5 +1,5 @@
-require 'pry'
 require 'will_paginate'
+require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
   get '/' do
@@ -9,17 +9,13 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity' do
+    login_required
     haml :opportunity
   end
 
   post '/opportunity' do
-    @opportunity = Rook::Opportunity.create(params[:opportunity])
-    #:title => params[:title],
-    #:skills => params[:skills],
-    #:description => params[:description]
-    #)
+    opportunity_params = params[:opportunity].merge(:user => current_user)
+    @opportunity = Rook::Opportunity.create(opportunity_params)
     redirect "/"
-
-    #haml :opportunity
   end 
 end

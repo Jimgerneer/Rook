@@ -14,10 +14,7 @@ MiniTest::Unit.runner = MiniTest::SuiteRunner.new
 MiniTest::Unit.runner.reporters << MiniTest::Reporters::ProgressReporter.new
 #MiniTest::Unit.runner.reporters << MiniTest::Reporters::GuardReporter.new
 
-require_relative '../models/user'
-require_relative '../models/profile'
-require_relative '../models/opportunity'
-require_relative '../models/course'
+require_relative '../rook'
 
 DataMapper.finalize
 DataMapper.auto_migrate!

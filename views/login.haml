@@ -1,0 +1,14 @@
+%h Login!
+%form{ :action => "/login", :method => "POST"}
+  %fieldset
+    %ul
+      %li
+        %label{:for => "username"} Username:
+        %input{:type => "text", :name => "username",
+               :value => @username, :id => "user_username"}
+      %li
+        %label{:for => "password"} Password:
+        %input{:type => "password", :name => "password", :value => @password,
+               :id => "user_password"}
+      %li
+        %input{:type => "submit", :value => "Submit", :class => "button"}

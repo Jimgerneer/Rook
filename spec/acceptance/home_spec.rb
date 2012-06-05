@@ -18,9 +18,22 @@ describe "Home page" do
 
   it "has a button to create opportunity" do
     click_link('Create')
-
     assert_equal "/opportunity", page.current_path
   end
+
+  describe "signup" do
+
+    it "has a sign up button" do
+      click_link('Sign-Up')
+      assert_equal "/signup", page.current_path
+    end
+  end
+
+  it "has a login button" do
+    click_link('Login')
+    assert_equal "/login", page.current_path
+  end
+
 
   describe "pagination" do
 

@@ -1,30 +1,39 @@
 require_relative '../spec_helper'
 require 'pry'
 
+def sign_in(user)
+  visit "/login"
+  fill_in('username', :with => 'DecoyDrone')
+  fill_in('password', :with => 'doobar')
+  click_button('Submit')
+end
+
 describe "Creating an Opportunity" do
   
   include AcceptanceHelper
 
-  before(:each) do
-    visit "/opportunity"
-  end
+  let(:user) { Rook::User.gen }
+  before { sign_in(user) } 
 
-  it "returns 200" do
-    assert_equal 200, page.status_code
-  end
+  describe "Fills out opportunity form" do
 
-  it "has a header" do
-    assert has_content?("Create an Opportunity")
-  end
+    before(:each) do
+      visit "/opportunity"
+    end
 
-  it "Creates an opportunity" do
-    before = Rook::Opportunity.count
-    fill_in('Title:', :with => 'Ruby for Beginners')
-    fill_in('Skills:', :with => 'Ruby')
-    fill_in('Description:', :with => 'Learn Ruby from the basics')
-    click_button('Submit')
+    it "has a header" do
+      assert has_content?("Create an Opportunity")
+    end
 
-    assert_equal before + 1, Rook::Opportunity.count
-    assert_equal "/", page.current_path
+    it "Creates an opportunity" do
+      before = Rook::Opportunity.count
+      fill_in('Title:', :with => 'Ruby for Beginners')
+      fill_in('Skills:', :with => 'Ruby')
+      fill_in('Description:', :with => 'Learn Ruby from the basics')
+      click_button('Submit')
+
+      assert_equal before + 1, Rook::Opportunity.count
+      assert_equal "/", page.current_path
+    end
   end
 end

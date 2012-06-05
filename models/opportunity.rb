@@ -1,4 +1,6 @@
-class Rook::Opportunity 
+class Rook
+  class Opportunity 
+  
   include DataMapper::Resource
 
   property :id,           Serial
@@ -8,4 +10,5 @@ class Rook::Opportunity
 
   belongs_to :user, :model => "Rook::User" 
 
+end
 end

@@ -15,7 +15,7 @@ class Rook < Sinatra::Base
 
   post '/opportunity' do
     opportunity_params = params[:opportunity].merge(:user => current_user)
-    @opportunity = Rook::Opportunity.create(opportunity_params)
+    @opportunity = Rook::Opportunity.create!(opportunity_params)
     redirect "/"
   end 
 end

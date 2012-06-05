@@ -29,3 +29,10 @@ module AcceptanceHelper
   Capybara.app = Rook
   #Capybara.javascript_driver = :webkit
 end 
+
+def sign_in(user)
+  visit "/login"
+  fill_in('username', :with => 'DecoyDrone')
+  fill_in('password', :with => 'doobar')
+  click_button('Submit')
+end

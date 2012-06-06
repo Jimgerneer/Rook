@@ -1,14 +1,12 @@
-class Rook
-  class Opportunity 
+class Opportunity 
 
-    include DataMapper::Resource
+  include DataMapper::Resource
 
-    property :id,           Serial
-    property :title,        String
-    property :skills,       String
-    property :description,  String
+  property :id,           Serial
+  property :title,        String
+  property :skills,       String
+  property :description,  String
 
-    belongs_to :user, :model => "Rook::User" 
+  belongs_to :user
 
-  end
 end

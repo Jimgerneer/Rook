@@ -32,7 +32,7 @@ describe "Home page" do
   describe "pagination" do
 
     before(:each) do
-      11.times { Rook::User.gen(:opp) }
+      11.times { User.gen(:opp) }
       visit "/"
     end
 

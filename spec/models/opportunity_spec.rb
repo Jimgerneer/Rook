@@ -1,14 +1,14 @@
 require_relative '../spec_helper'
 require_relative '../../models/opportunity'
 
-describe Rook::Opportunity do
+describe Opportunity do
   def subject
     attrs = {
       title: 'Some Title',
       skills: 'Ruby, Javascript, Perl, ActionScript',
       description: 'To hell and back again, a short story' }
 
-    Rook::Opportunity.new(attrs)
+    Opportunity.new(attrs)
   end
 
   it "has an id" do

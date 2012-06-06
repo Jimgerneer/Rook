@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 require_relative '../../models/user'
 
-describe Rook::User do
+describe User do
   before do
-    @user = Rook::User.gen
+    @user = User.gen
   end
 
   it 'has a username' do
@@ -23,40 +23,40 @@ describe Rook::User do
   end
 
   it 'requires a correct password confirmation' do
-    invalid_user = Rook::User.make(:password_confirmation => 'wrong')
+    invalid_user = User.make(:password_confirmation => 'wrong')
     assert ! invalid_user.valid?
   end
 end
 
-describe Rook::User do
+describe User do
 
   before do
     DataMapper.auto_migrate!
   end
 
   it 'usernames need to be at least 2 char long' do
-    invalid_user = Rook::User.make(:username => 's')
+    invalid_user = User.make(:username => 's')
     assert ! invalid_user.valid?
   end
 
   it 'requires a vaild email format' do
-    invalid_user1 = Rook::User.make(:email => 'wrong.com')
+    invalid_user1 = User.make(:email => 'wrong.com')
     assert ! invalid_user1.valid?
-    invalid_user2 = Rook::User.make(:email => 'wrong@com')
+    invalid_user2 = User.make(:email => 'wrong@com')
     assert ! invalid_user2.valid?
-    invalid_user3 = Rook::User.make(:email => '@wrong.com')
+    invalid_user3 = User.make(:email => '@wrong.com')
     assert ! invalid_user3.valid?
   end
 
   it 'requires unique usernames on signup' do
-    invalid_user1 = Rook::User.gen(:username => 'decoy')
-    invalid_user2 = Rook::User.make(:username => 'decoy')
+    invalid_user1 = User.gen(:username => 'decoy')
+    invalid_user2 = User.make(:username => 'decoy')
     assert ! invalid_user2.valid?
   end
 
   it 'requires a unique email on signup' do
-    invalid_user1 = Rook::User.gen(:email => 'Anyone@me.com')
-    invalid_user2 = Rook::User.make(:email => 'Anyone@me.com')
+    invalid_user1 = User.gen(:email => 'Anyone@me.com')
+    invalid_user2 = User.make(:email => 'Anyone@me.com')
     assert ! invalid_user2.valid?
   end
 end

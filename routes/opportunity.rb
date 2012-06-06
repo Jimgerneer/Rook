@@ -3,7 +3,7 @@ require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
   get '/' do
-    @opportunities = Rook::Opportunity.paginate(:page => params[:page], :per_page => 10)
+    @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 10)
 
     haml :index
   end
@@ -15,7 +15,7 @@ class Rook < Sinatra::Base
 
   post '/opportunity' do
     opportunity_params = params[:opportunity].merge(:user => current_user)
-    @opportunity = Rook::Opportunity.create!(opportunity_params)
+    @opportunity = Opportunity.create!(opportunity_params)
     redirect "/"
   end 
 end

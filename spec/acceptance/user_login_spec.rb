@@ -12,15 +12,6 @@ describe "login" do
     assert has_content?("Login!")
   end
 
-  it "Logs in" do
-    Rook::User.gen
-    fill_in('username', :with => 'DecoyDrone')
-    fill_in('password', :with => 'doobar')
-    click_button('Submit')
-
-    assert_equal "/", page.current_path
-  end
-
   it "Login with invalid user" do
     fill_in('username', :with => 'Joe')
     fill_in('password', :with => 'eatat')

@@ -8,7 +8,7 @@ describe Rook::Course do
       title: 'This Course',
       description: 'This course is a discourse' }
 
-    Rook::Opportunity.new(attrs)
+    Opportunity.new(attrs)
   end
 
   it "has an id" do

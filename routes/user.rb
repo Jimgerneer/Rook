@@ -22,7 +22,7 @@ class Rook < Sinatra::Base
   end
 
   def login
-    if user = Rook::User.authenticate(params[:username], params[:password])
+    if user = User.authenticate(params[:username], params[:password])
       session[:user] = user.id
       redirect_to_stored
     else
@@ -36,7 +36,7 @@ class Rook < Sinatra::Base
   end
 
   def signup
-     @user = Rook::User.new(params[:user])
+     @user = User.new(params[:user])
      if @user.save
        session[:user] = @user.id
        redirect "/"

@@ -14,7 +14,7 @@ class Rook < Sinatra::Base
     end
 
     def current_user
-      Rook::User.get(session[:user])
+      User.get(session[:user])
     end
 
     def logged_in?

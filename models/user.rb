@@ -17,7 +17,6 @@ class Rook
     property :active, Boolean, :default => true, :writer => :protected
     
     has n, :opportunities, :model => "Rook::Opportunity" 
-    #has n, :booked_opportunites, :model => "Rook::Opportunity", :through => :subscription  
 
     validates_presence_of :password_confirmation
     validates_confirmation_of :password

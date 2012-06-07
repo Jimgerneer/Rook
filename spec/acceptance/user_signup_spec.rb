@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 
 describe "Signs up a user" do
-  
+
 include AcceptanceHelper
-  
+
   before { visit "/signup" }
 
   it "creates a user" do

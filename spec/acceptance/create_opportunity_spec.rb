@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 describe "Creating an Opportunity" do
-  
+
   include AcceptanceHelper
 
   let(:user) { User.gen }

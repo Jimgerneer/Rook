@@ -16,7 +16,9 @@ class User
   property :active, Boolean, :default => true, :writer => :protected
   
   has n, :opportunities
-  #has n, :booked_opportunites, :model => "Rook::Opportunity", :through => :subscription  
+  has n, :bookings
+  has n, :booked_opportunities, :model => 'Opportunity', :child_key => [:id],
+         :parent_key => [:user_id], :through => :bookings 
 
   validates_presence_of :password_confirmation
   validates_confirmation_of :password

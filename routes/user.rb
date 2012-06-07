@@ -13,6 +13,13 @@ class Rook < Sinatra::Base
     logout
   end
 
+  get "/user" do
+    user_id = session[:user]
+    @user_opportunities = Opportunity.all(:user_id => user_id)
+    @current_username = User.first(:id => user_id).username
+    haml :user
+  end
+
   get "/signup" do
    haml :signup
   end
@@ -39,7 +46,7 @@ class Rook < Sinatra::Base
      @user = User.new(params[:user])
      if @user.save
        session[:user] = @user.id
-       redirect "/"
+       redirect "/user"
      else
        puts @user.errors.full_messages
        redirect "/signup"

@@ -18,5 +18,6 @@ describe "Booking an opportunity" do
     end
 
     assert_equal before + 1, Booking.count
+    assert_equal "/user", page.current_path
   end
 end

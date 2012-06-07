@@ -25,7 +25,12 @@ describe "Creating an Opportunity" do
       click_button('Submit')
 
       assert_equal before + 1, Opportunity.count
-      assert_equal "/", page.current_path
+      assert_equal "/user", page.current_path
+    end
+
+    it "page is displaying authored opportunities" do
+      visit "/user"
+      assert_equal 1, page.all(:xpath, '//tbody/tr').length
     end
   end
 end

@@ -20,3 +20,4 @@ describe "login" do
     assert_equal "/login", page.current_path
   end
 end
+

@@ -1,12 +1,12 @@
-%h2 Hello, #{@current_username} 
-%li
+%h1 Hello, #{@current_username} 
+%li(id="links")
   %a(href="opportunity")Create
   %a(href="login")Login
 %table
   %thead
-    %tr
+    %tr(id="header")
       %th(colspan="3")Available Opportunities!
-    %tr
+    %tr(id="titles")
       %th Title
       %th Skills
       %th Description

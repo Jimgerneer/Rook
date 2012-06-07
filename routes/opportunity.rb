@@ -4,7 +4,7 @@ require_relative 'routes_helper'
 class Rook < Sinatra::Base
   get '/' do
     @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 10)
-    haml :index
+    haml :index 
   end
 
   get '/opportunity' do

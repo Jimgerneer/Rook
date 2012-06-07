@@ -18,4 +18,9 @@
         %td= opportunity.title
         %td= opportunity.skills 
         %td= opportunity.description
+        %td
+          %form{ :action => "/bookings", :method => "POST"}
+            - @opportunity = opportunity.id
+            %input{:name => "opportunity", :type => "hidden", :value => @opportunity}
+            %input{:type => "submit", :value => "Book it!", :class => "button"}
 = will_paginate @opportunities

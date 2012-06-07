@@ -1,5 +1,4 @@
 class Opportunity 
-
   include DataMapper::Resource
 
   property :id,           Serial
@@ -8,5 +7,8 @@ class Opportunity
   property :description,  String
 
   belongs_to :user
+  has n, :bookings
+  has n, :booked_users, :model => 'User', :child_key => [:id],
+         :parent_key => [:opportunity_id], :through => :bookings
 
 end

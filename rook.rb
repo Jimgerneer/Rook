@@ -35,4 +35,4 @@ require_relative 'routes/init'
 require_relative 'models/init'
 
 DataMapper.finalize
-DataMapper.auto_migrate!
+DataMapper.auto_upgrade!

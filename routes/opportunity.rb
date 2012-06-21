@@ -12,6 +12,10 @@ class Rook < Sinatra::Base
     haml :opportunity
   end
 
+  get '/opportunity/update' do
+    
+  end
+
   post '/bookings' do
     params[:opportunity]
     @booking = Booking.create!(:opportunity_id => params[:opportunity],

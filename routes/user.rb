@@ -17,7 +17,7 @@ class Rook < Sinatra::Base
     user_id = session[:user]
     @user_opportunities = Opportunity.all(:user_id => user_id)
     @current_username = User.first(:id => user_id).username
-    haml :user
+    haml :user 
   end
 
   get "/signup" do

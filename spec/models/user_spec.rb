@@ -2,33 +2,6 @@ require_relative '../spec_helper'
 require_relative '../../models/user'
 
 describe User do
-  before do
-    @user = User.gen
-  end
-
-  it 'has a username' do
-    @user.username.must_equal 'DecoyDrone'
-  end
-
-  it 'has an id' do
-    @user.must_respond_to :id
-  end
-
-  it 'has an email' do
-    @user.email.must_equal 'faker@me.com'
-  end
-
-  it 'has a password' do
-    @user.password.must_equal 'doobar'
-  end
-
-  it 'requires a correct password confirmation' do
-    invalid_user = User.make(:password_confirmation => 'wrong')
-    assert ! invalid_user.valid?
-  end
-end
-
-describe User do
 
   before do
     DataMapper.auto_migrate!
@@ -36,7 +9,7 @@ describe User do
 
   it 'usernames need to be at least 2 char long' do
     invalid_user = User.make(:username => 's')
-    assert ! invalid_user.valid?
+    assert_invalid(invalid_user, :username)
   end
 
   it 'requires a vaild email format' do
@@ -58,5 +31,10 @@ describe User do
     invalid_user1 = User.gen(:email => 'Anyone@me.com')
     invalid_user2 = User.make(:email => 'Anyone@me.com')
     assert ! invalid_user2.valid?
+  end
+
+  def assert_invalid (user, attribute=nil)
+    assert ! user.valid?
+    assert user.errors.on(attribute) if attribute
   end
 end

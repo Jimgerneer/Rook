@@ -4,7 +4,15 @@ User.fixture {{
   :username => 'DecoyDrone',
   :email => 'faker@me.com',
   :password => 'doobar',
-  :password_confirmation => 'doobar'
+  :password_confirmation => 'doobar',
+}}
+
+User.fixture(:one) {{
+  :username => 'DecoyDrone',
+  :email => 'faker@me.com',
+  :password => 'doobar',
+  :password_confirmation => 'doobar',
+  :opportunities => 1.of {Opportunity.make(:set)}
 }}
 
 User.fixture(:opp) {{
@@ -21,4 +29,8 @@ Opportunity.fixture {{
   :description => %w(This is a description)[rand(4)]
 }}
 
-
+Opportunity.fixture(:set) {{
+  :title => 'This is title',
+  :skills => 'Ruby',
+  :description => 'This is a description'
+}}

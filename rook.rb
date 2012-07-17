@@ -7,7 +7,6 @@ require 'dm-timestamps'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
 require 'will_paginate/view_helpers/sinatra'
-require 'pry-nav'
 
 =begin
 connection_string = case ENV['RACK_ENV']
@@ -21,18 +20,20 @@ connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
 #puts connection_string
 DataMapper.setup(:default, connection_string)
 
-class Rook < Sinatra::Base
+#move to lib/server
+class Rook  < Sinatra::Base
   set :sessions, true
   set :session_secret, 'Reno Blake'
 
   configure do
     helpers WillPaginate::Sinatra::Helpers
-#    set :app_file, __FILE__
   end
 end
 
+#manifest file needed /lib/rook/ rook.rb
 require_relative 'routes/init'
 require_relative 'models/init'
+require_relative 'services/init'
 
 DataMapper.finalize
 DataMapper.auto_upgrade!

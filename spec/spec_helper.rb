@@ -1,34 +1,30 @@
 require 'minitest/reporters'
 require 'minitest/spec'
 require 'minitest/autorun'
-require 'guard/minitest'
-require 'pry'
-require 'growl_notify'
-require 'data_mapper'
-require 'dm-migrations'
-require 'rake/testtask'
+#require 'guard/minitest'
+#require 'growl_notify'
+#require 'rake/testtask'
+require 'mocha'
+require 'database_cleaner'
 
 ENV["RACK_ENV"] = "test"
+require_relative '../rook'
+
+DatabaseCleaner.strategy = :transaction
+class MiniTest::Spec
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
+end
 
 MiniTest::Unit.runner = MiniTest::SuiteRunner.new
 MiniTest::Unit.runner.reporters << MiniTest::Reporters::ProgressReporter.new
 #MiniTest::Unit.runner.reporters << MiniTest::Reporters::GuardReporter.new
-
-require_relative '../rook'
-
-DataMapper.finalize
-DataMapper.auto_migrate!
-
 require_relative 'spec_fixtures'
-
-module AcceptanceHelper
- require 'capybara'
- require 'capybara/dsl'
- include Capybara::DSL
-
-  Capybara.app = Rook
-  #Capybara.javascript_driver = :webkit
-end 
 
 def sign_in(user)
   visit "/login"

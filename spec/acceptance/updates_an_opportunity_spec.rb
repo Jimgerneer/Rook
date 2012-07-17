@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../spec_acceptance_helper'
 
 describe "Updating an opportunity" do
 

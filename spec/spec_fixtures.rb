@@ -7,6 +7,13 @@ User.fixture {{
   :password_confirmation => 'doobar',
 }}
 
+User.fixture(:unique) {{
+  :username => (username = /\w+/.gen),
+  :email => "#{username}@example.com",
+  :password => (password = /\w+/.gen),
+  :password_confirmation => password,
+}}
+
 User.fixture(:one) {{
   :username => 'DecoyDrone',
   :email => 'faker@me.com',

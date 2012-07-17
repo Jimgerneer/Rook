@@ -11,8 +11,11 @@ gem 'dm-core'
 gem 'dm-timestamps'
 gem 'dm-validations'
 gem 'will_paginate', '~> 3.0.0'
+gem 'pony'
 
 group :development, :test do
+  gem 'database_cleaner'
+  gem 'mocha'
   gem 'dm-sweatshop'
   gem 'shotgun'
   gem 'capybara'

@@ -1,0 +1,3 @@
+class MailerService
+
+end

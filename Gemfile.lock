@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/johnmendonca/pony-test.git
+  revision: 4b06063096ae6a714469cd8fd86b96a1d4f36669
+  specs:
+    pony-test (0.1.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -121,7 +127,7 @@ GEM
     multi_json (1.0.4)
     nokogiri (1.5.2)
     polyglot (0.3.3)
-    pony (1.4)
+    pony (1.1)
       mail (> 2.0)
     pry (0.9.9.6)
       coderay (~> 1.0.5)
@@ -193,6 +199,7 @@ DEPENDENCIES
   minitest-reporters
   mocha
   pony
+  pony-test!
   pry-nav
   rack-test
   rake

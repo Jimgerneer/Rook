@@ -1,5 +1,4 @@
 require_relative "../spec_helper"
-require_relative "../../services/opportunity_service"
 
 describe OpportunityService do
 

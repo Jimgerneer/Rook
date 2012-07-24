@@ -12,6 +12,7 @@ gem 'dm-timestamps'
 gem 'dm-validations'
 gem 'will_paginate', '~> 3.0.0'
 gem 'pony'
+gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
 
 group :development, :test do
   gem 'database_cleaner'

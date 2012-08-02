@@ -1,4 +1,3 @@
-require 'pry'
 class Mailer
 
   def self.mail_greeting(user)
@@ -19,15 +18,9 @@ class Mailer
   end
 
   def self.mail_config
-    @mail_config =
-    { :via => :smtp,
-      :via_options => {
-      :address => 'stmp.gmail.com',
-      :port => '25',
-      :user_name => 'example_user',
-      :password => 'rook_is_great',
-      :authenticatoin => :plain,
-      :domain => 'gmail.com' }
-    }
+    config_filename = File.expand_path('../config/mail_config.yml', __FILE__)
+    @mail_config ||=  begin
+      File.exists?(config_filename) ? YAML.load_file(config_filename).merge(:via => :smtp) : {}
+    end
   end
 end

@@ -5,7 +5,7 @@ describe OpportunityService do
   describe "create method" do
 
     it "creates an opportunity for user" do
-      user = User.gen(:unique)
+      user = stub({id: 42}) 
       data = {"title" => "Ruby", "skills" => "Haha", "description" => "This is a fake"}
       Opportunity.expects(:create).with({:title => "Ruby",
                                        :skills => "Haha",

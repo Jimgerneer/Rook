@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Mailer do
 
-  let(:user) {User.gen}
+  let(:user) {stub(:email => "ink@me.com", :username => "Decoy")}
   let(:config_hash) do
     { :via => :smtp,
       :via_options => {
@@ -40,4 +40,11 @@ describe Mailer do
     Pony.expects(:mail).with(has_entries(config_hash))
     Mailer.mail_greeting(user)
   end
+
+   it "loads options from a yaml file" do
+    result = Mailer.mail_config
+    assert = config_hash
+    assert_equal assert, result
+   end
 end
+

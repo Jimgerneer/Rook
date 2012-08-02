@@ -5,11 +5,12 @@ require 'minitest/autorun'
 #require 'growl_notify'
 #require 'rake/testtask'
 require 'mocha'
-require 'database_cleaner'
+#require 'database_cleaner'
 
 ENV["RACK_ENV"] = "test"
-require_relative '../rook'
+require_relative 'test_rook'
 
+=begin
 DatabaseCleaner.strategy = :transaction
 class MiniTest::Spec
   before :each do
@@ -20,6 +21,7 @@ class MiniTest::Spec
     DatabaseCleaner.clean
   end
 end
+=end
 
 MiniTest::Unit.runner = MiniTest::SuiteRunner.new
 MiniTest::Unit.runner.reporters << MiniTest::Reporters::ProgressReporter.new

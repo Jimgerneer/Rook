@@ -1,8 +1,15 @@
 class UserService
   def self.create(data)
     data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-    User.create(data)
-    user = User.last(:username => data[:username])
-    Mailer.mail_greeting(user)
+    user = User.create(data)
+    email_on_create(user) if user.id
+  end
+
+  private
+
+  class << self
+    def email_on_create(user)
+      Mailer.mail_greeting(user)
+    end
   end
 end

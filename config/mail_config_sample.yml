@@ -1,0 +1,7 @@
+via_options:
+  address: 'stmp.gmail.com'
+  port: '25'
+  user_name:  'example_user'
+  password:  'rook_is_great'
+  authentication:  :plain
+  domain:  'gmail.com'

@@ -15,11 +15,13 @@ gem 'pony'
 gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
 
 group :development, :test do
+  gem 'webrat'
   gem 'database_cleaner'
   gem 'mocha'
   gem 'dm-sweatshop'
   gem 'shotgun'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'rack-test'
   gem 'pry-nav'
   gem 'rake'

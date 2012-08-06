@@ -5,6 +5,8 @@ class Mailer
     Pony.mail(mailer_opts)
   end
 
+  private
+
   def self.message(user)
     message = %Q{
       Welcome #{user.username},

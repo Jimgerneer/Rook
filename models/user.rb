@@ -40,6 +40,3 @@ class User
     Digest::SHA1.hexdigest(pass+salt)
   end
 end
-
- # has n, :profile
- # has n, :courses

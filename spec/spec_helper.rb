@@ -8,7 +8,7 @@ require 'mocha'
 #require 'database_cleaner'
 
 ENV["RACK_ENV"] = "test"
-require_relative 'test_rook'
+require_relative '../rook'
 
 =begin
 DatabaseCleaner.strategy = :transaction

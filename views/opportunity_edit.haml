@@ -1,0 +1,16 @@
+%h1 #{:title}
+%form{ :action => "/opportunity/update.#{opportunity.id}", :method => "POST"}
+  %fieldset
+    %ul
+      %li
+        %label{:for => "title"} Title:
+        %input{:type => "text", :name => "opportunity[title]", :value => "#{opportunity.title}", :id => "Title:"}
+      %li
+        %label{:for => "skills"} Skills:
+        %input{:type => "text", :name => "opportunity[skills]", :value => "#{opportunity.skills}", :id => "Skills:"}
+      %li
+        %label{:for => "description"} Description:
+        %textarea{:name => "opportunity[description]", :value => "#{opportunity.description}", :id => "Description:"}
+      %input{:type => "submit", :value => "Submit", :class => "button"}
+      &nbsp;
+      %a(href="/") Back

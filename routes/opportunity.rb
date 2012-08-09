@@ -1,4 +1,5 @@
 require 'will_paginate'
+require 'pry'
 require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
@@ -12,8 +13,15 @@ class Rook < Sinatra::Base
     haml :opportunity
   end
 
-  get '/opportunity/update' do
-    
+  get '/opportunity/edit.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    haml :opportunity_edit, :locals => { :title => "Edit Opportunity", :opportunity => @op }
+  end
+
+  post '/opportunity/update.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    @op.update(params[:opportunity])
+    redirect '/'
   end
 
   post '/bookings' do

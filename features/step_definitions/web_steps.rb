@@ -1,9 +1,13 @@
 Given /^I am signed in with a valid user$/ do
-  user = User.gen
+  @current_user = User.gen
   visit ('/login')
-  fill_in('username', :with => user.username)
+  fill_in('username', :with => @current_user.username)
   fill_in('password', :with => 'doobar')
   click_button('Submit')
+end
+
+Given /^I am on the user page$/ do
+  visit "/user"
 end
 
 Given /^I am on the login page$/ do
@@ -46,6 +50,10 @@ Given /^I click the submit button$/ do
   click_button('Submit')
 end
 
+Given /^I click the confirm button$/ do
+  click_button('Confirm')
+end
+
 Given /^I click the "([^|"]*)" link$/ do |link|
   click_link(link)
 end
@@ -57,6 +65,7 @@ Given /^I click the "([^\"]*)" button$/ do |button|
 end
 
 Given /^11 valid opportunites are created$/ do
+  #this number is for testing pagination
   11.times { User.gen(:opp) }
 end
 
@@ -87,4 +96,8 @@ end
 
 Then /^there should only be 10 opportunities$/ do
   assert_equal 10, page.all(:xpath, '//tbody/tr').length
+end
+
+Then /^the opportunity should be deleted$/ do
+  assert_equal nil, Opportunity.first(:title => @current_form["Title:"])
 end

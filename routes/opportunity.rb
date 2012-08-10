@@ -24,6 +24,17 @@ class Rook < Sinatra::Base
     redirect '/'
   end
 
+  get '/opportunity/delete.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    haml :opportunity_delete, :locals => { :title => "Confirm Delete", :opportunity => @op }
+  end
+
+  get '/opportunity/destroy.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    @op.destroy
+    redirect '/'
+  end
+
   post '/bookings' do
     params[:opportunity]
     @booking = Booking.create!(:opportunity_id => params[:opportunity],

@@ -1,5 +1,4 @@
 require 'will_paginate'
-require 'pry'
 require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
@@ -43,8 +42,7 @@ class Rook < Sinatra::Base
   end
 
   post '/opportunity' do
-    opportunity_params = params[:opportunity].merge(:user => current_user)
-    @opportunity = Opportunity.create!(opportunity_params)
+    @opportunity = OpportunityService.create(current_user, params[:opportunity])
     redirect "/user"
   end 
 end

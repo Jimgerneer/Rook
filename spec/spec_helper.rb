@@ -1,31 +1,13 @@
+require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/spec'
-require 'minitest/autorun'
-#require 'guard/minitest'
-#require 'growl_notify'
-#require 'rake/testtask'
 require 'mocha'
-#require 'database_cleaner'
 
 ENV["RACK_ENV"] = "test"
 require_relative '../rook'
 
-=begin
-DatabaseCleaner.strategy = :transaction
-class MiniTest::Spec
-  before :each do
-    DatabaseCleaner.start
-  end
-
-  after :each do
-    DatabaseCleaner.clean
-  end
-end
-=end
-
 MiniTest::Unit.runner = MiniTest::SuiteRunner.new
 MiniTest::Unit.runner.reporters << MiniTest::Reporters::ProgressReporter.new
-#MiniTest::Unit.runner.reporters << MiniTest::Reporters::GuardReporter.new
 require_relative 'spec_fixtures'
 
 def sign_in(user)

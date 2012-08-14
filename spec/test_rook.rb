@@ -4,6 +4,8 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'pony'
 
+#test_rook is for unit testing
+
 DataMapper.setup(:default, "abstract::")
 
 #move to lib/server

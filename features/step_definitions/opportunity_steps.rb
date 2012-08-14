@@ -1,5 +1,5 @@
 Given /^I have a user "([^\"]*)"$/ do |username|
-  user = User.gen :username => username
+   user = User.gen ({:username => username})
 end
 
 When /^I create an opportunity:$/ do |table|

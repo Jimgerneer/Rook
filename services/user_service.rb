@@ -3,7 +3,9 @@ class UserService
     data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
     user = User.create(data)
     email_on_create(user) if user.id
+    user
   end
+
 
   private
 

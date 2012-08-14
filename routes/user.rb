@@ -25,7 +25,7 @@ class Rook < Sinatra::Base
   end
 
   post "/signup" do
-    signup
+    signup(params[:user])
   end
 
   def login
@@ -42,13 +42,13 @@ class Rook < Sinatra::Base
     redirect "/"
   end
 
-  def signup
-     @user = User.new(params[:user])
-     if @user.save
-       session[:user] = @user.id
+  def signup(new_user)
+     @new_user = UserService.create(new_user)
+     if @new_user.valid?
+       session[:user] = @new_user.id
        redirect "/user"
      else
-       puts @user.errors.full_messages
+       puts @new_user.errors.full_messages
        redirect "/signup"
     end
   end

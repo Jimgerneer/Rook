@@ -3,20 +3,13 @@ require_relative "../spec_helper"
 describe MessageService do
 
   describe "create method" do
-    before do
-      User.gen :username => "DummyDrone"
-      User.gen :username => "DecoyDrone"
-    end
 
     it "creates a message" do
-      data = {"recipient" => "DummyDrone",
-              "sender" => "DecoyDrone",
+      sender = stub(:id => 1)
+      data = {"recipient_id" => "5",
               "body" => "hello there"}
-      Message.expects(:create)
-        .with({:recipient_id => User.first(:username => "DummyDrone").id,
-               :sender_id => User.first(:username => "DecoyDrone").id,
-               :body => "hello there"})
-     MessageService.create(data)
+      Message.expects(:create).with(data.merge("sender_id" => 1, "recipient_id" => 5))
+     MessageService.create(sender, data)
     end
   end
 end

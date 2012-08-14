@@ -4,12 +4,6 @@ Given /^I create a user:$/ do |table|
   end
 end
 
-Given /^there is another user:$/ do |table|
-  table.hashes.each do |data|
-    UserService.create(data)
-  end
-end
-
 Then /^I should have the following user:$/ do |table|
   result = User.first(:id => @created_user.id).username
   expected = table.hashes.map{|data| data["username"] }

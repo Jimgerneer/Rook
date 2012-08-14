@@ -21,7 +21,7 @@ class Rook < Sinatra::Base
   post '/opportunity/update.:id' do |id|
     #transforms comma seperated string into array of strings
     params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
-    @op = OpportunityService.update(params[:opportunity])
+    @op = OpportunityService.update(id, params[:opportunity])
     redirect '/'
   end
 
@@ -33,7 +33,6 @@ class Rook < Sinatra::Base
   get '/opportunity/destroy.:id' do |id|
     @op = Opportunity.first(:id => id)
     @op.destroy
-    binding.pry
     redirect '/'
   end
 

@@ -22,13 +22,13 @@ describe OpportunityService do
   describe "update method" do
 
     it "updates an opportunity for user" do
-      data = {"user_id" => 1, "skills" => ["Haha"], "title" => "Ruby", "description" => "This is a fake"}
+      data = {"skills" => ["Haha"], "title" => "Ruby", "description" => "This is a fake"}
 
       op = stub()
-      Opportunity.stubs(:first).returns(op)
+      Opportunity.stubs(:first).with("id" => 3).returns(op)
       op.expects(:update).with(data.merge("skills" => [skill]))
 
-      OpportunityService.update(data)
+      OpportunityService.update(3, data)
     end
   end
 

@@ -1,18 +1,21 @@
 class OpportunityService
   def self.create(user, data)
-    data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-    Opportunity.create(data.update(:user_id => user.id))
-##To make this work with mocha expectations you would need to add id = nil into what is expected
-=begin
-    opportunity = Opportunity.new data.update(:user_id => user.id)
-    binding.pry
-      if opportunity.save
-        #saved
-      else
-        opportunity.errors.each do |e|
-          puts e
-        end
-      end
-=end
+    #data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+
+    new_data = data.merge("user_id" => user.id).
+      merge("skills" => get_skill_objects(data["skills"]))
+
+    Opportunity.create(new_data)
+  end
+
+  def self.update(data)
+    op = Opportunity.first("id" => data["id"])
+    op.update(data.merge("skills" => get_skill_objects(data["skills"])))
+  end
+
+  def self.get_skill_objects(skills)
+    skills.inject([]) do |memo, name|
+      memo << Skill.first_or_create(:name => name)
+    end
   end
 end

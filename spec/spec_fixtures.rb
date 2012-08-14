@@ -30,10 +30,14 @@ User.fixture(:opp) {{
   :opportunities => 5.of {Opportunity.make} 
 }}
 
+Skill.fixture {{
+  :name => (/\w+/.gen) 
+}}
+
 Opportunity.fixture {{
   :title => %w(This is title)[rand(3)],
-  :skills => %w(Ruby)[rand(1)],
-  :description => %w(This is a description)[rand(4)]
+  :description => %w(This is a description)[rand(4)],
+  :skills => 1.of {Skill.make}
 }}
 
 Opportunity.fixture(:set) {{

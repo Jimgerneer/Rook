@@ -1,3 +1,4 @@
+require 'pry'
 require 'will_paginate'
 require_relative 'routes_helper'
 
@@ -18,8 +19,9 @@ class Rook < Sinatra::Base
   end
 
   post '/opportunity/update.:id' do |id|
-    @op = Opportunity.first(:id => id)
-    @op.update(params[:opportunity])
+    #transforms comma seperated string into array of strings
+    params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
+    @op = OpportunityService.update(params[:opportunity])
     redirect '/'
   end
 
@@ -31,8 +33,16 @@ class Rook < Sinatra::Base
   get '/opportunity/destroy.:id' do |id|
     @op = Opportunity.first(:id => id)
     @op.destroy
+    binding.pry
     redirect '/'
   end
+
+  post '/opportunity' do
+    #transforms comma seperated string into array of strings
+    params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
+    @opportunity = OpportunityService.create(current_user, params[:opportunity])
+    redirect "/user"
+  end 
 
   post '/bookings' do
     params[:opportunity]
@@ -40,9 +50,4 @@ class Rook < Sinatra::Base
                               :user_id => session[:user])
     redirect '/user'
   end
-
-  post '/opportunity' do
-    @opportunity = OpportunityService.create(current_user, params[:opportunity])
-    redirect "/user"
-  end 
 end

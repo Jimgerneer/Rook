@@ -5,6 +5,7 @@ end
 When /^I create an opportunity:$/ do |table|
   table.hashes.each do |data|
     user_name = data.delete("user")
+    data["skills"] = data.delete("skills").split(/,\s*/)
     user = User.first(:username => user_name)
     OpportunityService.create(user, data)
   end

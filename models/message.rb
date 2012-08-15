@@ -6,5 +6,6 @@ class Message
 
   belongs_to :sender, :model => 'User', :key => true
   belongs_to :recipient, :model => 'User', :key => true
+  belongs_to :opportunity
 end
 

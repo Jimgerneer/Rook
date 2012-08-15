@@ -7,7 +7,7 @@ When /^I create an opportunity:$/ do |table|
     user_name = data.delete("user")
     data["skills"] = data.delete("skills").split(/,\s*/)
     user = User.first(:username => user_name)
-    OpportunityService.create(user, data)
+    @current_opportunity = OpportunityService.create(user, data)
   end
 end
 

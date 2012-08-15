@@ -27,11 +27,11 @@ User.fixture(:opp) {{
   :email => "#{username}@example.com",
   :password => (password = /\w+/.gen),
   :password_confirmation => password,
-  :opportunities => 5.of {Opportunity.make} 
+  :opportunities => 5.of {Opportunity.make}
 }}
 
 Skill.fixture {{
-  :name => (/\w+/.gen) 
+  :name => (/\w+/.gen)
 }}
 
 Opportunity.fixture {{

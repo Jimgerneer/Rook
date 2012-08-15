@@ -13,6 +13,14 @@ class Rook < Sinatra::Base
     haml :opportunity
   end
 
+  get '/opportunity/messages.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    @users = User.all(:messages_sent => Message.all(:opportunity_id => @op.id))
+    #@messages = Message.all(:opportunity_id => @op.id)
+
+    haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
+  end
+
   get '/opportunity/edit.:id' do |id|
     @op = Opportunity.first(:id => id)
     haml :opportunity_edit, :locals => { :title => "Edit Opportunity", :opportunity => @op }
@@ -43,10 +51,9 @@ class Rook < Sinatra::Base
     redirect "/user"
   end 
 
-  post '/bookings' do
-    params[:opportunity]
-    @booking = Booking.create!(:opportunity_id => params[:opportunity],
-                              :user_id => session[:user])
+  post '/opportunity/book.:id' do |id|
+    @booking = Booking.create!(:opportunity_id => id,
+                              :user_id => params[:user])
     redirect '/user'
   end
 end

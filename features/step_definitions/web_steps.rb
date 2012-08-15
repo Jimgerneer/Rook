@@ -70,8 +70,18 @@ Given /^11 valid opportunites are created$/ do
 end
 
 Given /^I am signed in as a user that has authored an opportunity$/ do
-  User.gen(:opp)
-  @current_opportunity = Opportunity.last
+  @current_user = User.gen
+  login_steps(@current_user)
+  data = {:user_id => @current_user.id, :title => "test", :description => "This is a test"}
+  @current_opportunity = Opportunity.create(data)
+end
+
+Given /^A user has contacted me about that opportunity$/ do
+  user = User.gen(:unique)
+  data = {"body" => "Hello there",
+          "opportunity_id" => @current_opportunity.id,
+          "recipient_id" => @current_user.id }
+  message = MessageService.create(user, data) 
 end
 
 Then /^the opportunity should be updated$/ do
@@ -100,4 +110,11 @@ end
 
 Then /^the opportunity should be deleted$/ do
   assert_equal nil, Opportunity.first(:title => @current_form["Title:"])
+end
+
+def login_steps(user)
+  visit ('/login')
+  fill_in('username', :with => user.username)
+  fill_in('password', :with => 'doobar')
+  click_button('Submit')
 end

@@ -14,11 +14,16 @@ class User
   property :account_type, String, :required => true, :default => 'standard',
            :writer => :protected
   property :active, Boolean, :default => true, :writer => :protected
+  property :created_at, DateTime
+  property :created_on, Date
+  property :updated_at, DateTime
+  property :updated_on, Date
 
   has n, :opportunities
   has n, :bookings
   has n, :booked_opportunities, :model => 'Opportunity', :child_key => [:id],
          :parent_key => [:user_id], :through => :bookings
+
   has n, :messages_sent, :model => 'Message', :child_key => :sender_id
   has n, :messages_recieved, :model => 'Message', :child_key => :recipient_id
 

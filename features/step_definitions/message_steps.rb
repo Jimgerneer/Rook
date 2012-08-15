@@ -3,7 +3,9 @@ Given /^I create a message to myself:$/ do |table|
     @message_sent = data
     sender = User.first(:username => data[:sender])
     recipient_id = sender.id
-    MessageService.create(sender, data.merge("recipient_id" => recipient_id))
+    opportunity_id = @current_opportunity.id
+    MessageService.create(sender, data.merge("recipient_id" => recipient_id,
+                                             "opportunity_id" => opportunity_id))
   end
 end
 

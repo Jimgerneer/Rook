@@ -2,6 +2,17 @@ Feature: Booking an Opportunity
   As a user
   Booking opportunites
 
+  Scenario: Contacting an author
+    Given I am signed in with a valid user
+    And there is an opportunity available
+    And I am on the opportunities page
+    And I click the "Contact" link
+    And I fill in the fields
+      | Message: | Hello, this is a message |
+    And I click the submit button
+    Then the message should be sent
+
+
   Scenario: Booking an opportunity
     Given I am signed in as a user that has authored an opportunity
     And A user has contacted me about that opportunity

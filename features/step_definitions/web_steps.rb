@@ -24,11 +24,6 @@ Given /^I try to log in with an uncreated user$/ do
   click_button('Submit')
 end
 
-Given /^there is an opportunity available$/ do
-#this fixture creates a user and five opportunities
-  User.gen(:opp)
-end
-
 Given /^I am on the opportunities page$/ do
   visit "/"
 end
@@ -64,11 +59,6 @@ Given /^I click the "([^\"]*)" button$/ do |button|
   end
 end
 
-Given /^11 valid opportunites are created$/ do
-  #this number is for testing pagination
-  11.times { User.gen(:opp) }
-end
-
 Given /^I am signed in as a user that has authored an opportunity$/ do
   @current_user = User.gen
   login_steps(@current_user)
@@ -76,35 +66,8 @@ Given /^I am signed in as a user that has authored an opportunity$/ do
   @current_opportunity = Opportunity.create(data)
 end
 
-Given /^A user has contacted me about that opportunity$/ do
-  user = User.gen(:unique)
-  data = {"body" => "Hello there",
-          "opportunity_id" => @current_opportunity.id,
-          "recipient_id" => @current_user.id }
-  message = MessageService.create(user, data) 
-end
-
-Given /^I have been booked for an opportunity$/ do
-  user = User.gen(:unique)
-  data = {:user_id => user.id, :title => "test test", :description => "This is a test"}
-  @current_opportunity = Opportunity.create(data)
-  Booking.create(:opportunity_id => @current_opportunity.id, :user_id => @current_user.id)
-end
-
-Then /^the opportunity should be updated$/ do
-  assert_equal @current_form["Title:"], Opportunity.last.title 
-end
-
-Then /^the opportunity should be booked$/ do
-  assert_equal 1, Booking.count
-end
-
 Then /^I should have signed up$/ do
   assert_equal @current_form["Username:"], User.last.username
-end
-
-Then /^the opportunity should be created$/ do
-  assert_equal 1, Opportunity.count
 end
 
 Then /^I should be on "([^\"]*)"$/ do |url|
@@ -113,10 +76,6 @@ end
 
 Then /^there should only be 10 opportunities$/ do
   assert_equal 10, page.all(:xpath, '//tbody/tr').length
-end
-
-Then /^the opportunity should be deleted$/ do
-  assert_equal nil, Opportunity.first(:title => @current_form["Title:"])
 end
 
 Then /^I should be on the booked opportunity page$/ do

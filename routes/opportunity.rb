@@ -20,6 +20,20 @@ class Rook < Sinatra::Base
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
 
+  get '/opportunity/contact.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    haml :opportunity_contact, :locals => { :title => @op.title, :opportunity => @op }
+  end
+
+  post '/opportunity/contact.:id' do |id|
+    sender_id = session[:user]
+    sender = User.first(:id => sender_id)
+    author = User.first(:opportunities => Opportunity.all(:id => id))
+    author_id = author.id
+    data = {"recipient_id" => author_id, "opportunity_id" => id}
+    MessageService.create(sender, data)
+  end
+
   get '/opportunity/view.:id' do |id|
     @op = Opportunity.first(:id => id)
     haml :opportunity_views, :locals => { :title => @op.title, :opportunity => @op }

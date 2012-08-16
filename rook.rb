@@ -14,9 +14,6 @@ connection_string = case ENV['RACK_ENV']
 end
 =end
 
-connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
-#puts connection_string
-DataMapper.setup(:default, connection_string)
 
 #move to lib/server
 class Rook  < Sinatra::Base
@@ -25,6 +22,16 @@ class Rook  < Sinatra::Base
 
   configure do
     helpers WillPaginate::Sinatra::Helpers
+  end
+
+  configure :development do
+    connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
+    #puts connection_string
+    DataMapper.setup(:default, connection_string)
+  end
+
+  configure :production do
+    DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
   end
 end
 

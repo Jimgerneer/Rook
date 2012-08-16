@@ -1,3 +1,4 @@
 require File.join(File.dirname(__FILE__), 'rook.rb')
 
-run Sinatra::Application
+#run Sinatra::Application
+run Rook.new

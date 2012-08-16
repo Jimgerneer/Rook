@@ -20,3 +20,19 @@
           %a(href="/opportunity/edit.#{opportunity.id}")Edit
           %a(href="/opportunity/delete.#{opportunity.id}")Delete
           %a(href="/opportunity/messages.#{opportunity.id}")Messages
+%table
+  %thead
+    %tr(id="header")
+      %th(colspan="3")Booked Opportunities
+    %tr(id="titles")
+      %th Title
+      %th Skills
+      %th Description
+  %tbody
+    - @booked_opportunities.each do |booked_opportunity|
+      %tr
+        %td= booked_opportunity.title
+        %td= booked_opportunity.skills
+        %td= booked_opportunity.description
+        %td
+          %a(href="/opportunity/view.#{booked_opportunity.id}")View

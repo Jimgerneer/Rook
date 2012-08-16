@@ -21,6 +21,11 @@ class Rook < Sinatra::Base
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
 
+  get '/opportunity/view.:id' do |id|
+    @op = Opportunity.first(:id => id)
+    haml :opportunity_views, :locals => { :title => @op.title, :opportunity => @op }
+  end
+
   get '/opportunity/edit.:id' do |id|
     @op = Opportunity.first(:id => id)
     haml :opportunity_edit, :locals => { :title => "Edit Opportunity", :opportunity => @op }

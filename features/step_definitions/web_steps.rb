@@ -84,6 +84,13 @@ Given /^A user has contacted me about that opportunity$/ do
   message = MessageService.create(user, data) 
 end
 
+Given /^I have been booked for an opportunity$/ do
+  user = User.gen(:unique)
+  data = {:user_id => user.id, :title => "test test", :description => "This is a test"}
+  @current_opportunity = Opportunity.create(data)
+  Booking.create(:opportunity_id => @current_opportunity.id, :user_id => @current_user.id)
+end
+
 Then /^the opportunity should be updated$/ do
   assert_equal @current_form["Title:"], Opportunity.last.title 
 end
@@ -110,6 +117,11 @@ end
 
 Then /^the opportunity should be deleted$/ do
   assert_equal nil, Opportunity.first(:title => @current_form["Title:"])
+end
+
+Then /^I should be on the booked opportunity page$/ do
+  expect = '/opportunity/view.' + @current_opportunity.id.to_s
+  assert_equal expect, page.current_path
 end
 
 def login_steps(user)

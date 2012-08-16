@@ -16,7 +16,9 @@ class Rook < Sinatra::Base
   get "/user" do
     user_id = session[:user]
     @user_opportunities = Opportunity.all(:user_id => user_id)
-    @current_username = User.first(:id => user_id).username
+    user = User.first(:id => user_id)
+    @current_username = user.username
+    @booked_opportunities = user.booked_opportunities
     haml :user 
   end
 

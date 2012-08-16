@@ -3,10 +3,6 @@ require_relative '../../models/user'
 
 describe User do
 
-  before do
-    DataMapper.auto_migrate!
-  end
-
   it 'usernames need to be at least 2 char long' do
     invalid_user = User.make(:username => 's')
     assert_invalid(invalid_user, :username)

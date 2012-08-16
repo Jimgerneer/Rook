@@ -4,7 +4,6 @@ gem 'sinatra'
 gem 'thin'
 gem 'data_mapper'
 gem 'haml'
-gem 'dm-mysql-adapter'
 gem 'dm-chunked_query'
 gem 'dm-migrations'
 gem 'dm-core'
@@ -14,7 +13,13 @@ gem 'will_paginate', '~> 3.0.0'
 gem 'pony'
 gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
 
+group :production do
+  gem 'dm-postgres-adapter'
+
+end
+
 group :development, :test do
+  gem 'dm-mysql-adapter'
   gem 'webrat'
   gem 'database_cleaner'
   gem 'mocha'

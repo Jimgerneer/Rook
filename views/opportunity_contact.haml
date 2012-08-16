@@ -1,0 +1,11 @@
+%h1 #{:title}
+%form{ :action => "/opportunity/contact.#{opportunity.id}", :method => "POST"}
+  %fieldset
+    %ul
+      %li
+        %label{:for => "title"} Message:
+        %input{:type => "text", :name => "opportunity[message]", :id => "Message:"}
+      %li
+      %input{:type => "submit", :value => "Submit", :class => "button"}
+      &nbsp;
+      %a(href="/") Back

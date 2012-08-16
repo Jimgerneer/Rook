@@ -9,8 +9,8 @@ describe OpportunityService do
     it "creates an opportunity for user" do
       data = {"title" => "Ruby", "skills" => ["Haha"], "description" => "This is a fake"}
 
-      user = stub({id: 42}) 
-      User.stubs(:first).returns(user)
+      user = User.new
+      user.stubs(:id).returns(42)
 
       expected = data.merge("skills" => [skill], "user_id" => user.id)
       Opportunity.expects(:create).with(expected)

@@ -20,8 +20,5 @@
         %td= opportunity.skills 
         %td= opportunity.description
         %td
-          %form{ :action => "/message/", :method => "POST"}
-            - @opportunity = opportunity.id
-            %input{:name => "opportunity", :type => "hidden", :value => @opportunity}
-            %input{:type => "submit", :value => "Send Message", :class => "button"}
+          %a(href="/opportunity/contact.#{opportunity.id}")Contact
 = will_paginate @opportunities

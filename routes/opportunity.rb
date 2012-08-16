@@ -1,4 +1,3 @@
-require 'pry'
 require 'will_paginate'
 require_relative 'routes_helper'
 

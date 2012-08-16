@@ -24,7 +24,7 @@ class Rook  < Sinatra::Base
     helpers WillPaginate::Sinatra::Helpers
   end
 
-  configure :development do
+  configure :development, :test do
     connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
     #puts connection_string
     DataMapper.setup(:default, connection_string)

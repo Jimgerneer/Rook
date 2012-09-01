@@ -1,8 +1,18 @@
-%h1 #{:title}
-%h3 #{opportunity.title}
-
-%p #{opportunity.skills}
-
-%p #{opportunity.description}
-
-%a(href="/opportunity/destroy.#{opportunity.id}")Confirm
+.container-fluid
+  .row-fluid
+    .span12
+  .row-fluid
+    .span12
+      .span10.offset2
+        .table
+          %table{:class => 'horizontal-striped'}
+            %thead
+              %tr
+                %th Title
+                %th Description
+            %tbody
+              %tr{:class => 'error'}
+                %td= opportunity.title
+                %td= opportunity.description
+        %a{:href => "/opportunity/destroy.#{opportunity.id}",
+           :class => "btn btn-large"}Confirm Delete

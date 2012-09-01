@@ -1,11 +1,17 @@
-%h1 #{:title}
-%form{ :action => "/opportunity/contact.#{opportunity.id}", :method => "POST"}
-  %fieldset
-    %ul
-      %li
-        %label{:for => "title"} Message:
-        %input{:type => "text", :name => "opportunity[message]", :id => "Message:"}
-      %li
-      %input{:type => "submit", :value => "Submit", :class => "button"}
-      &nbsp;
-      %a(href="/") Back
+.container-fluid
+  .row-fluid
+    .span12
+  .row-fluid
+    .span6.offset2
+      %h2 Opportunity: #{opportunity.title}
+    .span6.offset2
+      %h4 Description: #{opportunity.description}
+  .row-fluid
+    .span12
+    .span6.offset2
+      %form{ :action => "/opportunity/contact.#{opportunity.id}", :method => "POST"}
+        %fieldset
+          %label{:for => "title"} Send them a message:
+          %input{:type => "text", :placeholder => "Show your interest",
+                 :name => "opportunity[message]", :id => "Message:"}
+        %button{:type => "submit", :class => "btn"}Send

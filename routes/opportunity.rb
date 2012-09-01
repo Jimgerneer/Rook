@@ -32,6 +32,7 @@ class Rook < Sinatra::Base
     author_id = author.id
     data = {"recipient_id" => author_id, "opportunity_id" => id}
     MessageService.create(sender, data)
+    redirect '/'
   end
 
   get '/opportunity/view.:id' do |id|
@@ -41,7 +42,7 @@ class Rook < Sinatra::Base
 
   get '/opportunity/edit.:id' do |id|
     @op = Opportunity.first(:id => id)
-    haml :opportunity_edit, :locals => { :title => "Edit Opportunity", :opportunity => @op }
+    haml :opportunity_edit, :locals => { :opportunity => @op }
   end
 
   post '/opportunity/update.:id' do |id|
@@ -53,7 +54,7 @@ class Rook < Sinatra::Base
 
   get '/opportunity/delete.:id' do |id|
     @op = Opportunity.first(:id => id)
-    haml :opportunity_delete, :locals => { :title => "Confirm Delete", :opportunity => @op }
+    haml :opportunity_delete, :locals => { :opportunity => @op }
   end
 
   get '/opportunity/destroy.:id' do |id|

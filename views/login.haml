@@ -1,14 +1,15 @@
-%h1 Login!
-%form{ :action => "/login", :method => "POST"}
-  %fieldset
-    %ul
-      %li
+= haml :navbar_helper
+.row-fluid
+  .span12
+.row-fluid
+  .span6.offset2
+    %form{ :action => "/login", :method => "POST"}
+      %fieldset
+        %legend Login
         %label{:for => "username"} Username:
         %input{:type => "text", :name => "username",
                :value => @username, :id => "user_username"}
-      %li
         %label{:for => "password"} Password:
         %input{:type => "password", :name => "password", :value => @password,
                :id => "user_password"}
-      %li
-        %input{:type => "submit", :value => "Submit", :class => "button"}
+      %button{:type => "submit", :class => "btn"}Submit

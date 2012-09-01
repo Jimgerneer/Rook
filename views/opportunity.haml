@@ -1,15 +1,17 @@
-%h1 Create an Opportunity
-%form{ :action => "/opportunity", :method => "POST"}
-  %fieldset
-    %ol
-      %li
+.row-fluid
+  .span12
+.row-fluid
+  .span6.offset2
+    %form{ :action => "/opportunity", :method => "POST"}
+      %fieldset
+        %legend Create an Opportunity
         %label{:for => "title"} Title:
-        %input{:type => "text", :name => "opportunity[title]", :value => @title, :id => 'title'}
-      %li
+        %input{:type => "text", :placeholder => "Title", 
+               :name => "opportunity[title]", :value => @title, :id => 'title'}
         %label{:for => "skills"} Skills:
-        %input{:type => "text", :name => "opportunity[skills]", :value => @skills, :id => 'skills'}
-      %li
+        %input{:type => "text", :placeholder => "Ruby, Javascript, TDD...",
+               :name => "opportunity[skills]", :value => @skills, :id => 'skills'}
         %label{:for => "desc"} Description:
-        %textarea{:name => "opportunity[description]", :value => @description, :id => 'desc'}
-      %input{:type => "submit", :value => "Submit", :class => "button"}
-
+        %textarea{:name => "opportunity[description]", :placeholder => "What do you want to work on?", 
+                  :value => @description, :id => 'desc'}
+      %button{:type => "submit", :class => "btn"}Submit

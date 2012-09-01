@@ -1,24 +1,24 @@
-%h1 Welcome to Rook
-%li(id="links")
-  %a(href="opportunity")Create
-  %a(href="signup")Sign-Up
-  %a(href="login")Login
-  %a(href="logout")Logout
-%table
-  %thead
-    %tr(id="header")
-      %th(colspan="4")Available Opportunities!
-    %tr(id="titles")
-      %th Title
-      %th Skills
-      %th Description
-      %th
-  %tbody
-    - @opportunities.each do |opportunity|
-      %tr(id="elements")
-        %td= opportunity.title
-        %td= opportunity.skills 
-        %td= opportunity.description
-        %td
-          %a(href="/opportunity/contact.#{opportunity.id}")Contact
-= will_paginate @opportunities
+= haml :navbar_helper
+.container-fluid
+  .row-fluid
+    .span12
+      .span10.offset2
+        %h3 Available Opportunities
+        .table
+          %table(class='table-striped')
+            %thead
+              %tr
+                %th Title
+                %th Skills
+                %th Description
+                %th
+            %tbody
+              - @opportunities.each do |opportunity|
+                %tr
+                  %td= opportunity.title
+                  %td= opportunity.skills 
+                  %td= opportunity.description
+                  %td
+                    %a(href="/opportunity/contact.#{opportunity.id}")Contact
+        .pagination.pagination-left
+          = will_paginate @opportunities

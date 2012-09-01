@@ -1,21 +1,20 @@
-%h1 Welcome to Sign Up!
-%form{ :action => "/signup", :method => "POST"}
-  %fieldset
-    %ul
-      %li
+= haml :navbar_helper
+.row-fluid
+  .span12
+.row-fluid
+  .span6.offset2
+    %form{ :action => "/signup", :method => "POST"}
+      %fieldset
+        %legend Sign Up
         %label{:for => "username"} Username:
         %input{:type => "text", :name => "user[username]",
                :value => @username, :id => "username"}
-      %li
         %label{:for => "email"} Email:
         %input{:type => "text", :name => "user[email]", :value => @email, :id => "email"}
-      %li
         %label{:for => "password"} Password:
         %input{:type => "password", :name => "user[password]", :value => @password,
                :id => "password"} 
-      %li 
         %label{:for => "password_confirmation"} Confirm:
         %input{:type => "password", :name => "user[password_confirmation]",
                :value => @password_confirmation, :id => "password_confirmation"}
-      %input{:type => "submit", :value => "Submit", :class => "button"}
-
+      %button{:type => "submit", :class => "btn"}Submit

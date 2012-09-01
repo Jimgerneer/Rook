@@ -1,0 +1,31 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      .row-fluid
+        .span12
+          .span1
+          %a.btn.btn-navbar{ "data-toggle".to_sym => "collapse", "data-target".to_sym => ".nav-collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => '/'}
+            %img{:src => '/bootstrap/img/noun_project_627.svg'}Rook
+          .span3
+          .nav-collapse
+            - if logged_in?
+              %ul.nav
+                %li
+                  %a{:href => '/opportunity'}Create
+                %li{:class => "divider-vertical"}
+                %li
+                  %a{:href => '/logout'}Logout
+            - else
+              %ul.nav
+                %li
+                  %a{:href => '/opportunity'}Create
+                %li
+                %li{:class => "divider-vertical"}
+                  %a{:href => '/signup'}Sign-Up
+                %li
+                %li{:class => "divider-vertical"}
+                  %a{:href => '/login'}Login

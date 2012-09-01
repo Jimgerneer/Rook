@@ -54,4 +54,10 @@ class Rook < Sinatra::Base
        redirect "/signup"
     end
   end
+
+  def current_user
+    @current_user ||= User.first(:id => session[:user])
+  end
+
+  alias_method :logged_in?, :current_user
 end

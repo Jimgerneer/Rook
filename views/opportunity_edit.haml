@@ -1,16 +1,17 @@
-%h1 #{:title}
-%form{ :action => "/opportunity/update.#{opportunity.id}", :method => "POST"}
-  %fieldset
-    %ul
-      %li
+.row-fluid
+  .span12
+.row-fluid
+  .span6.offset2
+    %form{ :action => "/opportunity/update.#{opportunity.id}", :method => "POST"}
+      %fieldset
+        %legend Edit '#{opportunity.title}'
         %label{:for => "title"} Title:
-        %input{:type => "text", :name => "opportunity[title]", :value => "#{opportunity.title}", :id => "Title:"}
-      %li
+        %input{:type => "text", :name => "opportunity[title]",
+               :value => "#{opportunity.title}", :id => "Title:"}
         %label{:for => "skills"} Skills:
-        %input{:type => "text", :name => "opportunity[skills]", :value => "#{opportunity.skills}", :id => "Skills:"}
-      %li
+        %input{:type => "text", :name => "opportunity[skills]", 
+               :value => "#{opportunity.skills}", :id => "Skills:"}
         %label{:for => "description"} Description:
-        %textarea{:name => "opportunity[description]", :value => "#{opportunity.description}", :id => "Description:"}
-      %input{:type => "submit", :value => "Submit", :class => "button"}
-      &nbsp;
-      %a(href="/") Back
+        %textarea{:name => "opportunity[description]", 
+                  :value => "#{opportunity.description}", :id => "Description:"}
+      %button{:type => "submit", :class => "btn"}Submit

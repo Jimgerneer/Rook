@@ -24,8 +24,11 @@ class User
   has n, :booked_opportunities, :model => 'Opportunity', :child_key => [:id],
          :parent_key => [:user_id], :through => :bookings
 
+  has n, :messages_received, :model => 'Message', :child_key => :recipient_id
   has n, :messages_sent, :model => 'Message', :child_key => :sender_id
-  has n, :messages_recieved, :model => 'Message', :child_key => :recipient_id
+
+  has n, :gratitude_received, :model => 'Gratitude', :child_key => :recipient_id
+  has n, :gratitude_sent, :model => 'Gratitude', :chlid_key => :sender_id
 
   validates_presence_of :password_confirmation
   validates_confirmation_of :password

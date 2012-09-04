@@ -17,6 +17,7 @@ class Opportunity
          :parent_key => [:user_id], :through => :bookings
 
   has n, :messages
+  has n, :gratitudes
 
   has n, :opportunity_skills, :constraint => :destroy
   has n, :skills, :through => :opportunity_skills

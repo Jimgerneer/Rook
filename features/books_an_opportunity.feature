@@ -9,7 +9,7 @@ Feature: Booking an Opportunity
     And I click the "Contact" link
     And I fill in the fields
       | Message: | Hello, this is a message |
-    And I click the submit button
+    And I click the send button
     Then the message should be sent
 
 

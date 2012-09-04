@@ -2,7 +2,7 @@ Feature: view pages
 
   Scenario: Home page
     Given I am viewing "/"
-    Then I should see "Welcome to Rook"
+    Then I should see "Rook"
 
   Scenario: Visit login
     Given I am viewing "/"
@@ -17,5 +17,5 @@ Feature: view pages
   Scenario: Opportunities paginate
     Given 11 valid opportunites are created
     And I am viewing "/"
-    Then I should see "Available Opportunities!"
+    Then I should see "Available Opportunities"
     And there should only be 10 opportunities

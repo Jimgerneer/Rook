@@ -49,6 +49,10 @@ Given /^I click the confirm button$/ do
   click_button('Confirm')
 end
 
+Given /^I click the send button$/ do
+  click_button('Send')
+end
+
 Given /^I click the "([^|"]*)" link$/ do |link|
   click_link(link)
 end

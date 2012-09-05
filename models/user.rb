@@ -1,5 +1,6 @@
 class User
   include DataMapper::Resource
+  include Gravtastic
 
   attr_accessor :password, :password_confirmation
 

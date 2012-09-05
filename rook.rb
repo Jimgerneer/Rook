@@ -6,15 +6,6 @@ require 'will_paginate/data_mapper'
 require 'will_paginate/view_helpers/sinatra'
 require 'pony'
 
-=begin
-connection_string = case ENV['RACK_ENV']
-  when 'test' then 'mysql://root@localhost/rook_test'
-  when 'development' then 'mysql://root@localhost/rook_development'
-  else 'mysql://root@localhost/rook'
-end
-=end
-
-
 #move to lib/server
 class Rook  < Sinatra::Base
   set :sessions, true

@@ -21,4 +21,5 @@ class Opportunity
 
   has n, :opportunity_skills, :constraint => :destroy
   has n, :skills, :through => :opportunity_skills
+
 end

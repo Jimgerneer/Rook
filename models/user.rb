@@ -1,6 +1,5 @@
 class User
   include DataMapper::Resource
-  include Gravtastic
 
   attr_accessor :password, :password_confirmation
 
@@ -20,6 +19,12 @@ class User
   property :updated_at, DateTime
   property :updated_on, Date
 
+  #optional properties
+  property :first_name, String, :required => false
+  property :last_name, String, :required => false
+  property :bio, String, :required => false, :length => 150
+
+  #associations
   has n, :opportunities
   has n, :bookings
   has n, :booked_opportunities, :model => 'Opportunity', :child_key => [:id],
@@ -31,6 +36,11 @@ class User
   has n, :gratitude_received, :model => 'Gratitude', :child_key => :recipient_id
   has n, :gratitude_sent, :model => 'Gratitude', :chlid_key => :sender_id
 
+  #optional associations
+  has n, :skill_desired, :model => 'Skill', :required => false, :through => Resource
+  has n, :skills_aquired, :model => 'Skill', :required => false, :through => Resource
+
+  #validations
   validates_presence_of :password_confirmation
   validates_confirmation_of :password
 

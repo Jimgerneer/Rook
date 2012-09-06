@@ -3,7 +3,7 @@ require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
   get '/' do
-    @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 10)
+    @opportunities = Opportunity.paginate(:active => true, :page => params[:page], :per_page => 10)
     haml :index 
   end
 
@@ -52,14 +52,14 @@ class Rook < Sinatra::Base
     redirect '/'
   end
 
-  get '/opportunity/delete.:id' do |id|
+  get '/opportunity/confirm_deactivate.:id' do |id|
     @op = Opportunity.first(:id => id)
-    haml :opportunity_delete, :locals => { :opportunity => @op }
+    haml :opportunity_deactivate, :locals => { :opportunity => @op }
   end
 
-  get '/opportunity/destroy.:id' do |id|
+  get '/opportunity/deactivate.:id' do |id|
     @op = Opportunity.first(:id => id)
-    @op.destroy
+    @op.update(:active => false)
     redirect '/'
   end
 

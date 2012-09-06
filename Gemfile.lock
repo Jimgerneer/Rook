@@ -103,7 +103,6 @@ GEM
     eventmachine (0.12.10)
     fastercsv (1.5.5)
     ffi (1.0.11)
-    gravtastic (3.2.6)
     growl (1.0.3)
     growl_notify (0.0.3)
       rb-appscript
@@ -207,7 +206,6 @@ DEPENDENCIES
   dm-sweatshop
   dm-timestamps
   dm-validations
-  gravtastic
   growl
   growl_notify
   guard-minitest

@@ -8,4 +8,7 @@ class Skill
   has n, :opportunity_skills
   has n, :opportunities, :through => :opportunity_skills
 
+  has n, :user_wants, :model => 'User', :required => false, :through => Resource
+  has n, :user_has, :model => 'User', :required => false, :through => Resource
+
 end

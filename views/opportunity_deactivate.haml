@@ -14,5 +14,5 @@
               %tr{:class => 'error'}
                 %td= opportunity.title
                 %td= opportunity.description
-        %a{:href => "/opportunity/destroy.#{opportunity.id}",
-           :class => "btn btn-large"}Confirm Delete
+        %a{:href => "/opportunity/deactivate.#{opportunity.id}",
+           :class => "btn btn-large"}Confirm Close

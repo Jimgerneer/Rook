@@ -55,6 +55,8 @@ Then /^the opportunity should be created$/ do
   assert_equal 1, Opportunity.count
 end
 
-Then /^the opportunity should be deleted$/ do
-  assert_equal nil, Opportunity.first(:title => @current_form["Title:"])
+Then /^the opportunity should be deactivated$/ do
+  op = Opportunity.first(:title => @current_form["Title:"])
+  result = op.active
+  assert_equal false, result
 end

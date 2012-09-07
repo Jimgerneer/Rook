@@ -16,7 +16,7 @@
               - @user_opportunities.each do |opportunity|
                 %tr
                   %td= opportunity.title
-                  %td= opportunity.skills
+                  %td= opportunity.skills.map(&:name).join(", ")
                   %td= opportunity.description
                   %td
                     %a(href="/opportunity/edit.#{opportunity.id}")Edit
@@ -35,7 +35,7 @@
               - @booked_opportunities.each do |booked_opportunity|
                 %tr
                   %td= booked_opportunity.title
-                  %td= booked_opportunity.skills
+                  %td= booked_opportunity.skills.map(&:name).join(", ")
                   %td= booked_opportunity.description
                   %td
                     %a(href="/opportunity/view.#{booked_opportunity.id}")View

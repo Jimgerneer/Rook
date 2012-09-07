@@ -19,7 +19,7 @@ class Rook < Sinatra::Base
     user = User.first(:id => user_id)
     @current_username = user.username
     @booked_opportunities = user.booked_opportunities(:active => true)
-    haml :user 
+    haml :user
   end
 
   get "/signup" do

@@ -26,7 +26,8 @@ class Rook  < Sinatra::Base
   end
 
   configure :production do
-    DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+    #DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+    DataMapper.setup(:default, 'postgres://username:password@ec2-107-20-224-107.compute-1.amazonaws.com:5432/dd74kte6km9s1d')
   end
 end
 

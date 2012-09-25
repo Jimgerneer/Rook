@@ -5,11 +5,15 @@ require 'will_paginate'
 require 'will_paginate/data_mapper'
 require 'will_paginate/view_helpers/sinatra'
 require 'pony'
+require 'sinatra/flash'
+
+require 'pry'
 
 #move to lib/server
 class Rook  < Sinatra::Base
   set :sessions, true
   set :session_secret, 'Reno Blake'
+  register Sinatra::Flash
 
   configure do
     helpers WillPaginate::Sinatra::Helpers

@@ -8,8 +8,14 @@ Feature: User login
       | Password: | foobar |
       | Confirm: | foobar |
     And I click the submit button
+    And My user is active
     Then I should have signed up
-    And I should be on "/user"
+    And I should be on "/beta_welcome"
+
+  Scenario: Try to login with an inactive user
+    Given I try to log in with an inactive user
+    Then I should be on "/login"
+
 
   Scenario: Try to login with invalid user 
     Given I am on the login page

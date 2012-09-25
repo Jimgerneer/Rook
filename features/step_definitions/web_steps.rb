@@ -1,5 +1,14 @@
 Given /^I am signed in with a valid user$/ do
   @current_user = User.gen
+  @current_user.activate!
+  visit ('/login')
+  fill_in('username', :with => @current_user.username)
+  fill_in('password', :with => 'doobar')
+  click_button('Submit')
+end
+
+Given /^I try to log in with an inactive user$/ do
+  @current_user = User.gen
   visit ('/login')
   fill_in('username', :with => @current_user.username)
   fill_in('password', :with => 'doobar')
@@ -61,6 +70,7 @@ end
 
 Given /^I am signed in as a user that has authored an opportunity$/ do
   @current_user = User.gen
+  @current_user.activate!
   login_steps(@current_user)
   data = {:user_id => @current_user.id, :title => "test", :description => "This is a test"}
   @current_opportunity = Opportunity.create(data)

@@ -12,7 +12,7 @@ Feature: view pages
   Scenario: Visit Sign up
     Given I am viewing "/"
     And I click the "Sign-Up" link
-    Then I should be on "/signup"
+    Then I should be on "/beta"
 
   Scenario: Opportunities paginate
     Given 11 valid opportunites are created

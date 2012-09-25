@@ -12,7 +12,8 @@ describe OpportunityService do
       user = User.new
       user.stubs(:id).returns(42)
 
-      expected = data.merge("skills" => [skill], "user_id" => user.id)
+      data_expected = {:title => "Ruby", :skills => ["Haha"], :description => "This is a fake"}
+      expected = data_expected.merge(:skills => [skill], :user_id => user.id)
       Opportunity.expects(:create).with(expected)
 
       OpportunityService.create(user, data)

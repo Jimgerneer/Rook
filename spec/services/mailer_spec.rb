@@ -19,7 +19,7 @@ describe Mailer do
 
   it "#mail_greeting takes a user and sends an email to that user" do
     Pony.expects(:mail).with(has_entry({to: user.email}))
-    Mailer.mail_greeting(user)
+    Mailer.mail(user, :welcome)
   end
 
   it "customizes a message with user info" do
@@ -33,12 +33,12 @@ describe Mailer do
       Rook
     }
     Pony.expects(:mail).with(has_entry({body: message}))
-    Mailer.mail_greeting(user)
+    Mailer.mail(user, :welcome)
   end
 
   it "gets options and authentication details from config" do
     Pony.expects(:mail).with(has_entries(config_hash))
-    Mailer.mail_greeting(user)
+    Mailer.mail(user, :welcome)
   end
 
    it "loads options from a yaml file" do

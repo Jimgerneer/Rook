@@ -12,6 +12,7 @@ gem 'dm-validations'
 gem 'will_paginate', '~> 3.0.0'
 gem 'pony'
 gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
+gem 'sinatra-flash'
 
 group :production do
   gem 'dm-postgres-adapter'

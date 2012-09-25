@@ -4,6 +4,11 @@ Given /^I create a user:$/ do |table|
   end
 end
 
+Given /^My user is active$/ do 
+  user = User.first
+  user.activate!
+end
+
 Then /^I should have the following user:$/ do |table|
   result = User.first(:id => @created_user.id).username
   expected = table.hashes.map{|data| data["username"] }

@@ -13,7 +13,7 @@ class User
   property :created_at, DateTime
   property :account_type, String, :required => true, :default => 'standard',
            :writer => :protected
-  property :active, Boolean, :default => true, :writer => :protected
+  property :active, Boolean, :default => false, :writer => :protected
   property :created_at, DateTime
   property :created_on, Date
   property :updated_at, DateTime
@@ -44,10 +44,19 @@ class User
   validates_presence_of :password_confirmation
   validates_confirmation_of :password
 
-  def self.authenticate(username_or_email, pass)
-    current_user = first(:username => username_or_email)# || first(:email => username_or_email)
-    return nil if current_user.nil? || self.encrypt(pass, current_user.salt) != current_user.hashed_password
+  def self.authenticate(username, pass)
+    current_user = first(:username => username, :active => true)
+    return nil unless current_user && current_user.valid_pass?(pass)
     current_user
+  end
+
+  def valid_pass?(password)
+    User.encrypt(password, self.salt) == self.hashed_password
+  end
+
+  def activate!
+    self.active = true
+    self.save
   end
 
   def password=(pass)

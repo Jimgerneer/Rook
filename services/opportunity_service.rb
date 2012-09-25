@@ -1,8 +1,8 @@
 class OpportunityService
   def self.create(user, data)
-    #data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
 
-    new_data = data.merge("user_id" => user.id, "skills" => get_skill_objects(data["skills"]))
+    new_data = data.merge(:user_id => user.id, :skills => get_skill_objects(data[:skills]))
 
     Opportunity.create(new_data)
   end

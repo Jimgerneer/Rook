@@ -2,9 +2,10 @@ require 'will_paginate'
 require_relative 'routes_helper'
 
 class Rook < Sinatra::Base
+
   get '/' do
     @opportunities = Opportunity.paginate(:active => true, :page => params[:page], :per_page => 10)
-    haml :index 
+    haml :index
   end
 
   get '/opportunity' do
@@ -14,8 +15,7 @@ class Rook < Sinatra::Base
 
   get '/opportunity/messages.:id' do |id|
     @op = Opportunity.first(:id => id)
-    @users = User.all(:messages_sent => Message.all(:opportunity_id => @op.id))
-    #@messages = Message.all(:opportunity_id => @op.id)
+    @messages = Message.all(:opportunity_id => @op.id)
 
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
@@ -30,7 +30,7 @@ class Rook < Sinatra::Base
     sender = User.first(:id => sender_id)
     author = User.first(:opportunities => Opportunity.all(:id => id))
     author_id = author.id
-    data = {"recipient_id" => author_id, "opportunity_id" => id}
+    data = {"recipient_id" => author_id, "opportunity_id" => id, "body" => params[:body]}
     MessageService.create(sender, data)
     redirect '/'
   end

@@ -26,9 +26,11 @@
     %link{ rel: "apple-touch-icon", sizes: "72x72", href: "/bootstrap/images/apple-touch-icon-72x72.png"}
     %link{ rel: "apple-touch-icon", sizes: "114x114", href: "/bootstrap/images/apple-touch-icon-114x114.png"}
 
-  = haml :navbar_partial
 
   %body
+
+    = haml :navbar_partial
+    = styled_flash
 
     %div= yield
 

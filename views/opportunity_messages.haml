@@ -17,12 +17,12 @@
               %th User
               %th Message
           %tbody
-            - @users.each do |user|
+            - @messages.each do |message|
               %tr
-                %td= user.username
-                %td= user.username
+                %td= message.sender.username
+                %td= message.body.to_s
                 %td
                   %form{ :action => "/opportunity/book.#{opportunity.id}", :method => "POST"}
-                    - @user = user.id
+                    - @user = message.sender.id
                     %input{:name => "user", :type => "hidden", :value => @user}
                     %button{:type => "submit", :class => "btn"}Book them

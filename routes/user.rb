@@ -23,18 +23,38 @@ class Rook < Sinatra::Base
   end
 
   get "/signup" do
-   haml :signup
+    #temp code for beta
+    redirect "/beta"
+   #haml :signup
+  end
+
+  get '/beta' do
+    haml :beta
   end
 
   post "/signup" do
     signup(params[:user])
   end
 
+  post "/beta_signup" do
+    beta_signup(params[:user])
+  end
+
+  get '/beta_welcome' do
+    haml :beta_welcome
+  end
+
   def login
-    if user = User.authenticate(params[:username], params[:password])
+    user = User.authenticate(params[:username], params[:password])
+    if user
       session[:user] = user.id
       redirect_to_stored
+    elsif 5 == session[:login_attempts]
+      #future reset page
+      redirect "/"
     else
+      session[:login_attempts] = session[:login_attempts].to_i + 1
+      flash[:fatal] = "Incorrect user or password"
       redirect "/login"
     end
   end
@@ -53,6 +73,11 @@ class Rook < Sinatra::Base
        puts @new_user.errors.full_messages
        redirect "/signup"
     end
+  end
+
+  def beta_signup(new_user)
+    UserService.create(new_user)
+    redirect "/beta_welcome"
   end
 
   def current_user

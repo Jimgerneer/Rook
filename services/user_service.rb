@@ -11,7 +11,7 @@ class UserService
 
   class << self
     def email_on_create(user)
-      Mailer.mail_greeting(user)
+      Mailer.mail(user, :beta_welcome)
     end
   end
 end

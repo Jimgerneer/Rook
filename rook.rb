@@ -7,8 +7,6 @@ require 'will_paginate/view_helpers/sinatra'
 require 'pony'
 require 'sinatra/flash'
 
-require 'pry'
-
 #move to lib/server
 class Rook  < Sinatra::Base
   set :sessions, true

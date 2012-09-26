@@ -53,7 +53,7 @@ class Mailer
   def self.mail_config
     config_filename = File.expand_path('../config/mail_config.yml', __FILE__)
     @mail_config ||=  begin
-      File.exists?(config_filename) ? YAML.load_file(config_filename).merge(:from => 'rookerydev@gmail.com', :via => :smtp) : {}
+      File.exists?(config_filename) ? YAML.load_file(config_filename).merge(:via => :smtp) : {}
     end
   end
 end

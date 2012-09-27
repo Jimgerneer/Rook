@@ -55,10 +55,10 @@ class Mailer
       :via => :smtp, :via_options => {
         address: ENV['EMAIL_ADDRESS'],
         port: ENV['EMAIL_PORT'],
-        enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
-        user_name: ENV['EMAIL_USERNAME'],
-        password: ENV['EMAIL_PASSWORD'],
+        user_name: ENV['SENDGRID_USERNAME'],
+        password: ENV['SENDGRID_PASSWORD'],
         authentication: ENV['EMAIL_AUTHENTICATION'],
+        enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
         domain: ENV['EMAIL_DOMAIN'] }
     }
   end

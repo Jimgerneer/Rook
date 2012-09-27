@@ -51,9 +51,15 @@ class Mailer
   end
 
   def self.mail_config
-    config_filename = File.expand_path('../config/mail_config.yml', __FILE__)
-    @mail_config ||=  begin
-      File.exists?(config_filename) ? YAML.load_file(config_filename).merge(:via => :smtp) : {}
-    end
+    @mail_config = {
+      :via => :smtp, :via_options => {
+        address: ENV['EMAIL_ADDRESS'],
+        port: ENV['EMAIL_PORT'],
+        enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
+        user_name: ENV['EMAIL_USERNAME'],
+        password: ENV['EMAIL_PASSWORD'],
+        authentication: ENV['EMAIL_AUTHENTICATION'],
+        domain: ENV['EMAIL_DOMAIN'] }
+    }
   end
 end

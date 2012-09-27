@@ -1,7 +1,7 @@
 class Mailer
 
   def self.mail(user, message_type)
-    mailer_opts = mail_config.merge(to: user.email, body: message(user, message_type))
+    mailer_opts = mail_config.merge(from: 'rookerydev@gmail.com', to: user.email, body: message(user, message_type))
     Pony.mail(mailer_opts)
   end
 
@@ -57,7 +57,7 @@ class Mailer
         port: ENV['EMAIL_PORT'],
         user_name: ENV['SENDGRID_USERNAME'],
         password: ENV['SENDGRID_PASSWORD'],
-        authentication: ENV['EMAIL_AUTHENTICATION'],
+        #authentication: ENV['EMAIL_AUTHENTICATION'],
         enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
         domain: ENV['EMAIL_DOMAIN'] }
     }

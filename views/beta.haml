@@ -1,7 +1,7 @@
 .row-fluid
   .span12
 .row-fluid
-  .span6.offset2
+  .span3.offset2
     %form{ :action => "/beta_signup", :method => "POST"}
       %fieldset
         %legend Beta Sign Up
@@ -17,3 +17,7 @@
         %input{:type => "password", :name => "user[password_confirmation]",
                :value => @password_confirmation, :id => "password_confirmation"}
       %button{:type => "submit", :class => "btn"}Submit
+  .span4
+    %h3 Rook Beta
+    %p Hello there, this is a test.
+

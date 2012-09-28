@@ -25,7 +25,7 @@ class Rook < Sinatra::Base
   get "/signup" do
     #temp code for beta
     redirect "/beta"
-   #haml :signup
+    #haml :signup
   end
 
   get '/beta' do
@@ -61,6 +61,7 @@ class Rook < Sinatra::Base
 
   def logout
     session[:user] = nil
+    flash[:info] = "Logged out"
     redirect "/"
   end
 
@@ -68,16 +69,23 @@ class Rook < Sinatra::Base
      @new_user = UserService.create(new_user)
      if @new_user.valid?
        session[:user] = @new_user.id
+       flash[:info] = 'Thanks for signing up!'
        redirect "/user"
      else
-       puts @new_user.errors.full_messages
+       flash[:fatal] = @new_user.errors.full_messages.join(", ")
        redirect "/signup"
     end
   end
 
   def beta_signup(new_user)
-    UserService.create(new_user)
-    redirect "/beta_welcome"
+    @new_user = UserService.create(new_user)
+    if @new_user.valid?
+      flash[:info] = 'Signed up!'
+      redirect "/beta_welcome"
+    else
+      flash[:fatal] = @new_user.errors.full_messages.join(", ")
+      redirect "/beta"
+    end
   end
 
   def current_user

@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/DecoyDrone/bowtie.git
+  revision: 10d4e22dcbe0a64ffda38808c248e5285aafefbd
+  specs:
+    bowtie (0.5.8)
+      sinatra (>= 0.9.4)
+
+GIT
   remote: https://github.com/johnmendonca/pony-test.git
   revision: 4b06063096ae6a714469cd8fd86b96a1d4f36669
   specs:
@@ -69,6 +76,9 @@ GEM
     dm-mysql-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_mysql (~> 0.10.6)
+    dm-pager (1.1.0)
+      dm-aggregates (>= 0.10.1)
+      dm-core (>= 0.10.1)
     dm-postgres-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_postgres (~> 0.10.6)
@@ -195,6 +205,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bowtie!
   capybara
   capybara-webkit
   cucumber
@@ -204,6 +215,7 @@ DEPENDENCIES
   dm-core
   dm-migrations
   dm-mysql-adapter
+  dm-pager
   dm-postgres-adapter
   dm-sweatshop
   dm-timestamps

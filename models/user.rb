@@ -41,8 +41,9 @@ class User
   has n, :skills_aquired, :model => 'Skill', :required => false, :through => Resource
 
   #validations
-  validates_presence_of :password_confirmation
-  validates_confirmation_of :password
+  validates_presence_of :password_confirmation, :if => lambda { |u| u.has_password? }
+  validates_confirmation_of :password, :if => lambda { |u| u.has_password? }
+  validates_presence_of :password, :if => lambda { |u| u.new? }
 
   def self.authenticate(username, pass)
     current_user = first(:username => username, :active => true)
@@ -63,6 +64,10 @@ class User
     @password = pass
     self.salt = (1..12).map{(rand(26)+65).chr}.join if !self.salt
     self.hashed_password = self.class.encrypt(@password, self.salt)
+  end
+
+  def has_password?
+    !! @password
   end
 
   protected

@@ -9,10 +9,12 @@ gem 'dm-migrations'
 gem 'dm-core'
 gem 'dm-timestamps'
 gem 'dm-validations'
+gem 'dm-pager'
 gem 'will_paginate', '~> 3.0.0'
 gem 'pony'
 gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
 gem 'sinatra-flash'
+gem 'bowtie', git: 'https://github.com/DecoyDrone/bowtie.git'
 
 group :production do
   gem 'dm-postgres-adapter'

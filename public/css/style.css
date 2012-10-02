@@ -15,3 +15,7 @@ body {
 #main {
   padding-top: 30px;
 }
+
+input {
+  height: 25px !important;
+}

@@ -32,11 +32,12 @@ class Mailer
     %Q{
       Thank you for signing up #{username},
 
-      As soon as your account is accepted for Beta Rook, you will be sent an email.
+      Beta testing should start this week. You will recive an email when you account is active.
 
       Thank you,
 
       Jim Denton
+      @DecoyDrone
     }
   end
 

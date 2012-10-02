@@ -3,20 +3,19 @@
 .row-fluid
   .span3.offset2
     %form{ :action => "/beta_signup", :method => "POST"}
-      %fieldset
-        %legend Beta Sign Up
-        %label{:for => "username"} Username:
-        %input{:type => "text", :name => "user[username]",
-               :value => @username, :id => "username"}
-        %label{:for => "email"} Email:
-        %input{:type => "text", :name => "user[email]", :value => @email, :id => "email"}
-        %label{:for => "password"} Password:
-        %input{:type => "password", :name => "user[password]", :value => @password,
-               :id => "password"} 
-        %label{:for => "password_confirmation"} Confirm:
-        %input{:type => "password", :name => "user[password_confirmation]",
-               :value => @password_confirmation, :id => "password_confirmation"}
-      %button{:type => "submit", :class => "btn"}Submit
+      %legend Beta Sign Up
+      %label{:for => "username"} Username:
+      %input{:type => "text", :name => "user[username]",
+             :value => @username, :id => "username"}
+      %label{:for => "email"} Email:
+      %input{:type => "text", :name => "user[email]", :value => @email, :id => "email"}
+      %label{:for => "password"} Password:
+      %input{:type => "password", :name => "user[password]", :value => @password,
+             :id => "password"} 
+      %label{:for => "password_confirmation"} Confirm:
+      %input{:type => "password", :name => "user[password_confirmation]",
+             :value => @password_confirmation, :id => "password_confirmation"}
+    %button{:type => "submit", :class => "btn"}Submit
   .span4
     %h3 Rook Beta
     %h4 What is Rook?

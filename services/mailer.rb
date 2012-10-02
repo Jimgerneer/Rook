@@ -5,6 +5,14 @@ class Mailer
     Pony.mail(mailer_opts)
   end
 
+  def self.mail_config
+    @mail_config ||= set_mail_config
+  end
+
+  def self.mail_config=(config)
+    @mail_config = config
+  end
+
   private
 
   def self.message(user, message_type)
@@ -51,16 +59,21 @@ class Mailer
     }
   end
 
-  def self.mail_config
-    @mail_config = {
-      :via => :smtp, :via_options => {
-        address: ENV['EMAIL_ADDRESS'],
-        port: ENV['EMAIL_PORT'],
-        user_name: ENV['SENDGRID_USERNAME'],
-        password: ENV['SENDGRID_PASSWORD'],
-        #authentication: ENV['EMAIL_AUTHENTICATION'],
-        enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
-        domain: ENV['EMAIL_DOMAIN'] }
-    }
+  def self.set_mail_config
+    if File.exists?('./config/mail_test_settings.rb')
+      require './config/mail_test_settings'
+    else
+      @mail_config = {
+        :via => :smtp, :via_options => {
+          address: ENV['EMAIL_ADDRESS'],
+          port: ENV['EMAIL_PORT'],
+          user_name: ENV['SENDGRID_USERNAME'],
+          password: ENV['SENDGRID_PASSWORD'],
+          #authentication: ENV['EMAIL_AUTHENTICATION'],
+          enable_starttls_auto: ENV['EMAIL_STARTTLS_AUTO'],
+          domain: ENV['EMAIL_DOMAIN'] }
+      }
+    end
+    @mail_config
   end
 end

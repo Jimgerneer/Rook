@@ -1,7 +1,7 @@
 class Mailer
 
   def self.mail(user, message_type)
-    mailer_opts = mail_config.merge(from: 'rookerydev@gmail.com', to: user.email, body: message(user, message_type))
+    mailer_opts = mail_config.merge(from: 'rookerydev@gmail.com', subject: 'Rook', to: user.email, body: message(user, message_type))
     Pony.mail(mailer_opts)
   end
 

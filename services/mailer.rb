@@ -32,7 +32,7 @@ class Mailer
     %Q{
       Thank you for signing up #{username},
 
-      Beta testing should start this week. You will recive an email when you account is active.
+      Beta testing should start this week. You will recive an email when your account is active.
 
       Thank you,
 

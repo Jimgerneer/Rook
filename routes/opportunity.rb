@@ -15,8 +15,7 @@ class Rook < Sinatra::Base
 
   get '/opportunity/messages.:id' do |id|
     @op = Opportunity.first(:id => id)
-    @messages = Message.all(:opportunity_id => @op.id)
-
+    @messages = @op.recent_messages
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
 
@@ -30,7 +29,7 @@ class Rook < Sinatra::Base
     sender = User.first(:id => sender_id)
     author = User.first(:opportunities => Opportunity.all(:id => id))
     author_id = author.id
-    data = {"recipient_id" => author_id, "opportunity_id" => id, "body" => params[:body]}
+    data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
     MessageService.create(sender, data)
     redirect '/'
   end

@@ -9,7 +9,11 @@ describe MessageService do
       data = {"recipient_id" => "5",
               "opportunity_id" => "2",
               "body" => "hello there"}
-      Message.expects(:create).with(data.merge("sender_id" => 1, "recipient_id" => 5, "opportunity_id" => 2))
+      expected_data = {:recipient_id => 5,
+                       :sender_id => 1,
+                       :opportunity_id => 2,
+                       :body => "hello there" }
+      Message.expects(:create).with(expected_data)
      MessageService.create(sender, data)
     end
   end

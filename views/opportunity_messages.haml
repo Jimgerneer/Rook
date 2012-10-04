@@ -17,7 +17,7 @@
               %th User
               %th Message
           %tbody
-            - @messages.each do |message|
+            - @messages.each do |user_id, message|
               %tr
                 %td= message.sender.username
                 %td= message.body.to_s

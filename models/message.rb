@@ -3,6 +3,10 @@ class Message
 
   property :id, Serial
   property :body, String
+  property :created_at,   DateTime
+  property :created_on,   Date
+  property :updated_at,   DateTime
+  property :updated_on,   Date
 
   belongs_to :opportunity
   belongs_to :recipient, :model => 'User', :key => true

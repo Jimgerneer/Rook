@@ -22,4 +22,10 @@ class Opportunity
   has n, :opportunity_skills, :constraint => :destroy
   has n, :skills, :through => :opportunity_skills
 
+  def recent_messages
+    messages(:order => [:created_on.desc]).each_with_object({}) { |message, results|
+      results[ message.sender_id ] ||= message
+    }
+  end
+
 end

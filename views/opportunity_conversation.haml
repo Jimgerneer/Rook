@@ -23,4 +23,13 @@
                 %td
                   %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user_id}"}
                 %td= message.body
+            %tr
+              %td
+                %form{ :action => "/opportunity/send_message.#{opportunity.id}?user=#{@apprentice_id}", :method => "POST"}
+                  %fieldset
+                    %label{:for => "title"} Send them a message:
+                    %input{:type => "text", :placeholder => "reply here...",
+                           :name => "body", :id => "Message:"}
+                  %button{:type => "submit", :class => "btn"}Reply
+
 

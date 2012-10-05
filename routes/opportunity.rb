@@ -20,6 +20,14 @@ class Rook < Sinatra::Base
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
 
+  get '/opportunity/conversation.:id' do |id|
+    login_required
+    @op = Opportunity.first(:id => id )
+    apprentice_id = params[:user]
+    @messages = Message.all(:sender_id => session[:user]) & Message.all(:sender_id => apprentice_id)
+    haml :opportunity_conversation, :locals => { :opportunity => @op, :message => @messages }
+  end
+
   get '/opportunity/contact.:id' do |id|
     login_required
     @op = Opportunity.first(:id => id)
@@ -39,6 +47,7 @@ class Rook < Sinatra::Base
   get '/opportunity/view.:id' do |id|
     login_required
     @op = Opportunity.first(:id => id)
+    @messages = Message.all(:sender_id => session[:user]) & Message.all(:sender_id => @op.user_id)
     haml :opportunity_views, :locals => { :title => @op.title, :opportunity => @op }
   end
 

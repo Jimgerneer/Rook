@@ -26,3 +26,5 @@
                     - @user = message.sender.id
                     %input{:name => "user", :type => "hidden", :value => @user}
                     %button{:type => "submit", :class => "btn"}Book them
+                %td
+                  %a(href="/opportunity/conversation.#{@op.id}?user=#{user_id}")Conversation

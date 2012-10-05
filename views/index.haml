@@ -20,7 +20,10 @@
                   %td= opportunity.title
                   %td= opportunity.skills.map(&:name).join(", ")
                   %td= opportunity.description
-                  %td
-                    %a(href="/opportunity/contact.#{opportunity.id}")Contact
+                  - if opportunity.user_id == session[:user]
+                    %td
+                  - else
+                    %td
+                      %a(href="/opportunity/contact.#{opportunity.id}")Contact
         .pagination.pagination-left
           = will_paginate @opportunities

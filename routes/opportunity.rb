@@ -14,12 +14,14 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity/messages.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     @messages = @op.recent_messages
     haml :opportunity_messages, :locals => { :title => @op.title, :opportunity => @op }
   end
 
   get '/opportunity/contact.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     haml :opportunity_contact, :locals => { :title => @op.title, :opportunity => @op }
   end
@@ -35,11 +37,13 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity/view.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     haml :opportunity_views, :locals => { :title => @op.title, :opportunity => @op }
   end
 
   get '/opportunity/edit.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     haml :opportunity_edit, :locals => { :opportunity => @op }
   end
@@ -52,11 +56,13 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity/confirm_deactivate.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     haml :opportunity_deactivate, :locals => { :opportunity => @op }
   end
 
   get '/opportunity/deactivate.:id' do |id|
+    login_required
     @op = Opportunity.first(:id => id)
     @op.update(:active => false)
     redirect '/'

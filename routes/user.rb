@@ -14,6 +14,7 @@ class Rook < Sinatra::Base
   end
 
   get "/user" do
+    login_required
     user_id = session[:user]
     @user_opportunities = Opportunity.all(:user_id => user_id, :active => true)
     user = User.first(:id => user_id)

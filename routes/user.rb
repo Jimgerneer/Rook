@@ -15,12 +15,22 @@ class Rook < Sinatra::Base
 
   get "/user" do
     login_required
-    user_id = session[:user]
-    @user_opportunities = Opportunity.all(:user_id => user_id, :active => true)
-    user = User.first(:id => user_id)
+    @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
+    user = User.first(:id => session[:user])
     @current_username = user.username
     @booked_opportunities = user.booked_opportunities(:active => true)
-    haml :user
+    haml :user, :locals => { :user => user }
+  end
+
+  get "/profile/update.:id" do |id|
+    login_required
+    @user = User.first(:id => session[:user])
+    haml :user_update_profile, :locals => { :user => @user }
+  end
+
+  post "/profile/update.:id" do |id|
+    UserService.update(id, params[:user_profile])
+    redirect "/user"
   end
 
   get "/signup" do

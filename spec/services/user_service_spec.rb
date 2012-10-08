@@ -19,4 +19,17 @@ describe UserService do
       UserService.create(data)
     end
   end
+
+  describe "update method" do
+
+    it "updates a user" do
+      data = {"first_name" => "Jim", "last_name" => "Denton", "bio" => "I am a sham"}
+
+      user = stub()
+      User.stubs(:first).with("id" => 3).returns(user)
+      user.expects(:update).with(data)
+
+      UserService.update(3, data)
+    end
+  end
 end

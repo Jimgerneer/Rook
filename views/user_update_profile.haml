@@ -1,0 +1,23 @@
+.container-fluid
+  .row-fluid
+    .span12
+  .row-fluid
+    .span6.offset2
+      %form{ :action => "/profile/update.#{user.id}", :method => "POST"}
+        %fieldset
+          %legend Edit '#{user.username}'
+          %label{:for => "first_name"} First Name:
+          %input{:type => "text", :name => "user_profile[first_name]",
+                 :placeholder => "#{user.first_name}", :id => "First Name:"}
+          %label{:for => "last_name"} Last Name:
+          %input{:type => "text", :name => "user_profile[last_name]",
+                 :placeholder => "#{user.last_name}",
+                 :id => "Last Name:"}
+          %label{:for => "email"} Email:
+          %input{:type => "text", :name => "user_profile[email]",
+                 :placeholder => "#{user.email}",
+                 :id => "email:"}
+          %label{:for => "description"} Bio:
+          %textarea{:name => "user_profile[bio]", 
+                    :placeholder => "#{user.bio}", :id => "Bio:"}
+        %button{:type => "submit", :class => "btn"}Submit

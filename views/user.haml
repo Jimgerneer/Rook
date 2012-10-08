@@ -1,7 +1,7 @@
 .container-fluid
   .row-fluid
     .span12
-      .span10.offset2
+      .span8.offset2
         %h1 Hello, #{@current_username} 
         .table
           %table{:class => 'table-striped'}
@@ -39,3 +39,10 @@
                   %td= booked_opportunity.description
                   %td
                     %a(href="/opportunity/view.#{booked_opportunity.id}")View
+      .span2
+        %h4 Profile
+        %h6 #{user.first_name} #{user.last_name}
+        %h6 contact email: #{user.email}
+        %h6 current bio:
+        %p #{user.bio}
+        %a(href="/profile/update.#{user.id}")Update Profile

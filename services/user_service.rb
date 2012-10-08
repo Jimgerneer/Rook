@@ -6,6 +6,12 @@ class UserService
     user
   end
 
+  def self.update(id, data)
+    user = User.first("id" => id)
+    data = data.reject{ |k,v| v.empty? }
+    user.update(data)
+  end
+
 
   private
 

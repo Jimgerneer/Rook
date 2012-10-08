@@ -72,6 +72,18 @@ class Rook < Sinatra::Base
     redirect '/'
   end
 
+  get '/opportunity/thanks.:id' do |id|
+    login_required
+    op = Opportunity.first(:id => id)
+    haml :opportunity_thanks, :locals => { :opportunity => op }
+  end
+
+  post '/opportunity/thanks.:id' do |id|
+    opportunity_id = id
+    OpportunityService.thank(session[:user], opportunity_id, params[:thanks])
+    redirect '/user'
+  end
+
   get '/opportunity/confirm_deactivate.:id' do |id|
     login_required
     @op = Opportunity.first(:id => id)

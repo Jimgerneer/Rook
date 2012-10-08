@@ -12,6 +12,16 @@ class OpportunityService
     op.update(data.merge("skills" => get_skill_objects(data["skills"])))
   end
 
+  def self.thank(sender, opportunity_id, comment)
+    opportunity = Opportunity.first(:id => opportunity_id.to_i)
+    recipient = User.first(:id => opportunity.user.id)
+    sender = User.first(:id => sender)
+    comment = comment['comment']
+
+    Gratitude.create(:sender => sender, :recipient => recipient, :opportunity => opportunity, :comment => comment)
+  end
+
+
   def self.get_skill_objects(skills)
     skills.inject([]) do |memo, name|
       memo << Skill.first_or_create(:name => name)

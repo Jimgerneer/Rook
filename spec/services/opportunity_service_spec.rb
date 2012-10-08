@@ -33,6 +33,14 @@ describe OpportunityService do
     end
   end
 
+  describe "thanks method" do
+
+    it "adds a thanks to an opportunity" do
+
+    end
+
+  end
+
   def skill
     Skill.new(:name => "Haha")
   end

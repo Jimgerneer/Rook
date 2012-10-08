@@ -34,7 +34,7 @@ class User
   has n, :messages_sent, :model => 'Message', :child_key => :sender_id
 
   has n, :gratitude_received, :model => 'Gratitude', :child_key => :recipient_id
-  has n, :gratitude_sent, :model => 'Gratitude', :chlid_key => :sender_id
+  has n, :gratitude_sent, :model => 'Gratitude', :child_key => :sender_id
 
   #optional associations
   has n, :skill_desired, :model => 'Skill', :required => false, :through => Resource

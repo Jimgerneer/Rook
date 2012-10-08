@@ -1,0 +1,12 @@
+.container-fluid
+  .row-fluid
+    .span12
+  .row-fluid
+    .span6.offset2
+      %form{ :action => "/opportunity/thanks.#{opportunity.id}", :method => "POST"}
+        %fieldset
+          %legend Thank '#{opportunity.user.username}'
+          %label{:for => "comment"} Comment:
+          %textarea{:name => "thanks[comment]", 
+                    :placeholder => "leave 150 character comment here", :id => "Comment:"}
+        %button{:type => "submit", :class => "btn"}Submit

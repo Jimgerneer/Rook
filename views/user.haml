@@ -39,6 +39,8 @@
                   %td= booked_opportunity.description
                   %td
                     %a(href="/opportunity/view.#{booked_opportunity.id}")View
+                  %td
+                    %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
       .span2
         %h4 Profile
         %h6 #{user.first_name} #{user.last_name}

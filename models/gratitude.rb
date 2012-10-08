@@ -5,6 +5,6 @@ class Gratitude
   property :comment, String, :length => 150
 
   belongs_to :opportunity
-  belongs_to :recipient, :model => 'User', :key => true
-  belongs_to :sender, :model => 'User', :key => true
+  belongs_to :recipient, 'User', :key => true
+  belongs_to :sender, 'User', :key => true
 end

@@ -89,7 +89,7 @@ Then /^there should only be 10 opportunities$/ do
 end
 
 Then /^I should be on the booked opportunity page$/ do
-  expect = '/opportunity/view.' + @current_opportunity.id.to_s
+  expect = '/opportunity/conversation.' + @current_opportunity.id.to_s
   assert_equal expect, page.current_path
 end
 

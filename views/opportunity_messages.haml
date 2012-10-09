@@ -27,4 +27,4 @@
                     %input{:name => "user", :type => "hidden", :value => @user}
                     %button{:type => "submit", :class => "btn"}Book them
                 %td
-                  %a(href="/opportunity/conversation.#{opportunity.id}?user=#{user_id}")Conversation
+                  %a(href="/opportunity/conversation.#{opportunity.id}?user=#{message.sender.id}")Conversation

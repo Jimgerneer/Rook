@@ -23,4 +23,3 @@
                 %td
                   %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user_id}"}
                 %td= message.body
-

@@ -2,7 +2,7 @@
   .row-fluid
     .span12
       .span8.offset2
-        %h1 Hello, #{@current_username} 
+        %h1 Hello, #{current_user.username} 
         .table
           %table{:class => 'table-striped'}
             %thead
@@ -32,25 +32,44 @@
                 %th Skills
                 %th Description
             %tbody
-              - @booked_opportunities.each do |booked_opportunity|
+              - @booked_opportunities.all(:active => true).each do |booked_opportunity|
                 %tr
                   %td= booked_opportunity.title
                   %td= booked_opportunity.skills.map(&:name).join(", ")
                   %td= booked_opportunity.description
                   %td
-                    %a(href="/opportunity/view.#{booked_opportunity.id}")View
+                    %a(href="/opportunity/conversation.#{booked_opportunity.id}")Conversation
                   %td
-                    - @gratz = booked_opportunity.gratitudes
-                    - @gratz_check = true
-                    - @gratz.each do |gratz|
-                      - if gratz.sender_id == session[:user] && @gratz_check == true
-                        - @gratz_check = false
-                      - else
-                        - @gratz_check = true
-                    - if @gratz_check == true
-                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
+                    - if gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+                      %p -thanked
                     - else
-                      %h6 thanked
+                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
+              - @booked_opportunities.all(:active => false).each do |booked_opportunity|
+                - unless gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+                  %tr
+                    %td= booked_opportunity.title
+                    %td= booked_opportunity.skills.map(&:name).join(", ")
+                    %td= booked_opportunity.description
+                    %td
+                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
+        .table
+          %table{:class => 'table-striped'}
+            %thead
+              %tr(id="header")
+                %th(colspan="3")Contacted Opportunities
+              %tr(id="titles")
+                %th Title
+                %th Skills
+                %th Description
+            %tbody
+              - @messaged_opportunities.all(:active => true).each do |messaged_opportunity|
+                - unless messaged_opportunity.booked_users.include? current_user
+                  %tr
+                    %td= messaged_opportunity.title
+                    %td= messaged_opportunity.skills.map(&:name).join(", ")
+                    %td= messaged_opportunity.description
+                    %td
+                      %a(href="/opportunity/view.#{messaged_opportunity.id}")View
       .span2
         %h4 Profile
         %h6 #{user.first_name} #{user.last_name}

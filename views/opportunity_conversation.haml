@@ -25,9 +25,9 @@
                 %td= message.body
             %tr
               %td
-                %form{ :action => "/opportunity/send_message.#{opportunity.id}", :method => "POST"}
+                %form{ :action => "/opportunity/send_message.#{opportunity.id}?user=#{@reciever}", :method => "POST"}
                   - if current_user == opportunity.user
-                    %input{type: 'hidden', name: 'user_id', value: @apprentice_id}
+                    %input{type: 'hidden', name: 'user_id', value: @reciever}
                   %fieldset
                     %label{:for => "title"} Send them a message:
                     %input{:type => "text", :placeholder => "reply here...",

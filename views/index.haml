@@ -25,5 +25,7 @@
                   - else
                     %td
                       %a(href="/opportunity/contact.#{opportunity.id}")Contact
+                    %td
+                      %a(href="/opportunity/view.#{opportunity.id}")View
         .pagination.pagination-left
           = will_paginate @opportunities

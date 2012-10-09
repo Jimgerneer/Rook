@@ -26,5 +26,5 @@ Feature: Booking an Opportunity
     Given I am signed in with a valid user
     And I have been booked for an opportunity
     And I am on the user page
-    And I click the "View" link
+    And I click the "Conversation" link
     Then I should be on the booked opportunity page

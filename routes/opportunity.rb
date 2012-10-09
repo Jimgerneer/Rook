@@ -23,9 +23,13 @@ class Rook < Sinatra::Base
   get '/opportunity/conversation.:id' do |id|
     login_required
     @op = Opportunity.first(:id => id )
-    @apprentice_id = params[:user]
-    @messages = Message.all(:sender_id => session[:user]) & Message.all(:sender_id => @apprentice_id)
-    haml :opportunity_conversation, :locals => { :opportunity => @op, :message => @messages, :apprentice_id => @apprentice_id }
+    if @op.user == current_user
+      @reciever = params[:user]
+    else
+      @reciever = @op.user.id
+    end
+    @messages = Message.all(:opportunity => @op) & Message.all(:recipient_id => @reciever)
+    haml :opportunity_conversation, :locals => { :opportunity => @op, :reciever => @reciever }
   end
 
   get '/opportunity/contact.:id' do |id|
@@ -40,7 +44,7 @@ class Rook < Sinatra::Base
   end
 
   post '/opportunity/contact.:id' do |id|
-    sender = User.first(:id => session[:user])
+    sender = current_user
     author = User.first(:opportunities => Opportunity.all(:id => id))
     author_id = author.id
     data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
@@ -50,11 +54,11 @@ class Rook < Sinatra::Base
 
   post '/opportunity/send_message.:id' do |id|
     opportunity = Opportunity.first(:id => id)
-    sender = User.first(:id => session[:user])
+    sender = current_user
     recipient_id = params[:user_id] || opportunity.user.id
     data = {:recipient_id => recipient_id, :opportunity_id => id, :body => params[:body]}
     MessageService.create(sender, data)
-    redirect "/opportunity/conversation.#{opportunity.id}?user=#{sender.id}"
+    redirect "/opportunity/conversation.#{opportunity.id}?user=#{recipient_id}"
   end
 
   get '/opportunity/view.:id' do |id|

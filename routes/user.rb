@@ -17,17 +17,14 @@ class Rook < Sinatra::Base
   get "/user" do
     login_required
     @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
-    @user_opportunities = @user_opportunities
-    user = User.first(:id => session[:user])
-    @current_username = user.username
-    @booked_opportunities = user.booked_opportunities(:active => true)
-    haml :user, :locals => { :user => user }
+    @booked_opportunities = current_user.booked_opportunities
+    @messaged_opportunities = Opportunity.all(:messages => { :sender => current_user })
+    haml :user, :locals => { :user => current_user }
   end
 
   get "/profile/update.:id" do |id|
     login_required
-    @user = User.first(:id => session[:user])
-    haml :user_update_profile, :locals => { :user => @user }
+    haml :user_update_profile, :locals => { :user => current_user }
   end
 
   post "/profile/update.:id" do |id|
@@ -101,9 +98,12 @@ class Rook < Sinatra::Base
     end
   end
 
-  def current_user
-    @current_user ||= User.first(:id => session[:user])
-  end
+  helpers do
 
-  alias_method :logged_in?, :current_user
+    def current_user
+      @current_user ||= User.first(:id => session[:user])
+    end
+
+    alias_method :logged_in?, :current_user
+  end
 end

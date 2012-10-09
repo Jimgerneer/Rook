@@ -24,12 +24,12 @@ class Rook < Sinatra::Base
     login_required
     @op = Opportunity.first(:id => id )
     if @op.user == current_user
-      @reciever = params[:user]
+      @receiver = params[:user]
     else
-      @reciever = @op.user.id
+      @receiver = @op.user.id
     end
-    @messages = Message.all(:opportunity => @op) & Message.all(:recipient_id => @reciever)
-    haml :opportunity_conversation, :locals => { :opportunity => @op, :reciever => @reciever }
+    @messages = Message.all(:opportunity => @op)
+    haml :opportunity_conversation, :locals => { :opportunity => @op, :receiver => @receiver }
   end
 
   get '/opportunity/contact.:id' do |id|

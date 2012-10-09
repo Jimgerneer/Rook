@@ -29,12 +29,14 @@
                 %th(colspan="3")Booked Opportunities
               %tr(id="titles")
                 %th Title
+                %th Author
                 %th Skills
                 %th Description
             %tbody
               - @booked_opportunities.all(:active => true).each do |booked_opportunity|
                 %tr
                   %td= booked_opportunity.title
+                  %td= booked_opportunity.user.username
                   %td= booked_opportunity.skills.map(&:name).join(", ")
                   %td= booked_opportunity.description
                   %td
@@ -48,6 +50,7 @@
                 - unless gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
                   %tr
                     %td= booked_opportunity.title
+                    %td= booked_opportunity.user.username
                     %td= booked_opportunity.skills.map(&:name).join(", ")
                     %td= booked_opportunity.description
                     %td
@@ -59,17 +62,19 @@
                 %th(colspan="3")Contacted Opportunities
               %tr(id="titles")
                 %th Title
+                %th Author
                 %th Skills
                 %th Description
             %tbody
               - @messaged_opportunities.all(:active => true).each do |messaged_opportunity|
-                - unless messaged_opportunity.booked_users.include? current_user
+                - unless messaged_opportunity.booked_users.include?(current_user) || messaged_opportunity.user == current_user
                   %tr
                     %td= messaged_opportunity.title
+                    %td= messaged_opportunity.user.username
                     %td= messaged_opportunity.skills.map(&:name).join(", ")
                     %td= messaged_opportunity.description
                     %td
-                      %a(href="/opportunity/view.#{messaged_opportunity.id}")View
+                      %a(href="/opportunity/conversation.#{messaged_opportunity.id}")View
       .span2
         %h4 Profile
         %h6 #{user.first_name} #{user.last_name}

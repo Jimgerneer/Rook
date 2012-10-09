@@ -40,7 +40,17 @@
                   %td
                     %a(href="/opportunity/view.#{booked_opportunity.id}")View
                   %td
-                    %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
+                    - @gratz = booked_opportunity.gratitudes
+                    - @gratz_check = true
+                    - @gratz.each do |gratz|
+                      - if gratz.sender_id == session[:user] && @gratz_check == true
+                        - @gratz_check = false
+                      - else
+                        - @gratz_check = true
+                    - if @gratz_check == true
+                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
+                    - else
+                      %h6 thanked
       .span2
         %h4 Profile
         %h6 #{user.first_name} #{user.last_name}

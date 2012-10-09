@@ -1,4 +1,5 @@
 require_relative 'routes_helper'
+
 class Rook < Sinatra::Base
 
   get "/login" do
@@ -16,6 +17,7 @@ class Rook < Sinatra::Base
   get "/user" do
     login_required
     @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
+    @user_opportunities = @user_opportunities
     user = User.first(:id => session[:user])
     @current_username = user.username
     @booked_opportunities = user.booked_opportunities(:active => true)

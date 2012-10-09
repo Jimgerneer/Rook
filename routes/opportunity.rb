@@ -31,7 +31,12 @@ class Rook < Sinatra::Base
   get '/opportunity/contact.:id' do |id|
     login_required
     @op = Opportunity.first(:id => id)
-    haml :opportunity_contact, :locals => { :title => @op.title, :opportunity => @op }
+    author = @op.user
+    if author.id == session[:user]
+      redirect '/'
+    else
+      haml :opportunity_contact, :locals => { :title => @op.title, :opportunity => @op }
+    end
   end
 
   post '/opportunity/contact.:id' do |id|

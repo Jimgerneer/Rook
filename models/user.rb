@@ -40,7 +40,7 @@ class User
   has n, :skills_desired, :model => 'Skill', :child_key => [:id],
          :parent_key => [:user_id], :through => :user_wanted_skills
   has n, :user_skills, :constraint => :destroy
-  has n, :skills_aquired, :model => 'Skill', :child_key => [:id],
+  has n, :skills_acquired, :model => 'Skill', :child_key => [:id],
          :parent_key => [:user_id], :through => :user_skills
 
   #validations

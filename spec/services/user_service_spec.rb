@@ -27,14 +27,16 @@ describe UserService do
               "last_name" => "Denton",
               "bio" => "I am a sham",
               "skills_desired" => ["Ruby"],
-              "skills_aquired" => ["Java"] }
+              "skills_acquired" => ["Java"] }
       data_expected = {:first_name => "Jim",
                        :last_name => "Denton",
-                       :bio => "I am s sham" }
+                       :bio => "I am a sham" }
 
+      new_params = data_expected.
+        merge(:skills_desired => [skill_desired], :skills_acquired => [skill_acquired])
       user = stub()
       User.stubs(:first).with("id" => 3).returns(user)
-      user.expects(:update).with(data_expected.merge(:skills_desired => [skill_desired], :skills_aquired => [skill_aquired]))
+      user.expects(:update).with(new_params)
 
       UserService.update(3, data)
     end
@@ -44,7 +46,7 @@ describe UserService do
     Skill.new(:name => "Ruby")
   end
 
-  def skill_aquired
+  def skill_acquired
     Skill.new(:name => "Java")
   end
 end

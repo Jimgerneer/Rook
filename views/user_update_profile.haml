@@ -19,12 +19,12 @@
                  :id => "email:"}
           %label{:for => "skills_desired"} Skills I want to learn:
           %input{:type => "text", :name => "user_profile[skills_desired]",
-                 :placeholder => "Ruby, Java, TDD...",
+            :placeholder => "#{user.skills_desired.each { |skill| skill.name}}",
                  :id => "Skills Desired"}
-          %label{:for => "skills_aquired"} Skills I have:
-          %input{:type => "text", :name => "user_profile[skills_aquired]",
-                 :placeholder => "CLisp, PHP, Python",
-                 :id => "Skills Aquired"}
+          %label{:for => "skills_acquired"} Skills I have:
+          %input{:type => "text", :name => "user_profile[skills_acquired]",
+            :placeholder => "#{user.skills_acquired.each { |skill| "hello #{skill.name}"}}",
+                 :id => "Skills Acquired"}
           %label{:for => "bio"} Bio:
           %textarea{:name => "user_profile[bio]", 
                     :placeholder => "#{user.bio}", :id => "Bio:"}

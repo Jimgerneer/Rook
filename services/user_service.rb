@@ -7,11 +7,19 @@ class UserService
   end
 
   def self.update(id, data)
-    #data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    data = data.reject{ |k,v| v.empty? || v.nil? }
+    data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
     user = User.first("id" => id)
-    data = data.reject{ |k,v| v.empty? }
-    user.update(data.merge("skills_desired" => get_skill_objects(data["skills_desired"]),
-                           "skills_aquired" => get_skill_objects(data["skills_aquired"])))
+
+    if data.include? :skills_desired
+      data.merge!(:skills_desired => get_skill_objects(data[:skills_desired]))
+    end
+
+    if data.include? :skills_acquired
+      data.merge!(:skills_acquired => get_skill_objects(data[:skills_acquired]))
+    end
+
+    user.update(data)
   end
 
   def self.get_skill_objects(skills)

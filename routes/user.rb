@@ -28,6 +28,8 @@ class Rook < Sinatra::Base
   end
 
   post "/profile/update.:id" do |id|
+    params[:user_profile]["skills_desired"] = params[:user_profile].delete("skills_desired").split(/,\s*/)
+    params[:user_profile]["skills_aquired"] = params[:user_profile].delete("skills_aquired").split(/,\s*/)
     UserService.update(id, params[:user_profile])
     redirect "/user"
   end

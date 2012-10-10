@@ -23,13 +23,28 @@ describe UserService do
   describe "update method" do
 
     it "updates a user" do
-      data = {"first_name" => "Jim", "last_name" => "Denton", "bio" => "I am a sham"}
+      data = {"first_name" => "Jim",
+              "last_name" => "Denton",
+              "bio" => "I am a sham",
+              "skills_desired" => ["Ruby"],
+              "skills_aquired" => ["Java"] }
+      data_expected = {:first_name => "Jim",
+                       :last_name => "Denton",
+                       :bio => "I am s sham" }
 
       user = stub()
       User.stubs(:first).with("id" => 3).returns(user)
-      user.expects(:update).with(data)
+      user.expects(:update).with(data_expected.merge(:skills_desired => [skill_desired], :skills_aquired => [skill_aquired]))
 
       UserService.update(3, data)
     end
+  end
+
+  def skill_desired
+    Skill.new(:name => "Ruby")
+  end
+
+  def skill_aquired
+    Skill.new(:name => "Java")
   end
 end

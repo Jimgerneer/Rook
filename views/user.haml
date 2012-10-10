@@ -79,6 +79,12 @@
         %h4 Profile
         %h6 #{user.first_name} #{user.last_name}
         %h6 contact email: #{user.email}
+        %h6 skills I want:
+        - user.skills_desired.each do |skill|
+          %h7 #{skill.name}
+        %h6 skills I have:
+        - user.skills_aquired.each do |skill|
+          %h7 #{skill.name}
         %h6 current bio:
         %p #{user.bio}
         %a(href="/profile/update.#{user.id}")Update Profile

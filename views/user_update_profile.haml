@@ -17,6 +17,14 @@
           %input{:type => "text", :name => "user_profile[email]",
                  :placeholder => "#{user.email}",
                  :id => "email:"}
+          %label{:for => "skills_desired"} Skills I want to learn:
+          %input{:type => "text", :name => "user_profile[skills_desired]",
+                 :placeholder => "Ruby, Java, TDD...",
+                 :id => "Skills Desired"}
+          %label{:for => "skills_aquired"} Skills I have:
+          %input{:type => "text", :name => "user_profile[skills_aquired]",
+                 :placeholder => "CLisp, PHP, Python",
+                 :id => "Skills Aquired"}
           %label{:for => "bio"} Bio:
           %textarea{:name => "user_profile[bio]", 
                     :placeholder => "#{user.bio}", :id => "Bio:"}

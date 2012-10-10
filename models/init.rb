@@ -5,3 +5,6 @@ require_relative 'message'
 require_relative 'skill'
 require_relative 'opportunity_skill'
 require_relative 'gratitude'
+require_relative 'user_wanted_skill'
+require_relative 'user_skill'
+

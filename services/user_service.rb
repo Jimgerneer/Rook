@@ -20,6 +20,7 @@ class UserService
     end
 
     user.update(data)
+    return user
   end
 
   def self.get_skill_objects(skills)

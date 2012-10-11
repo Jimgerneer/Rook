@@ -3,15 +3,22 @@
     .span12
   .row-fluid
     .span6.offset2
-      %h2 Opportunity: #{opportunity.title}
-    .span6.offset2
-      %h4 Description: #{opportunity.description}
+      %h3 #{opportunity.title}
+  .row-fluid
+    .span1.offset2
+      %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar'}
+    .span6
+      %dl(class= 'dl-horizontal')
+        %dt Description:
+        %dd #{opportunity.description}
+        %dt Skills:
+        %dd #{opportunity.skills.map(&:name).join(", ")}
   .row-fluid
     .span12
     .span6.offset2
       %form{ :action => "/opportunity/contact.#{opportunity.id}", :method => "POST"}
         %fieldset
-          %label{:for => "title"} Send them a message:
+          %label{:for => "title"} Send #{opportunity.user.username} a message:
           %input{:type => "text", :placeholder => "Show your interest",
                  :name => "body", :id => "Message:"}
         %button{:type => "submit", :class => "btn"}Send

@@ -1,8 +1,8 @@
 class Message
   include DataMapper::Resource
 
-  property :id, Serial
-  property :body, String
+  property :id,           Serial
+  property :body,         Text,     :lazy => false
   property :created_at,   DateTime
   property :created_on,   Date
   property :updated_at,   DateTime

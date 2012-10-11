@@ -3,7 +3,7 @@ class Opportunity
 
   property :id,           Serial
   property :title,        String,   :required => true
-  property :description,  String,   :required => true
+  property :description,  Text,   :required => true, :lazy => false
   property :active,       Boolean,  :default=> true
   property :created_at,   DateTime
   property :created_on,   Date

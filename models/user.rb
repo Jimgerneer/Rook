@@ -22,7 +22,7 @@ class User
   #optional properties
   property :first_name, String, :required => false
   property :last_name, String, :required => false
-  property :bio, String, :required => false, :length => 150
+  property :bio, Text, :required => false, :lazy => false
 
   #associations
   has n, :opportunities

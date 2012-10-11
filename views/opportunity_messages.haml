@@ -18,16 +18,17 @@
               %th Message
           %tbody
             - @messages.each do |user_id, message|
-              %tr
-                %td= message.sender.username
-                %td= message.body.to_s
-                -if @op.booked_users.include? message.sender
+              - if user_id != current_user.id
+                %tr
+                  %td= message.sender.username
+                  %td= message.body.to_s
+                  -if @op.booked_users.include? message.sender
+                    %td
+                  -else
+                    %td
+                      %form{ :action => "/opportunity/book.#{opportunity.id}", :method => "POST"}
+                        - @user = message.sender.id
+                        %input{:name => "user", :type => "hidden", :value => @user}
+                        %button{:type => "submit", :class => "btn"}Book them
                   %td
-                -else
-                  %td
-                    %form{ :action => "/opportunity/book.#{opportunity.id}", :method => "POST"}
-                      - @user = message.sender.id
-                      %input{:name => "user", :type => "hidden", :value => @user}
-                      %button{:type => "submit", :class => "btn"}Book them
-                %td
-                  %a(href="/opportunity/conversation.#{opportunity.id}?user=#{message.sender.id}")Conversation
+                    %a(href="/opportunity/conversation.#{opportunity.id}?user=#{message.sender.id}")Conversation

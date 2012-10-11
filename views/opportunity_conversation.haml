@@ -16,59 +16,59 @@
   .row-fluid
     .span12
   .row-fuild
-    .span7.offset2
-      %h4 Messages:
-      .table
-        %table(class='table-striped')
-          %tbody
-            - @messages.each do |message|
-              - if message.recipient_id == current_user.id
-                %tr
-                  %td
-                    %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(message.sender.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{message.sender.id}"}
-                  %td= message.body
-              - elsif message.recipient_id == receiver.to_i
-                %tr
-                  %td
-                    %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user_id}"}
-                  %td= message.body
-          %tr
-            %td
-              %form{ :action => "/opportunity/send_message.#{opportunity.id}?user=#{@receiver}", :method => "POST"}
-                %input{type: 'hidden', name: 'page', value: 'conversation'}
-                - if current_user == opportunity.user
-                  %input{type: 'hidden', name: 'user_id', value: @receiver}
-                %fieldset
-                  %label{:for => "title"} message:
-                  %input{:type => "text", :placeholder => "reply here...",
-                         :name => "body", :id => "Message:"}
-                %button{:type => "submit", :class => "btn"}Reply
-    .span3
-      %h4 #{opportunity.user.username}
-      %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user.id}"}
-      %dl
-        %dt Name:
-        %dd #{opportunity.user.first_name} #{opportunity.user.last_name}
-        %dt Contact Email:
-        %dd #{opportunity.user.email}
-        %dt Skills I want:
-        %dd #{list_skills_desired(opportunity.user)}
-        %dt Skills I have:
-        %dd #{list_skills_acquired(opportunity.user)}
-        %dt Bio:
-        %dd #{opportunity.user.bio}
-
-    .span3.offset1
-      %h4 #{mentee.username}
-      %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(mentee.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{mentee.id}"}
-      %dl
-        %dt Name:
-        %dd #{mentee.first_name} #{mentee.last_name}
-        %dt Contact Email:
-        %dd #{mentee.email}
-        %dt Skills I want:
-        %dd #{list_skills_desired(mentee)}
-        %dt Skills I have:
-        %dd #{list_skills_acquired(mentee)}
-        %dt Bio:
-        %dd #{mentee.bio}
+    .span12
+      .span6.offset1
+        %h4 Messages:
+        .table
+          %table(class='table-striped')
+            %tbody
+              - @messages.each do |message|
+                - if message.recipient_id == current_user.id
+                  %tr
+                    %td
+                      %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(message.sender.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{message.sender.id}"}
+                    %td= message.body
+                - elsif message.recipient_id == receiver.to_i
+                  %tr
+                    %td
+                      %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(message.sender.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{message.sender.id}"}
+                    %td= message.body
+            %tr
+              %td
+                %form{ :action => "/opportunity/send_message.#{opportunity.id}?user=#{@receiver}", :method => "POST"}
+                  %input{type: 'hidden', name: 'page', value: 'conversation'}
+                  - if current_user == opportunity.user
+                    %input{type: 'hidden', name: 'user_id', value: @receiver}
+                  %fieldset
+                    %label{:for => "title"} message:
+                    %input{:type => "text", :placeholder => "reply here...",
+                           :name => "body", :id => "Message:"}
+                  %button{:type => "submit", :class => "btn"}Reply
+      .span2
+        %h4 #{opportunity.user.username}
+        %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user.id}"}
+        %dl
+          %dt Name:
+          %dd #{opportunity.user.first_name} #{opportunity.user.last_name}
+          %dt Contact Email:
+          %dd #{opportunity.user.email}
+          %dt Skills I want:
+          %dd #{list_skills_desired(opportunity.user)}
+          %dt Skills I have:
+          %dd #{list_skills_acquired(opportunity.user)}
+          %dt Bio:
+          %dd #{opportunity.user.bio}
+      .span2
+        %h4 #{mentee.username}
+        %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(mentee.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{mentee.id}"}
+        %dl
+          %dt Name:
+          %dd #{mentee.first_name} #{mentee.last_name}
+          %dt Contact Email:
+          %dd #{mentee.email}
+          %dt Skills I want:
+          %dd #{list_skills_desired(mentee)}
+          %dt Skills I have:
+          %dd #{list_skills_acquired(mentee)}
+          %dt Bio:
+          %dd #{mentee.bio}

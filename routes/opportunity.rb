@@ -25,11 +25,12 @@ class Rook < Sinatra::Base
     @op = Opportunity.first(:id => id )
     if @op.user == current_user
       @receiver = params[:user]
+      @mentee = User.first(:id => params[:user])
     else
       @receiver = @op.user.id
+      @mentee = User.first(:id => session[:user])
     end
     @messages = Message.all(:opportunity => @op)
-    @mentee = User.first(:id => params[:user])
     haml :opportunity_conversation, :locals => { :opportunity => @op, :receiver => @receiver, :mentee => @mentee }
   end
 
@@ -71,7 +72,7 @@ class Rook < Sinatra::Base
     recipient_id = params[:user_id] || opportunity.user.id
     data = {:recipient_id => recipient_id, :opportunity_id => id, :body => params[:body]}
     MessageService.create(sender, data)
-    if params[:paga] == 'conversation'
+    if params[:page] == 'conversation'
       redirect "/opportunity/conversation.#{opportunity.id}?user=#{recipient_id}"
     else
       redirect "/opportunity/vetting.#{opportunity.id}?user=#{recipient_id}"

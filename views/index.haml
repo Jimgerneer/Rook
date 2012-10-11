@@ -1,7 +1,7 @@
 .container-fluid
   .row-fluid
     .span12
-      .span10.offset2
+      .span7.offset2
         %h3 Available Opportunities
         .table
           %table(class='table-striped')
@@ -22,6 +22,7 @@
                   %td= opportunity.description
                   - if opportunity.user_id == session[:user]
                     %td
+                      %a(href="/opportunity/view.#{opportunity.id}")View
                   - else
                     %td
                       %a(href="/opportunity/contact.#{opportunity.id}")Contact

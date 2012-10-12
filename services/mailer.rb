@@ -26,13 +26,29 @@ class Mailer
 
   def self.welcome_message(username)
     %Q{
-      Welcome #{username},
+      Good news #{username},
 
-      For right now this is just a test email. Please ignore this message.
+      Your account has been activated for Rook Beta.
+
+      Rook has been my learning project for the last few months. But now, I want to make
+      it something useful to others. That is where beta testers like you come in. I want
+      to make rook valuable for people like you. People eager to learn, people with skills
+      to teach.
+
+      Please, log on and check it out. As you might have guessed, this is not the final
+      product. For example, right now I am working on getting a password reset working.
+      And I am looking into if I should use Faye to make messaging a bit more dynamic.
+      But the core of my inital idea works. In the coming weeks, I hope to get your
+      brutally honest feedback translated into working code.
+
+      I have set up a subreddit, www.reddit.com/r/rook to make posts about questions,
+      feature requests, and error reporting. I will also be posting updates on my
+      progress.
 
       Thank you,
 
-      Rook
+      Jim Denton
+      @DecoyDrone
     }
   end
 
@@ -40,7 +56,7 @@ class Mailer
     %Q{
       Thank you for signing up #{username},
 
-      Beta testing should start this week. You will recive an email when your account is active.
+      Beta testing is in progress. You will recive an email when your account is active.
 
       Thank you,
 

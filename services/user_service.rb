@@ -23,6 +23,17 @@ class UserService
     return user
   end
 
+  def self.activate_beta_user(users)
+    users.each do |user|
+      @user = User.first(:id => user.id)
+      if @user.activate! == true
+        Mailer.mail(@user, :welcome)
+      else
+        puts "#{user.username} wasn't saved"
+      end
+    end
+  end
+
   def self.get_skill_objects(skills)
     skills.inject([]) do |memo, name|
       memo << Skill.first_or_create(:name => name)

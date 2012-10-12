@@ -62,8 +62,14 @@ class Rook < Sinatra::Base
     author = User.first(:opportunities => Opportunity.all(:id => id))
     author_id = author.id
     data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
-    MessageService.create(sender, data)
-    redirect '/user'
+    message = MessageService.create(sender, data)
+    if message.valid?
+      flash[:info] = 'Message sent! Opportunity added to your page'
+      redirect '/user'
+    else
+      flash[:fatal] = message.errors.full_messages.join(", ")
+      redirect "/opportunity/contact.#{id}"
+    end
   end
 
   post '/opportunity/send_message.:id' do |id|
@@ -80,7 +86,6 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity/view.:id' do |id|
-    login_required
     @op = Opportunity.first(:id => id)
     @messages = Message.all(:sender_id => session[:user]) & Message.all(:sender_id => @op.user_id)
     haml :opportunity_views, :locals => { :title => @op.title, :opportunity => @op }
@@ -121,7 +126,7 @@ class Rook < Sinatra::Base
     login_required
     @op = Opportunity.first(:id => id)
     @op.update(:active => false)
-    redirect '/'
+    redirect '/user'
   end
 
   post '/opportunity' do
@@ -134,6 +139,13 @@ class Rook < Sinatra::Base
   post '/opportunity/book.:id' do |id|
     @booking = Booking.create!(:opportunity_id => id,
                               :user_id => params[:user])
-    redirect '/user'
+    user = User.first(:id => params[:user])
+    if @booking.valid?
+      flash[:info] = "#{user.username} has been booked! Message them here or contact them by email"
+      redirect "/opportunity/conversation.#{id}?user=#{params[:user]}"
+    else
+      flash[:fatal] = @booking.errors_full_messages.join(", ")
+      redirect "/opportunity/messages.#{id}"
+    end
   end
 end

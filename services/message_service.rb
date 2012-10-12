@@ -5,6 +5,7 @@ class MessageService
                 :opportunity_id => data[:opportunity_id].to_i,
                 :sender_id => sender.id,
                 :body => data[:body] }
-    Message.create(new_data)
+    message = Message.create(new_data)
+    return message
   end
 end

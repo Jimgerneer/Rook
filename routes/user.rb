@@ -66,6 +66,7 @@ class Rook < Sinatra::Base
     user = User.authenticate(params[:username], params[:password])
     if user
       session[:user] = user.id
+      flash[:info] = "Logged in"
       redirect_to_stored
     elsif 5 == session[:login_attempts]
       #future reset page

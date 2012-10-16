@@ -31,7 +31,9 @@ class Rook < Sinatra::Base
       @mentee = User.first(:id => session[:user])
     end
     @messages = Message.all(:opportunity => @op)
-    haml :opportunity_conversation, :locals => { :opportunity => @op, :receiver => @receiver, :mentee => @mentee }
+    haml :opportunity_conversation, :locals => { :opportunity => @op,
+                                                 :receiver => @receiver,
+                                                 :mentee => @mentee }
   end
 
   get '/opportunity/vetting.:id' do |id|

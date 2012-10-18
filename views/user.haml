@@ -6,11 +6,11 @@
       -if @user_opportunities.empty?
         .row-fluid
           .span6
-            %h2 Authored Opportunities
+            %h3 Authored Opportunities
         .row-fluid
-          .span4.offset7
-            %a(href="/opportunity")
-              %i(class="icon-plus , i-padding-top")Start one
+          .span4.offset6.span-add-padding
+            %i(class="icon-plus")
+              %a(href="/opportunity")Start one
         .row-fluid
           .span8.offset1
             .well
@@ -18,20 +18,20 @@
       -else
         .row-fluid
           .span6
-            %h2 Authored Opportunities
+            %h3 Authored Opportunities
       .row-fluid
         .span9
         - @user_opportunities.each do |opportunity|
           .row-fluid
             .span4.offset1
               %h4= opportunity.title
-            .span4.offset2
-              %a(href="/opportunity/edit.#{opportunity.id}")
-                %i(class="icon-edit , i-padding-top")Edit
-              %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")
-                %i(class="icon-ban-circle , i-padding-top")Delete
-              %a(href="/opportunity/messages.#{opportunity.id}")
-                %i(class="icon-envelope , i-padding-top")Messages
+            .span4.offset1.span-add-padding
+              %i(class="icon-edit")
+                %a(href="/opportunity/edit.#{opportunity.id}")Edit
+              %i(class="icon-ban-circle")
+                %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")Delete
+              %i(class="icon-envelope")
+                %a(href="/opportunity/messages.#{opportunity.id}")Messages
           .row-fluid
             .span8.offset1
               %dl(class= 'dl-horizontal , dl-no-margin')
@@ -44,7 +44,7 @@
       -unless @contacted_opportunities.empty?
         .row-fluid
           .span6
-            %h2 Contacted Opportunities
+            %h3 Contacted Opportunities
       .row-fluid
         .span9
         - @contacted_opportunities.each do |contacted_opportunity|
@@ -52,9 +52,9 @@
             .row-fluid
               .span4.offset1
                 %h4= contacted_opportunity.title
-              .span4.offset2
-                %a(href="/opportunity/vetting.#{contacted_opportunity.id}")
-                  %i(class="icon-comment , i-padding-top")Message
+              .span4.offset1.span-add-padding
+                %i(class="icon-comment , i-padding-top")
+                  %a(href="/opportunity/vetting.#{contacted_opportunity.id}")Message
             .row-fluid
               .span8.offset1
                 %dl(class= 'dl-horizontal , dl-no-margin')
@@ -69,11 +69,11 @@
       -if @booked_opportunities.empty?
         .row-fluid
           .span6
-            %h2 2Booked Opportunities
+            %h3 2Booked Opportunities
         .row-fluid
-          .span4.offset7
-            %a(href="/")
-              %i(class="icon-plus , i-padding-top")Start looking
+          .span4.offset6.span-add-padding
+            %i(class="icon-plus")
+              %a(href="/")Start looking
         .row-fluid
           .span8.offset1
             .well
@@ -81,21 +81,21 @@
       -else
         .row-fluid
           .span6
-            %h2 Booked Opportunities
+            %h3 Booked Opportunities
       .row-fluid
         .span9
         - @booked_opportunities.all(:active => true).each do |booked_opportunity|
           .row-fluid
             .span4.offset1
               %h4= booked_opportunity.title
-            .span4.offset2
-              %a(href="/opportunity/conversation.#{booked_opportunity.id}")
-                %i(class="icon-comment , i-padding-top")Conversation
+            .span4.offset1.span-add-padding
+              %i(class="icon-comment")
+                %a(href="/opportunity/conversation.#{booked_opportunity.id}")Conversation
               -if gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
-                %i(class="icon-ok , i-padding-top")Thanked
+                %i(class="icon-ok")Thanked
               -else
-                %a(href="/opportunity/thanks.#{booked_opportunity.id}")
-                  %i(class="icon-thumbs-up , i-padding-top")Thanks
+                %i(class="icon-thumbs-up")
+                  %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
           .row-fluid
             .span8.offset1
               %dl(class= 'dl-horizontal , dl-no-margin')
@@ -111,10 +111,11 @@
             .row-fluid
               .span4.offset1
                 %h4= booked_opportunity.title
-              .span4.offset1
-                %i(class="icon-exclamation-sign , i-paddin-top")="Closed, please leave #{booked_opportunity.user.username}"
-                %a(href="/opportunity/thanks.#{booked_opportunity.id}")
-                  %i(class="icon-thumbs-up , i-padding-top")Thanks
+              .span4.span-add-padding
+                %i(class="icon-exclamation-sign")
+                  %a="Closed, please leave #{booked_opportunity.user.username}"
+                %i(class="icon-thumbs-up")
+                  %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
             .row-fluid
               .span8.offset1
                 %dl(class= 'dl-horizontal , dl-no-margin')
@@ -127,7 +128,7 @@
                     %dd= booked_opportunity.description
     .span3
       .row-fluid
-        %h3 Hello, #{current_user.username} 
+        .span3
       .row-fluid
         .offset1
           %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(current_user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{current_user.id}"}
@@ -145,5 +146,6 @@
             %dt Bio:
             %dd #{user.bio}
       .row-fluid
-        %a(href="/profile/update.#{user.id}")
-          %i(class= "icon-file")Edit Profile
+        .offset1
+          %i(class= "icon-file")
+            %a(href="/profile/update.#{user.id}")Edit Profile

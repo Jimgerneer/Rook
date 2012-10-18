@@ -17,10 +17,10 @@
             - if logged_in?
               %ul.nav
                 %li
-                  %a{:href => '/opportunity'}Create
+                  %a{:href => '/user'}= current_user.username
                   %li{:class => "divider-vertical"}
                 %li
-                  %a{:href => '/user'}User
+                  %a{:href => '/opportunity'}Create
                   %li{:class => "divider-vertical"}
                 %li
                   %a{:href => '/logout'}Logout

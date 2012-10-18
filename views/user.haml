@@ -69,11 +69,15 @@
       -if @booked_opportunities.empty?
         .row-fluid
           .span6
-            %h2 Booked Opportunities
+            %h2 2Booked Opportunities
         .row-fluid
-          .span6.offset1
+          .span4.offset7
             %a(href="/")
-              %i(class="icon-plus")Nobody has booked you? Find an opportunity and contact them!
+              %i(class="icon-plus , i-padding-top")Start looking
+        .row-fluid
+          .span8.offset1
+            .well
+              %p You aren't booked for anything yet...
       -else
         .row-fluid
           .span6

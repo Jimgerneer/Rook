@@ -19,3 +19,13 @@ body {
 input {
   height: 25px !important;
 }
+
+.dl-no-margin {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.i-padding-top {
+  padding-top: 20px;
+}
+

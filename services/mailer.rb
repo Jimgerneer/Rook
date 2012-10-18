@@ -56,7 +56,7 @@ class Mailer
     %Q{
       Thank you for signing up #{username},
 
-      Beta testing is in progress. You will recive an email when your account is active.
+      Beta testing is in progress. You will receive  an email when your account is active.
 
       Thank you,
 

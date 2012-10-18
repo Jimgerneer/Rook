@@ -18,7 +18,7 @@ class Rook < Sinatra::Base
     login_required
     @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
     @booked_opportunities = current_user.booked_opportunities
-    @messaged_opportunities = Opportunity.all(:messages => { :sender => current_user })
+    @contacted_opportunities = Opportunity.all(:active => true, :messages => { :sender => current_user }) - Opportunity.all(:user => current_user)
     haml :user, :locals => { :user => current_user }
   end
 

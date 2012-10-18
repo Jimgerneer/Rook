@@ -41,8 +41,8 @@
                     %input{type: 'hidden', name: 'user_id', value: @receiver}
                   %fieldset
                     %label{:for => "title"} message:
-                    %input{:type => "textfield", :placeholder => "reply here...",
-                           :name => "body", :id => "Message:"}
+                    %textarea(rows="3"){:type => "text", :placeholder => "reply here...",
+                                        :name => "body", :id => "Message:"}
                   %button{:type => "submit", :class => "btn"}Reply
       .span2
         %h4 #{opportunity.user.username}

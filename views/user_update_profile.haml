@@ -8,24 +8,24 @@
           %legend Edit '#{user.username}'
           %label{:for => "first_name"} First Name:
           %input{:type => "text", :name => "user_profile[first_name]",
-                 :placeholder => "#{user.first_name}", :id => "First Name:"}
+                 :value => "#{user.first_name}", :id => "First Name:"}
           %label{:for => "last_name"} Last Name:
           %input{:type => "text", :name => "user_profile[last_name]",
-                 :placeholder => "#{user.last_name}",
+                 :value => "#{user.last_name}",
                  :id => "Last Name:"}
           %label{:for => "email"} Email:
           %input{:type => "text", :name => "user_profile[email]",
-                 :placeholder => "#{user.email}",
+                 :value => "#{user.email}",
                  :id => "email:"}
           %label{:for => "skills_desired"} Skills I want to learn:
           %input{:type => "text", :name => "user_profile[skills_desired]",
-                 :placeholder => list_skills_desired(user),
+                 :value => list_skills_desired(user),
                  :id => "Skills Desired"}
           %label{:for => "skills_acquired"} Skills I have:
           %input{:type => "text", :name => "user_profile[skills_acquired]",
-                 :placeholder => list_skills_acquired(user),
+                 :value => list_skills_acquired(user),
                  :id => "Skills Acquired"}
           %label{:for => "bio"} Bio:
           %textarea{:name => "user_profile[bio]", 
-                    :placeholder => "#{user.bio}", :id => "Bio:"}
+                    :value => "#{user.bio}", :id => "Bio:"}
         %button{:type => "submit", :class => "btn"}Submit

@@ -1,93 +1,145 @@
 .container-fluid
   .row-fluid
-    .span12
-      .span6.offset2
-        %h1 Hello, #{current_user.username} 
-        .table
-          %table{:class => 'table-striped'}
-            %thead
-              %tr(id="header")
-                %th(colspan="3")Authored Opportunities
-              %tr(id="titles")
-                %th Title
-                %th Skills
-                %th Description
-            %tbody
-              - @user_opportunities.each do |opportunity|
-                %tr
-                  %td= opportunity.title
-                  %td= opportunity.skills.map(&:name).join(", ")
-                  %td= opportunity.description
-                  %td
-                    %a(href="/opportunity/edit.#{opportunity.id}")Edit
-                    %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")Close
-                    %a(href="/opportunity/messages.#{opportunity.id}")Messages
-        .table
-          %table{:class => 'table-striped'}
-            %thead
-              %tr(id="header")
-                %th(colspan="3")Booked Opportunities
-              %tr(id="titles")
-                %th Title
-                %th Author
-                %th Skills
-                %th Description
-            %tbody
-              - @booked_opportunities.all(:active => true).each do |booked_opportunity|
-                %tr
-                  %td= booked_opportunity.title
-                  %td= booked_opportunity.user.username
-                  %td= booked_opportunity.skills.map(&:name).join(", ")
-                  %td= booked_opportunity.description
-                  %td
-                    %a(href="/opportunity/conversation.#{booked_opportunity.id}")Conversation
-                  %td
-                    - if gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
-                      %p -thanked
-                    - else
-                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
-              - @booked_opportunities.all(:active => false).each do |booked_opportunity|
-                - unless gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
-                  %tr
-                    %td= booked_opportunity.title
-                    %td= booked_opportunity.user.username
-                    %td= booked_opportunity.skills.map(&:name).join(", ")
-                    %td= booked_opportunity.description
-                    %td
-                      %a(href="opportunity/thanks.#{booked_opportunity.id}")Thanks
-        .table
-          %table{:class => 'table-striped'}
-            %thead
-              %tr(id="header")
-                %th(colspan="3")Contacted Opportunities
-              %tr(id="titles")
-                %th Title
-                %th Author
-                %th Skills
-                %th Description
-            %tbody
-              - @messaged_opportunities.all(:active => true).each do |messaged_opportunity|
-                - unless messaged_opportunity.booked_users.include?(current_user) || messaged_opportunity.user == current_user
-                  %tr
-                    %td= messaged_opportunity.title
-                    %td= messaged_opportunity.user.username
-                    %td= messaged_opportunity.skills.map(&:name).join(", ")
-                    %td= messaged_opportunity.description
-                    %td
-                      %a(href="/opportunity/vetting.#{messaged_opportunity.id}")View
-      .span3
-        %h4 Profile
-        %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(current_user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{current_user.id}"}
-        %dl
-          %dt Name:
-          %dd #{user.first_name} #{user.last_name}
-          %dt Contact Email:
-          %dd #{user.email}
-          %dt Skills I want:
-          %dd #{list_skills_desired(user)}
-          %dt Skills I have:
-          %dd #{list_skills_acquired(user)}
-          %dt Bio:
-          %dd #{user.bio}
-          %dt
-            %a(href="/profile/update.#{user.id}")Edit Profile
+    .span1
+    .span8
+      .row-fluid
+      -if @user_opportunities.empty?
+        .row-fluid
+          .span6
+            %h2 Authored Opportunities
+        .row-fluid
+          .span4.offset7
+            %a(href="/opportunity")
+              %i(class="icon-plus , i-padding-top")Start one
+        .row-fluid
+          .span8.offset1
+            .well
+              %p You don't have any active opportunities...
+      -else
+        .row-fluid
+          .span6
+            %h2 Authored Opportunities
+      .row-fluid
+        .span9
+        - @user_opportunities.each do |opportunity|
+          .row-fluid
+            .span4.offset1
+              %h4= opportunity.title
+            .span4.offset2
+              %a(href="/opportunity/edit.#{opportunity.id}")
+                %i(class="icon-edit , i-padding-top")Edit
+              %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")
+                %i(class="icon-ban-circle , i-padding-top")Delete
+              %a(href="/opportunity/messages.#{opportunity.id}")
+                %i(class="icon-envelope , i-padding-top")Messages
+          .row-fluid
+            .span8.offset1
+              %dl(class= 'dl-horizontal , dl-no-margin')
+                .well.well-small
+                  %dt Skills:
+                  %dd= opportunity.skills.map(&:name).join(", ")
+                  %dt Description:
+                  %dd= opportunity.description
+      .row-fluid
+      -unless @contacted_opportunities.empty?
+        .row-fluid
+          .span6
+            %h2 Contacted Opportunities
+      .row-fluid
+        .span9
+        - @contacted_opportunities.each do |contacted_opportunity|
+          - unless contacted_opportunity.booked_users.include?(current_user)
+            .row-fluid
+              .span4.offset1
+                %h4= contacted_opportunity.title
+              .span4.offset2
+                %a(href="/opportunity/vetting.#{contacted_opportunity.id}")
+                  %i(class="icon-comment , i-padding-top")Message
+            .row-fluid
+              .span8.offset1
+                %dl(class= 'dl-horizontal , dl-no-margin')
+                  .well.well-small
+                    %dt Author:
+                    %dd= contacted_opportunity.user.username
+                    %dt Skills:
+                    %dd= contacted_opportunity.skills.map(&:name).join(", ")
+                    %dt Description:
+                    %dd= contacted_opportunity.description
+      .row-fluid
+      -if @booked_opportunities.empty?
+        .row-fluid
+          .span6
+            %h2 Booked Opportunities
+        .row-fluid
+          .span6.offset1
+            %a(href="/")
+              %i(class="icon-plus")Nobody has booked you? Find an opportunity and contact them!
+      -else
+        .row-fluid
+          .span6
+            %h2 Booked Opportunities
+      .row-fluid
+        .span9
+        - @booked_opportunities.all(:active => true).each do |booked_opportunity|
+          .row-fluid
+            .span4.offset1
+              %h4= booked_opportunity.title
+            .span4.offset2
+              %a(href="/opportunity/conversation.#{booked_opportunity.id}")
+                %i(class="icon-comment , i-padding-top")Conversation
+              -if gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+                %i(class="icon-ok , i-padding-top")Thanked
+              -else
+                %a(href="/opportunity/thanks.#{booked_opportunity.id}")
+                  %i(class="icon-thumbs-up , i-padding-top")Thanks
+          .row-fluid
+            .span8.offset1
+              %dl(class= 'dl-horizontal , dl-no-margin')
+                .well.well-small
+                  %dt Author:
+                  %dd= booked_opportunity.user.username
+                  %dt Skills:
+                  %dd= booked_opportunity.skills.map(&:name).join(", ")
+                  %dt Description:
+                  %dd= booked_opportunity.description
+        - @booked_opportunities.all(:active => false).each do |booked_opportunity|
+          - unless gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+            .row-fluid
+              .span4.offset1
+                %h4= booked_opportunity.title
+              .span4.offset1
+                %i(class="icon-exclamation-sign , i-paddin-top")="Closed, please leave #{booked_opportunity.user.username}"
+                %a(href="/opportunity/thanks.#{booked_opportunity.id}")
+                  %i(class="icon-thumbs-up , i-padding-top")Thanks
+            .row-fluid
+              .span8.offset1
+                %dl(class= 'dl-horizontal , dl-no-margin')
+                  .well.well-small
+                    %dt Author:
+                    %dd= booked_opportunity.user.username
+                    %dt Skills:
+                    %dd= booked_opportunity.skills.map(&:name).join(", ")
+                    %dt Description:
+                    %dd= booked_opportunity.description
+    .span3
+      .row-fluid
+        %h3 Hello, #{current_user.username} 
+      .row-fluid
+        .offset1
+          %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(current_user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{current_user.id}"}
+      .row-fluid
+        .offset1
+          %dl
+            %dt Name:
+            %dd #{user.first_name} #{user.last_name}
+            %dt Contact Email:
+            %dd #{user.email}
+            %dt Skills I want:
+            %dd #{list_skills_desired(user)}
+            %dt Skills I have:
+            %dd #{list_skills_acquired(user)}
+            %dt Bio:
+            %dd #{user.bio}
+      .row-fluid
+        %a(href="/profile/update.#{user.id}")
+          %i(class= "icon-file")Edit Profile

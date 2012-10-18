@@ -1,0 +1,12 @@
+.row-fluid
+  .span8.offset1
+    %dl(class= 'dl-horizontal , dl-no-margin')
+      .well.well-small
+        %dt Author:
+        %dd= opportunity.user.username
+        %dt Skills:
+        %dd= opportunity.skills.map(&:name).join(", ")
+        %dt Description:
+        %dd= opportunity.description
+        %dt Created:
+        %dd= formatted_timestamp(opportunity)

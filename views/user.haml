@@ -32,14 +32,7 @@
                 %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")Delete
               %i(class="icon-envelope")
                 %a(href="/opportunity/messages.#{opportunity.id}")Messages
-          .row-fluid
-            .span8.offset1
-              %dl(class= 'dl-horizontal , dl-no-margin')
-                .well.well-small
-                  %dt Skills:
-                  %dd= opportunity.skills.map(&:name).join(", ")
-                  %dt Description:
-                  %dd= opportunity.description
+          = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
       .row-fluid
       -unless @contacted_opportunities.empty?
         .row-fluid
@@ -47,24 +40,15 @@
             %h3 Contacted Opportunities
       .row-fluid
         .span9
-        - @contacted_opportunities.each do |contacted_opportunity|
-          - unless contacted_opportunity.booked_users.include?(current_user)
+        - @contacted_opportunities.each do |opportunity|
+          - unless opportunity.booked_users.include?(current_user)
             .row-fluid
               .span4.offset1
-                %h4= contacted_opportunity.title
+                %h4= opportunity.title
               .span4.offset1.span-add-padding
                 %i(class="icon-comment , i-padding-top")
-                  %a(href="/opportunity/vetting.#{contacted_opportunity.id}")Message
-            .row-fluid
-              .span8.offset1
-                %dl(class= 'dl-horizontal , dl-no-margin')
-                  .well.well-small
-                    %dt Author:
-                    %dd= contacted_opportunity.user.username
-                    %dt Skills:
-                    %dd= contacted_opportunity.skills.map(&:name).join(", ")
-                    %dt Description:
-                    %dd= contacted_opportunity.description
+                  %a(href="/opportunity/vetting.#{opportunity.id}")Message
+            = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
       .row-fluid
       -if @booked_opportunities.empty?
         .row-fluid
@@ -84,67 +68,34 @@
             %h3 Booked Opportunities
       .row-fluid
         .span9
-        - @booked_opportunities.all(:active => true).each do |booked_opportunity|
+        - @booked_opportunities.all(:active => true).each do |opportunity|
           .row-fluid
             .span4.offset1
-              %h4= booked_opportunity.title
+              %h4= opportunity.title
             .span4.offset1.span-add-padding
               %i(class="icon-comment")
-                %a(href="/opportunity/conversation.#{booked_opportunity.id}")Conversation
-              -if gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+                %a(href="/opportunity/conversation.#{opportunity.id}")Conversation
+              -if gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
                 %i(class="icon-ok")Thanked
               -else
                 %i(class="icon-thumbs-up")
-                  %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
-          .row-fluid
-            .span8.offset1
-              %dl(class= 'dl-horizontal , dl-no-margin')
-                .well.well-small
-                  %dt Author:
-                  %dd= booked_opportunity.user.username
-                  %dt Skills:
-                  %dd= booked_opportunity.skills.map(&:name).join(", ")
-                  %dt Description:
-                  %dd= booked_opportunity.description
-        - @booked_opportunities.all(:active => false).each do |booked_opportunity|
-          - unless gratz = booked_opportunity.gratitudes.first(:sender_id => current_user.id)
+                  %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
+          = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
+        - @booked_opportunities.all(:active => false).each do |opportunity|
+          - unless gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
             .row-fluid
               .span4.offset1
-                %h4= booked_opportunity.title
+                %h4= opportunity.title
               .span4.span-add-padding
                 %i(class="icon-exclamation-sign")
-                  %a="Closed, please leave #{booked_opportunity.user.username}"
+                  %a="Closed, please leave #{opportunity.user.username}"
                 %i(class="icon-thumbs-up")
-                  %a(href="/opportunity/thanks.#{booked_opportunity.id}")Thanks
-            .row-fluid
-              .span8.offset1
-                %dl(class= 'dl-horizontal , dl-no-margin')
-                  .well.well-small
-                    %dt Author:
-                    %dd= booked_opportunity.user.username
-                    %dt Skills:
-                    %dd= booked_opportunity.skills.map(&:name).join(", ")
-                    %dt Description:
-                    %dd= booked_opportunity.description
+                  %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
+            = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
     .span3
       .row-fluid
         .span3
-      .row-fluid
-        .offset1
-          %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(current_user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{current_user.id}"}
-      .row-fluid
-        .offset1
-          %dl
-            %dt Name:
-            %dd #{user.first_name} #{user.last_name}
-            %dt Contact Email:
-            %dd #{user.email}
-            %dt Skills I want:
-            %dd #{list_skills_desired(user)}
-            %dt Skills I have:
-            %dd #{list_skills_acquired(user)}
-            %dt Bio:
-            %dd #{user.bio}
+      = haml :user_profile_partial, :layout => false, :locals => { :user => current_user }
       .row-fluid
         .offset1
           %i(class= "icon-file")

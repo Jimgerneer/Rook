@@ -129,6 +129,10 @@ class Rook < Sinatra::Base
       desired_skills.join(", ")
     end
 
+    def formatted_timestamp(object)
+      object.created_at
+    end
+
     alias_method :logged_in?, :current_user
   end
 end

@@ -1,102 +1,12 @@
 .container-fluid
   .row-fluid
-    .span1
-    .span8
+    .span12
+  .row-fluid
+    .span2.offset1
+      = haml :update_user_partial, :layout => false, :locals => { :user => current_user }
+    .span5.offset1
       .row-fluid
-      -if @user_opportunities.empty?
-        .row-fluid
-          .span6
-            %h3 Authored Opportunities
-        .row-fluid
-          .span4.offset6.span-add-padding
-            %i(class="icon-plus")
-              %a(href="/opportunity")Start one
-        .row-fluid
-          .span8.offset1
-            .well
-              %p You don't have any active opportunities...
-      -else
-        .row-fluid
-          .span6
-            %h3 Authored Opportunities
+        .span5
       .row-fluid
-        .span9
-        - @user_opportunities.each do |opportunity|
-          .row-fluid
-            .span4.offset1
-              %h4= opportunity.title
-            .span4.offset1.span-add-padding
-              %i(class="icon-edit")
-                %a(href="/opportunity/edit.#{opportunity.id}")Edit
-              %i(class="icon-ban-circle")
-                %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")Delete
-              %i(class="icon-envelope")
-                %a(href="/opportunity/messages.#{opportunity.id}")Messages
-          = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
-      .row-fluid
-      -unless @contacted_opportunities.empty?
-        .row-fluid
-          .span6
-            %h3 Contacted Opportunities
-      .row-fluid
-        .span9
-        - @contacted_opportunities.each do |opportunity|
-          - unless opportunity.booked_users.include?(current_user)
-            .row-fluid
-              .span4.offset1
-                %h4= opportunity.title
-              .span4.offset1.span-add-padding
-                %i(class="icon-comment , i-padding-top")
-                  %a(href="/opportunity/vetting.#{opportunity.id}")Message
-            = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
-      .row-fluid
-      -if @booked_opportunities.empty?
-        .row-fluid
-          .span6
-            %h3 Booked Opportunities
-        .row-fluid
-          .span4.offset6.span-add-padding
-            %i(class="icon-plus")
-              %a(href="/")Start looking
-        .row-fluid
-          .span8.offset1
-            .well
-              %p You aren't booked for anything yet...
-      -else
-        .row-fluid
-          .span6
-            %h3 Booked Opportunities
-      .row-fluid
-        .span9
-        - @booked_opportunities.all(:active => true).each do |opportunity|
-          .row-fluid
-            .span4.offset1
-              %h4= opportunity.title
-            .span4.offset1.span-add-padding
-              %i(class="icon-comment")
-                %a(href="/opportunity/conversation.#{opportunity.id}")Conversation
-              -if gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
-                %i(class="icon-ok")Thanked
-              -else
-                %i(class="icon-thumbs-up")
-                  %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
-          = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
-        - @booked_opportunities.all(:active => false).each do |opportunity|
-          - unless gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
-            .row-fluid
-              .span4.offset1
-                %h4= opportunity.title
-              .span4.span-add-padding
-                %i(class="icon-exclamation-sign")
-                  %a="Closed, please leave #{opportunity.user.username}"
-                %i(class="icon-thumbs-up")
-                  %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
-            = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
-    .span3
-      .row-fluid
-        .span3
-      = haml :user_profile_partial, :layout => false, :locals => { :user => current_user }
-      .row-fluid
-        .offset1
-          %i(class= "icon-file")
-            %a(href="/profile/update.#{user.id}")Edit Profile
+        .span5
+          = haml :user_profile_partial, :layout => false, :locals => { :user => current_user }

@@ -1,0 +1,22 @@
+-if @contacted_opportunities.empty?
+  .row-fluid
+    .span6
+      %h3 Contacted Opportunities
+  .row-fluid
+    .span6
+      %p You haven't contacted anyone or they have booked you...
+-else
+  .row-fluid
+    .span6
+      %h3 Contacted Opportunities
+.row-fluid
+  .span9
+  - @contacted_opportunities.each do |opportunity|
+    - unless opportunity.booked_users.include?(current_user)
+      .row-fluid
+        .span4.offset1
+          %h4= opportunity.title
+        .span4.offset1.span-add-padding
+          %i(class="icon-comment , i-padding-top")
+            %a(href="/opportunity/vetting.#{opportunity.id}")Message
+      = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }

@@ -1,0 +1,16 @@
+.row-fluid
+  .span6
+    %h3 Recent Opportunities
+.row-fluid
+  .span9
+  - @opportunities.each do |opportunity|
+    .row-fluid
+      .span4.offset1
+        %h4= opportunity.title
+      .span4.offset2.span-add-padding
+        %i(class="icon-file")
+          %a(href="/opportunity/view.#{opportunity.id}")View
+        -if opportunity.user_id != session[:user]
+          %i(class="icon-comment")
+            %a(href="/opportunity/contact.#{opportunity.id}")Contact
+    = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }

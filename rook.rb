@@ -21,6 +21,7 @@ class Rook  < Sinatra::Base
     connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
     #puts connection_string
     DataMapper.setup(:default, connection_string)
+    enable :logging
   end
 
   configure :production do

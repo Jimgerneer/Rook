@@ -4,7 +4,19 @@ require_relative 'routes_helper'
 class Rook < Sinatra::Base
 
   get '/' do
+    if logged_in?
+      @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
+      @booked_opportunities = current_user.booked_opportunities
+      @contacted_opportunities = Opportunity.all(:active => true, :messages => { :sender => current_user }) - Opportunity.all(:user => current_user)
+    end
+    pass unless request.xhr?
+      @content = false
+      haml params[:subview].to_sym, :layout => false
+  end
+
+  get '/' do
     @opportunities = Opportunity.paginate(:active => true, :page => params[:page], :per_page => 10)
+    @content = true
     haml :index
   end
 
@@ -66,8 +78,8 @@ class Rook < Sinatra::Base
     data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
     message = MessageService.create(sender, data)
     if message.valid?
-      flash[:info] = 'Message sent! Opportunity added to your page'
-      redirect '/user'
+      flash[:info] = 'Message sent! Opportunity added'
+      redirect '/'
     else
       flash[:fatal] = message.errors.full_messages.join(", ")
       redirect "/opportunity/contact.#{id}"
@@ -115,7 +127,7 @@ class Rook < Sinatra::Base
   post '/opportunity/thanks.:id' do |id|
     opportunity_id = id
     OpportunityService.thank(session[:user], opportunity_id, params[:thanks])
-    redirect '/user'
+    redirect '/'
   end
 
   get '/opportunity/confirm_deactivate.:id' do |id|
@@ -128,14 +140,14 @@ class Rook < Sinatra::Base
     login_required
     @op = Opportunity.first(:id => id)
     @op.update(:active => false)
-    redirect '/user'
+    redirect '/'
   end
 
   post '/opportunity' do
     #transforms comma seperated string into array of strings
     params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
     @opportunity = OpportunityService.create(current_user, params[:opportunity])
-    redirect "/user"
+    redirect "/"
   end 
 
   post '/opportunity/book.:id' do |id|

@@ -5,25 +5,22 @@
     .span1
     .span10
       .row-fluid
-      - @opportunities.each do |opportunity|
-        .row-fluid
-          .span4.offset1
-            %h4= opportunity.title
-          .span4.offset2.span-add-padding
-            %i(class="icon-file")
-              %a(href="/opportunity/view.#{opportunity.id}")View
-            -if opportunity.user_id != current_user.id
-              %i(class="icon-comment")
-                %a(href="/opportunity/contact.#{opportunity.id}")Contact
-        .row-fluid
-          .span1
-            %img{:src => "http://www.gravatar.com/avatar.php?gravatar_id=#{Digest::MD5::hexdigest(opportunity.user.email)}", :alt => 'Avatar', :class => 'avatar', :value => "#{opportunity.user_id}"}
-          .span8
-            %dl(class= 'dl-horizontal , dl-no-margin')
-              .well.well-small
-                %dt Skills:
-                %dd= opportunity.skills.map(&:name).join(", ")
-                %dt Description:
-                %dd= opportunity.description
-      .pagination.pagination-left
-        = will_paginate @opportunities
+        .span12.content-nav
+          .span3.offset1
+            %ul(class="nav nav-pills")
+              %li
+                %a(href='/')All
+              %li
+                %a(href='/opportunity')Create
+          -if logged_in?
+            #user-nav.span8
+              %ul(class="nav nav-pills")
+                %li
+                  %a(href='/?subview=authored_partial')Authored
+                %li
+                  %a(href='/?subview=booked_partial')Booked
+                %li
+                  %a(href='/?subview=contacted_partial')Contacted
+      #page-content.row-fluid
+        -if @content == true
+          = haml :all_partial, :layout => false

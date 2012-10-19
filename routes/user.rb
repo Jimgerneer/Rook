@@ -16,15 +16,7 @@ class Rook < Sinatra::Base
 
   get "/user" do
     login_required
-    @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
-    @booked_opportunities = current_user.booked_opportunities
-    @contacted_opportunities = Opportunity.all(:active => true, :messages => { :sender => current_user }) - Opportunity.all(:user => current_user)
     haml :user, :locals => { :user => current_user }
-  end
-
-  get "/profile/update.:id" do |id|
-    login_required
-    haml :user_update_profile, :locals => { :user => current_user }
   end
 
   post "/profile/update.:id" do |id|

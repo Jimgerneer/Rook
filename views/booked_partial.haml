@@ -1,0 +1,42 @@
+-if @booked_opportunities.empty?
+  .row-fluid
+    .span6
+      %h3 Booked Opportunities
+  .row-fluid
+    .span4.offset6.span-add-padding
+      %i(class="icon-plus")
+        %a(href="/")Start looking
+  .row-fluid
+    .span8.offset1
+      .well
+        %p You aren't booked for anything yet...
+-else
+  .row-fluid
+    .span6
+      %h3 Booked Opportunities
+.row-fluid
+  .span9
+  - @booked_opportunities.all(:active => true).each do |opportunity|
+    .row-fluid
+      .span4.offset1
+        %h4= opportunity.title
+      .span4.offset2.span-add-padding
+        %i(class="icon-comment")
+          %a(href="/opportunity/conversation.#{opportunity.id}")Conversation
+        -if gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
+          %i(class="icon-ok")Thanked
+        -else
+          %i(class="icon-thumbs-up")
+            %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
+    = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }
+  - @booked_opportunities.all(:active => false).each do |opportunity|
+    - unless gratz = opportunity.gratitudes.first(:sender_id => current_user.id)
+      .row-fluid
+        .span4.offset1
+          %h4= opportunity.title
+        .span4.offset2.span-add-padding
+          %i(class="icon-exclamation-sign")
+            %a="Closed, please leave #{opportunity.user.username}"
+          %i(class="icon-thumbs-up")
+            %a(href="/opportunity/thanks.#{opportunity.id}")Thanks
+      = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }

@@ -1,0 +1,30 @@
+-if @user_opportunities.empty?
+  .row-fluid
+    .span6
+      %h3 Authored Opportunities
+  .row-fluid
+    .span4.offset6.span-add-padding
+      %i(class="icon-plus")
+        %a(href="/opportunity")Start one
+  .row-fluid
+    .span8.offset1
+      .well
+        %p You don't have any active opportunities...
+-else
+  .row-fluid
+    .span6
+      %h3 Authored Opportunities
+.row-fluid
+  .span9
+  - @user_opportunities.each do |opportunity|
+    .row-fluid
+      .span4.offset1
+        %h4= opportunity.title
+      .span4.offset2.span-add-padding
+        %i(class="icon-edit")
+          %a(href="/opportunity/edit.#{opportunity.id}")Edit
+        %i(class="icon-ban-circle")
+          %a(href="/opportunity/confirm_deactivate.#{opportunity.id}")Delete
+        %i(class="icon-envelope")
+          %a(href="/opportunity/messages.#{opportunity.id}")Messages
+    = haml :opportunity_content_partial, :layout => false, :locals => { :opportunity => opportunity }

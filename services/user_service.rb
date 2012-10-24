@@ -23,6 +23,24 @@ class UserService
     return user
   end
 
+  def self.request_password_reset(email)
+    user = User.first(:email => email)
+    if ! user.nil?
+      user.generate_token
+      user.save!
+      Mailer.mail(user, :password_reset)
+    end
+  end
+
+  def self.password_reset(user_id, password, password_confirmation)
+    user = User.first(:id => user_id)
+    user.password = password
+    user.password_confirmation = password
+    user.remove_token!
+    user.save
+    user
+  end
+
   def self.activate_beta_user(users)
     users.each do |user|
       @user = User.first(:id => user.id)

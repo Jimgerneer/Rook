@@ -23,6 +23,7 @@ class User
   property :first_name,        String,     :required => false
   property :last_name,         String,     :required => false
   property :bio,               Text,       :required => false,     :lazy => false
+  property :reset_token,       String,     :required => false,     :writer => :protected
 
   #associations
   has n,  :opportunities
@@ -67,6 +68,14 @@ class User
     @password = pass
     self.salt = (1..12).map{(rand(26)+65).chr}.join if !self.salt
     self.hashed_password = self.class.encrypt(@password, self.salt)
+  end
+
+  def generate_token
+    self.reset_token = (1..30).map{(rand(26)+65).chr}.join
+  end
+
+  def remove_token!
+    self.reset_token = nil
   end
 
   def has_password?

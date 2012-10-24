@@ -20,6 +20,7 @@ class Mailer
     when :welcome then welcome_message(user.username)
     when :beta_welcome then beta_welcome(user.username)
     when :beta_activated then beta_activated(user.username)
+    when :password_reset then password_reset(user.reset_token)
     end
   end
 
@@ -72,6 +73,15 @@ class Mailer
       Your account is activated!
 
       Please - - -
+    }
+  end
+
+  def self.password_reset(token)
+    %Q{
+
+      Please click the link to reset your password:
+
+        www.rookery.co/password_reset.#{token}
     }
   end
 

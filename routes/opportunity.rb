@@ -45,7 +45,7 @@ class Rook < Sinatra::Base
       @mentee = User.first(:id => session[:user])
     end
     @messages = Message.all(:opportunity => @op)
-    @messages_unviewed = Message.all(:opportunity => @op, :recipient_id => current_user.id, :viewed => false)
+    @messages_unviewed = Message.all(:opportunity => @op, :sender_id => @receiver, :recipient_id => current_user.id, :viewed => false)
     haml :opportunity_conversation, :locals => { :opportunity => @op,
                                                  :receiver => @receiver,
                                                  :mentee => @mentee }
@@ -64,7 +64,7 @@ class Rook < Sinatra::Base
       @receiver = @op.user.id
     end
     @messages = Message.all(:opportunity => @op)
-    @messages_unviewed = Message.all(:opportunity => @op, :recipient_id => current_user.id, :viewed => false)
+    @messages_unviewed = Message.all(:opportunity => @op, :sender_id => @reciever, :recipient_id => current_user.id, :viewed => false)
     haml :opportunity_vetting, :locals => { :opportunity => @op, :receiver => @receiver }
   end
 
@@ -90,7 +90,7 @@ class Rook < Sinatra::Base
     data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
     message = MessageService.create(sender, data)
     if message.valid?
-      flash[:info] = 'Message sent! Opportunity added'
+      flash[:info] = "Message sent! Opportunity added to 'Contacted'"
       redirect '/'
     else
       flash[:fatal] = message.errors.full_messages.join(", ")

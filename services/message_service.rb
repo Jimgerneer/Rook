@@ -8,4 +8,13 @@ class MessageService
     message = Message.create(new_data)
     return message
   end
+
+  def self.set_to_viewed(messages)
+    messages.each do |message|
+      if message.viewed == false
+        @message = Message.first(:id => message.id)
+        @message.viewed!
+      end
+    end
+  end
 end

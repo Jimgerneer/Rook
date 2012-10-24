@@ -5,6 +5,7 @@ class Rook < Sinatra::Base
 
   get '/' do
     if logged_in?
+      check_for_messages
       @user_opportunities = Opportunity.all(:user_id => session[:user], :active => true)
       @booked_opportunities = current_user.booked_opportunities
       @contacted_opportunities = Opportunity.all(:active => true, :messages => { :sender => current_user }) - Opportunity.all(:user => current_user)
@@ -26,6 +27,7 @@ class Rook < Sinatra::Base
   end
 
   get '/opportunity/messages.:id' do |id|
+    check_for_messages
     login_required
     @op = Opportunity.first(:id => id)
     @messages = @op.recent_messages
@@ -43,9 +45,14 @@ class Rook < Sinatra::Base
       @mentee = User.first(:id => session[:user])
     end
     @messages = Message.all(:opportunity => @op)
+    @messages_unviewed = Message.all(:opportunity => @op, :recipient_id => current_user.id, :viewed => false)
     haml :opportunity_conversation, :locals => { :opportunity => @op,
                                                  :receiver => @receiver,
                                                  :mentee => @mentee }
+  end
+
+  after '/opportunity/conversation.:id' do
+    MessageService.set_to_viewed(@messages_unviewed)
   end
 
   get '/opportunity/vetting.:id' do |id|
@@ -57,7 +64,12 @@ class Rook < Sinatra::Base
       @receiver = @op.user.id
     end
     @messages = Message.all(:opportunity => @op)
+    @messages_unviewed = Message.all(:opportunity => @op, :recipient_id => current_user.id, :viewed => false)
     haml :opportunity_vetting, :locals => { :opportunity => @op, :receiver => @receiver }
+  end
+
+  after '/opportunity/vetting.:id' do
+    MessageService.set_to_viewed(@messages_unviewed)
   end
 
   get '/opportunity/contact.:id' do |id|
@@ -147,6 +159,7 @@ class Rook < Sinatra::Base
     #transforms comma seperated string into array of strings
     params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
     @opportunity = OpportunityService.create(current_user, params[:opportunity])
+    flash[:info] = "Opportunity created!"
     redirect "/"
   end 
 

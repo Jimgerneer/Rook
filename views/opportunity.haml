@@ -6,12 +6,12 @@
       %fieldset
         %legend Create an Opportunity
         %label{:for => "title"} Title:
-        %input{:type => "text", :placeholder => "Title", 
-               :name => "opportunity[title]", :value => @title, :id => 'title'}
+        %input{:type => "text", :placeholder => "Title",
+               :name => "opportunity[title]", :id => 'title'}
         %label{:for => "skills"} Skills:
         %input{:type => "text", :placeholder => "Ruby, Javascript, TDD...",
-               :name => "opportunity[skills]", :value => @skills, :id => 'skills'}
+               :name => "opportunity[skills]", :id => 'skills'}
         %label{:for => "desc"} Description:
-        %textarea{:name => "opportunity[description]", :placeholder => "What do you want to work on?", 
-                  :value => @description, :id => 'desc'}
+        %textarea{:name => "opportunity[description]", :placeholder => "What do you want to work on?",
+                  :id => 'desc'}
       %button{:type => "submit", :class => "btn"}Submit

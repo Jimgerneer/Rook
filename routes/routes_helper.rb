@@ -14,11 +14,27 @@ class Rook < Sinatra::Base
     end
 
     def current_user
-      User.get(session[:user])
+      @current_user ||= User.get(session[:user])
     end
 
     def logged_in?
       ! session[:user].nil?
+    end
+
+    def check_for_messages
+      @message_unviewed = Message.all(:recipient_id => current_user.id, :viewed => false, :opportunity => Opportunity.all(:active => true))
+      if @message_unviewed != []
+        flash.now[:warning] = 'You have unread messages'
+      end
+    end
+
+    def unread_messages?
+      messages = Message.all(:recipient_id => current_user.id, :viewed => false)
+      if messages == []
+        false
+      else
+        true
+      end
     end
 
     def redirect_to_stored
@@ -29,5 +45,27 @@ class Rook < Sinatra::Base
         redirect '/'
       end
     end
+
+    def list_skills_acquired(user)
+      acquired_skills = []
+      user.skills_acquired.each do |skill|
+        acquired_skills << skill.name
+      end
+      acquired_skills.join(", ")
+    end
+
+    def list_skills_desired(user)
+      desired_skills = []
+      user.skills_desired.each do |skill|
+        desired_skills << skill.name
+      end
+      desired_skills.join(", ")
+    end
+
+    def formatted_timestamp(object)
+      object.created_at
+    end
+
+    alias_method :logged_in?, :current_user
   end
 end

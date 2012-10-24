@@ -1,5 +1,5 @@
 body {
-  padding-top: 100px;
+  padding-top: 125px;
   padding-bottom: 40px;
 }
 
@@ -9,7 +9,7 @@ body {
 
 #flash {
   position: absolute;
-  margin-left: 100;
+  margin-left: 20;
 }
 
 #main {

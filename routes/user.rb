@@ -98,33 +98,4 @@ class Rook < Sinatra::Base
       redirect "/beta"
     end
   end
-
-  helpers do
-
-    def current_user
-      @current_user ||= User.first(:id => session[:user])
-    end
-
-    def list_skills_acquired(user)
-      acquired_skills = []
-      user.skills_acquired.each do |skill|
-        acquired_skills << skill.name
-      end
-      acquired_skills.join(", ")
-    end
-
-    def list_skills_desired(user)
-      desired_skills = []
-      user.skills_desired.each do |skill|
-        desired_skills << skill.name
-      end
-      desired_skills.join(", ")
-    end
-
-    def formatted_timestamp(object)
-      object.created_at
-    end
-
-    alias_method :logged_in?, :current_user
-  end
 end

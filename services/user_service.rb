@@ -29,7 +29,7 @@ class UserService
       if @user.activate! == true
         Mailer.mail(@user, :welcome)
       else
-        puts "#{user.username} wasn't saved"
+        puts "#{user.username} wasn't activated"
       end
     end
   end

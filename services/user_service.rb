@@ -30,7 +30,7 @@ class UserService
       user.save!
       Mailer.mail(user, :password_reset)
     end
-    user
+    return user
   end
 
   def self.password_reset(user_id, password, password_confirmation)
@@ -39,7 +39,7 @@ class UserService
     user.password_confirmation = password
     user.remove_token!
     user.save
-    user
+    return user
   end
 
   def self.activate_beta_user(users)

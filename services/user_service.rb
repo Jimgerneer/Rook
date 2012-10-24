@@ -30,6 +30,7 @@ class UserService
       user.save!
       Mailer.mail(user, :password_reset)
     end
+    user
   end
 
   def self.password_reset(user_id, password, password_confirmation)

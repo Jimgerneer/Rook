@@ -47,9 +47,14 @@ class Rook < Sinatra::Base
   end
 
   post '/request_password_reset' do
-    UserService.request_password_reset(params[:email])
-    flash.now[:info] = "Email has been sent"
-    redirect '/'
+    user = UserService.request_password_reset(params[:email])
+    if user.nil?
+      flash[:fatal] = "Did you use the correct email?"
+      redirect '/request_password_reset'
+    else
+      flash[:info] = "Email has been sent"
+      redirect '/'
+    end
   end
 
   get '/password_reset.:token' do |token|

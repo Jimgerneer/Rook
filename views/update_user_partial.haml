@@ -3,14 +3,14 @@
     %legend Edit '#{user.username}'
     %label{:for => "first_name"} First Name:
     %input{:type => "text", :name => "user_profile[first_name]",
-           :value => "#{user.first_name}", :id => "First Name:"}
+           :value => user.first_name, :id => "First Name:"}
     %label{:for => "last_name"} Last Name:
     %input{:type => "text", :name => "user_profile[last_name]",
-           :value => "#{user.last_name}",
+           :value => user.last_name,
            :id => "Last Name:"}
     %label{:for => "email"} Email:
     %input{:type => "text", :name => "user_profile[email]",
-           :value => "#{user.email}",
+           :value => user.email,
            :id => "email:"}
     %label{:for => "skills_desired"} Skills I want to learn:
     %input{:type => "text", :name => "user_profile[skills_desired]",
@@ -21,6 +21,6 @@
            :value => list_skills_acquired(user),
            :id => "Skills Acquired"}
     %label{:for => "bio"} Bio:
-    %textarea{:name => "user_profile[bio]", 
-              :value => "#{user.bio}", :id => "Bio:"}
+    %textarea{:name => "user_profile[bio]",
+               :id => "Bio:"}= user.bio
   %button{:type => "submit", :class => "btn"}Submit

@@ -8,12 +8,12 @@
           %legend Edit '#{opportunity.title}'
           %label{:for => "title"} Title:
           %input{:type => "text", :name => "opportunity[title]",
-                 :value => "#{opportunity.title}", :id => "Title:"}
+                 :value => opportunity.title, :id => "Title:"}
           %label{:for => "skills"} Skills:
           %input{:type => "text", :name => "opportunity[skills]",
-                 :value => "#{opportunity.skills.map(&:name).join(", ")}",
+                 :value => opportunity.skills.map(&:name).join(", "),
                  :id => "Skills:"}
           %label{:for => "description"} Description:
           %textarea{:name => "opportunity[description]",
-                    :value => "#{opportunity.description}", :id => "Description:"}
+                    :id => "Description:"}= opportunity.description
         %button{:type => "submit", :class => "btn"}Submit

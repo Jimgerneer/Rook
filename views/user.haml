@@ -10,3 +10,5 @@
       .row-fluid
         .span5
           = haml :user_profile_partial, :layout => false, :locals => { :user => current_user }
+    .span3
+      = haml :update_password_partial, :layout => false, :locals => { :user => current_user }

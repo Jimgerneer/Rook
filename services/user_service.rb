@@ -36,10 +36,26 @@ class UserService
   def self.password_reset(user_id, password, password_confirmation)
     user = User.first(:id => user_id)
     user.password = password
-    user.password_confirmation = password
-    user.remove_token!
+    user.password_confirmation = password_confirmation
     user.save
+    if user.valid?
+      user.remove_token!
+    end
     return user
+  end
+
+  def self.update_password(user_id, passwords)
+    passwords = passwords.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    user = User.first(:id => user_id)
+    if user.valid_pass?(passwords[:current_password])
+      user.password = passwords[:password]
+      user.password_confirmation = passwords[:confirm_password]
+      user.save
+      user
+    else
+      user.errors.add(:password, "Password incorrect")
+      user
+    end
   end
 
   def self.activate_beta_user(users)

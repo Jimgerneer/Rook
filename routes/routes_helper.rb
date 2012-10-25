@@ -17,9 +17,9 @@ class Rook < Sinatra::Base
       @current_user ||= User.get(session[:user])
     end
 
-    def logged_in?
-      ! session[:user].nil?
-    end
+#   def logged_in?
+#     ! session[:user].nil?
+#   end
 
     def check_for_messages
       @message_unviewed = Message.all(:recipient_id => current_user.id, :viewed => false, :opportunity => Opportunity.all(:active => true))

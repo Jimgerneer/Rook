@@ -32,6 +32,18 @@ class Rook < Sinatra::Base
     end
   end
 
+  post "/password/update.:id" do |id|
+    user = UserService.update_password(id, params[:user_passwords])
+    if ! user.errors.empty?
+      flash[:fatal] = user.errors.full_messages.join(". ")
+      redirect "/user"
+    elsif user.valid?
+      session[:user] = nil
+      flash[:fatal] = "Password has been changed, please sign in"
+      redirect "/login"
+    end
+  end
+
   get "/signup" do
     #temp code for beta
     redirect "/beta"
@@ -63,12 +75,13 @@ class Rook < Sinatra::Base
   end
 
   post '/password_reset.:id' do |id|
-      user = UserService.password_reset(id, params[:password], params[:password_confirmation])
+      user = UserService.password_reset(id, params[:password], params[:confirm_password])
       if user.valid?
         flash.now[:info] = "Password reset, please log in"
         redirect '/login'
       else
         flash.now[:fatal] = user.errors.full_messages.join(", ")
+        redirect "/password_reset.#{id}"
     end
   end
 
@@ -89,6 +102,7 @@ class Rook < Sinatra::Base
     if user
       session[:user] = user.id
       flash[:info] = "Logged in"
+      session[:login_attempts] = 0
       redirect_to_stored
     elsif 5 == session[:login_attempts]
       flash[:fatal] = "Please request a password reset"

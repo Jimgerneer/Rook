@@ -10,7 +10,7 @@ require 'sinatra/flash'
 #move to lib/server
 class Rook  < Sinatra::Base
   set :sessions, true
-  set :session_secret, 'ENV[SESSION_SECRET]'
+  set :session_secret, ENV['SESSION_SECRET']
   register Sinatra::Flash
 
   configure do

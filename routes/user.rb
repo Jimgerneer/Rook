@@ -20,9 +20,7 @@ class Rook < Sinatra::Base
   end
 
   post "/profile/update.:id" do |id|
-    params[:user_profile]["skills_desired"] = params[:user_profile].delete("skills_desired").split(/,\s*/)
-    params[:user_profile]["skills_acquired"] = params[:user_profile].delete("skills_acquired").split(/,\s*/)
-    @user_update = UserService.update(id, params[:user_profile])
+    @user_update = UserService.update(id, sanitize_input(params[:user_profile]))
     if @user_update.valid?
       flash[:info] = "Profile Updated"
       redirect "/user"
@@ -33,7 +31,7 @@ class Rook < Sinatra::Base
   end
 
   post "/password/update.:id" do |id|
-    user = UserService.update_password(id, params[:user_passwords])
+    user = UserService.update_password(id, sanitize_input(params[:user_passwords]))
     if ! user.errors.empty?
       flash[:fatal] = user.errors.full_messages.join(". ")
       redirect "/user"
@@ -59,7 +57,7 @@ class Rook < Sinatra::Base
   end
 
   post '/request_password_reset' do
-    user = UserService.request_password_reset(params[:email])
+    user = UserService.request_password_reset(sanatize_input(params[:email]))
     if user.nil?
       flash[:fatal] = "Did you use the correct email?"
       redirect '/request_password_reset'
@@ -75,7 +73,7 @@ class Rook < Sinatra::Base
   end
 
   post '/password_reset.:id' do |id|
-      user = UserService.password_reset(id, params[:password], params[:confirm_password])
+      user = UserService.password_reset(id, sanitize_input(params[:password]), sanitize_input(params[:confirm_password]))
       if user.valid?
         flash.now[:info] = "Password reset, please log in"
         redirect '/login'
@@ -86,11 +84,11 @@ class Rook < Sinatra::Base
   end
 
   post "/signup" do
-    signup(params[:user])
+    signup(sanitize_input(params[:user]))
   end
 
   post "/beta_signup" do
-    beta_signup(params[:user])
+    beta_signup(sanitize_input(params[:user]))
   end
 
   get '/beta_welcome' do

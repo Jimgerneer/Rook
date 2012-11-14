@@ -3,23 +3,14 @@ ENV['RACK_ENV'] = 'test'
 require 'capybara'
 require 'capybara/cucumber'
 require 'minitest/spec'
+require 'capybara-webkit'
 require 'database_cleaner'
 require 'database_cleaner/cucumber'
-require 'capybara-webkit'
+require 'launchy'
 
 require 'pry'
 
 $LOAD_PATH.unshift(File.expand_path('../../..', __FILE__))
-
-=begin
-class Object
-  def eigenclass
-    class << self
-      self
-    end
-  end
-end
-=end
 
 require 'rook'
 require 'spec/spec_fixtures'
@@ -27,8 +18,10 @@ require 'mail'
 require 'pony'
 require 'pony-test'
 
-Capybara.app = Rook
-Capybara.server_boot_timeout = 30
+Capybara.app = Rook.new
+Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :webkit_debug
+Capybara.default_wait_time = 5
 
 World do
   include MiniTest::Assertions
@@ -36,7 +29,7 @@ World do
 end
 
 begin
-  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner[:data_mapper].strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end

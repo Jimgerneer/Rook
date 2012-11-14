@@ -1,15 +1,16 @@
 class OpportunityService
   def self.create(user, data)
     data = data.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    skill_objects = get_skill_objects(data[:skills].split(", "))
 
-    new_data = data.merge(:user_id => user.id, :skills => get_skill_objects(data[:skills]))
+    new_data = data.merge(:user_id => user.id, :skills => skill_objects)
 
     Opportunity.create(new_data)
   end
 
   def self.update(id, data)
     op = Opportunity.first("id" => id)
-    op.update(data.merge("skills" => get_skill_objects(data["skills"])))
+    op.update(data.merge("skills" => get_skill_objects(data["skills"].split(/,\s*/))))
   end
 
   def self.thank(sender, opportunity_id, comment)

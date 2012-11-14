@@ -5,7 +5,7 @@ end
 When /^I create an opportunity:$/ do |table|
   table.hashes.each do |data|
     user_name = data.delete("user")
-    data["skills"] = data.delete("skills").split(/,\s*/)
+    data["skills"] = data.delete("skills")
     user = User.first(:username => user_name)
     @current_opportunity = OpportunityService.create(user, data)
   end
@@ -17,10 +17,10 @@ Given /^there is an opportunity available$/ do
   @current_opportunity = Opportunity.create(data)
 end
 
-Given /^11 valid opportunites are created$/ do
+#Given /^11 valid opportunites are created$/ do
   #this number is for testing pagination
-  11.times { User.gen(:opp) }
-end
+#  11.times { User.gen(:opp) }
+#end
 
 Given /^A user has contacted me about that opportunity$/ do
   user = User.gen(:unique)
@@ -37,6 +37,10 @@ Given /^I have been booked for an opportunity$/ do
   Booking.create(:opportunity_id => @current_opportunity.id, :user_id => @current_user.id)
 end
 
+#Given /^I am viewing that opportunity$/ do
+#  visit "/opportunity/#{@current_opportunity.id}"
+#end
+
 Then /^I should have the following opportunities:$/ do |table|
   result = Opportunity.all.map(&:title)
   expected = table.hashes.map{|data| data["title"] }
@@ -52,6 +56,10 @@ Then /^the opportunity should be booked$/ do
 end
 
 Then /^the opportunity should be created$/ do
+  op = Opportunity.first
+  assert_equal @current_form["Title:"], op.title
+  assert_equal @current_form["Skills:"], op.skills.map(&:name).join(", ")
+  assert_equal @current_form["Description:"], op.description
   assert_equal 1, Opportunity.count
 end
 

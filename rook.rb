@@ -1,11 +1,16 @@
 require 'sinatra'
+require 'bundler'
 require 'data_mapper'
 require 'haml'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
 require 'will_paginate/view_helpers/sinatra'
 require 'pony'
+require 'sanitize'
 require 'sinatra/flash'
+require_relative 'routes/routes_helper'
+
+Bundler.require
 
 #move to lib/server
 class Rook  < Sinatra::Base
@@ -15,11 +20,11 @@ class Rook  < Sinatra::Base
 
   configure do
     helpers WillPaginate::Sinatra::Helpers
+    helpers Rookery::Helpers
   end
 
   configure :development, :test do
     connection_string = "mysql://root@localhost/rook_#{ ENV['RACK_ENV'] }"
-    #puts connection_string
     DataMapper.setup(:default, connection_string)
     enable :logging
   end

@@ -12,11 +12,11 @@ class UserService
     user = User.first("id" => id)
 
     if data.include? :skills_desired
-      data.merge!(:skills_desired => get_skill_objects(data[:skills_desired]))
+      data.merge!(:skills_desired => get_skill_objects(data[:skills_desired].split(/,\s*/)))
     end
 
     if data.include? :skills_acquired
-      data.merge!(:skills_acquired => get_skill_objects(data[:skills_acquired]))
+      data.merge!(:skills_acquired => get_skill_objects(data[:skills_acquired].split(/,\s*/)))
     end
 
     user.update(data)
@@ -62,7 +62,7 @@ class UserService
     users.each do |user|
       @user = User.first(:id => user.id)
       if @user.activate! == true
-        Mailer.mail(@user, :welcome)
+        Mailer.mail(@user, :beta_activated)
       else
         puts "#{user.username} wasn't activated"
       end

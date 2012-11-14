@@ -1,5 +1,6 @@
 Feature: Closing an Opportunity
 
+  @wip
   Scenario: User closes opportunity
     Given I am signed in with a valid user
     And I am on the create opportunity page

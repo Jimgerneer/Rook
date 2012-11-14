@@ -7,20 +7,20 @@
       .row-fluid
         .span12.content-nav
           .span3.offset1
-            %ul(class="nav nav-pills")
+            %ul{class: "nav nav-pills"}
               %li
-                %a(href='/')All
+                %a{href: '/'}All
               %li
-                %a(href='/opportunity')Create
+                %a{href: '/opportunity'}Create
           -if logged_in?
             #user-nav.span8
               %ul(class="nav nav-pills")
                 %li
-                  %a(href='/?subview=authored_partial')Authored
+                  %a{href:  '/?subview=authored_partial', id:  "Authored"}Authored
                 %li
-                  %a(href='/?subview=booked_partial')Booked
+                  %a{href:  '/?subview=booked_partial', id:  "Booked"}Booked
                 %li
-                  %a(href='/?subview=contacted_partial')Contacted
+                  %a{href: '/?subview=contacted_partial', id: "Contacted"}Contacted
       #page-content.row-fluid
         -if @content == true
           = haml :all_partial, :layout => false

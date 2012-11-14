@@ -11,8 +11,8 @@ class Rook < Sinatra::Base
       @contacted_opportunities = Opportunity.all(:active => true, :messages => { :sender => current_user }) - Opportunity.all(:user => current_user)
     end
     pass unless request.xhr?
-      @content = false
-      haml params[:subview].to_sym, :layout => false
+    @content = false
+    haml params[:subview].to_sym, :layout => false
   end
 
   get '/' do
@@ -88,7 +88,8 @@ class Rook < Sinatra::Base
     author = User.first(:opportunities => Opportunity.all(:id => id))
     author_id = author.id
     data = {:recipient_id => author_id, :opportunity_id => id, :body => params[:body]}
-    message = MessageService.create(sender, data)
+    clean_data = sanitize_input(data)
+    message = MessageService.create(sender, clean_data)
     if message.valid?
       flash[:info] = "Message sent! Opportunity added to 'Contacted'"
       redirect '/'
@@ -103,7 +104,8 @@ class Rook < Sinatra::Base
     sender = current_user
     recipient_id = params[:user_id] || opportunity.user.id
     data = {:recipient_id => recipient_id, :opportunity_id => id, :body => params[:body]}
-    MessageService.create(sender, data)
+    clean_data = sanitize_input(data)
+    MessageService.create(sender, clean_data)
     if params[:page] == 'conversation'
       redirect "/opportunity/conversation.#{opportunity.id}?user=#{recipient_id}"
     else
@@ -124,9 +126,7 @@ class Rook < Sinatra::Base
   end
 
   post '/opportunity/update.:id' do |id|
-    #transforms comma seperated string into array of strings
-    params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
-    @op = OpportunityService.update(id, params[:opportunity])
+    @op = OpportunityService.update(id, sanitize_input(params[:opportunity]))
     redirect '/'
   end
 
@@ -138,7 +138,7 @@ class Rook < Sinatra::Base
 
   post '/opportunity/thanks.:id' do |id|
     opportunity_id = id
-    OpportunityService.thank(session[:user], opportunity_id, params[:thanks])
+    OpportunityService.thank(session[:user], opportunity_id, sanitize_input(params[:thanks]))
     redirect '/'
   end
 
@@ -156,16 +156,13 @@ class Rook < Sinatra::Base
   end
 
   post '/opportunity' do
-    #transforms comma seperated string into array of strings
-    params[:opportunity]["skills"] = params[:opportunity].delete("skills").split(/,\s*/)
-    @opportunity = OpportunityService.create(current_user, params[:opportunity])
+    @opportunity = OpportunityService.create(current_user, sanitize_input(params[:opportunity]))
     flash[:info] = "Opportunity created!"
     redirect "/"
   end 
 
   post '/opportunity/book.:id' do |id|
-    @booking = Booking.create!(:opportunity_id => id,
-                              :user_id => params[:user])
+    @booking = Booking.create!(:opportunity_id => id, :user_id => params[:user])
     user = User.first(:id => params[:user])
     if @booking.valid?
       flash[:info] = "#{user.username} has been booked! Message them here or contact them by email"

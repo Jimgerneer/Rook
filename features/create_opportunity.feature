@@ -7,7 +7,7 @@ Feature: Creating an opportunity
     And I am on the create opportunity page
     And I fill in the fields
       | Title: | Ruby for Beginners |
-      | Skills: | Ruby |
+      | Skills: | Ruby, TDD |
       | Description: | Learn Ruby from the basics |
     And I click the submit button
     Then the opportunity should be created

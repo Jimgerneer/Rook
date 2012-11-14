@@ -1,5 +1,6 @@
-class Rook < Sinatra::Base
-  helpers do
+module Rookery
+  module Helpers
+
     def login_required
       return true if logged_in?
 
@@ -64,6 +65,21 @@ class Rook < Sinatra::Base
 
     def formatted_timestamp(object)
       object.created_at
+    end
+
+    def sanitize_input(data)
+      new_data = { }
+      data.each do |k,v|
+        case v
+        when Fixnum
+          new_data[k] = v.to_s
+        when String, NilClass
+          new_data[k] = Sanitize.clean(v)
+        else
+          new_data[k] = sanitize_input(v)
+        end
+      end
+      new_data
     end
 
     alias_method :logged_in?, :current_user

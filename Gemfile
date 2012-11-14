@@ -15,6 +15,7 @@ gem 'pony'
 gem 'pony-test', git: 'https://github.com/johnmendonca/pony-test.git'
 gem 'sinatra-flash'
 gem 'bowtie', git: 'https://github.com/DecoyDrone/bowtie.git'
+gem 'sanitize'
 
 group :production do
   gem 'dm-postgres-adapter'
@@ -22,6 +23,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'launchy'
   gem 'dm-mysql-adapter'
   gem 'webrat'
   gem 'database_cleaner'

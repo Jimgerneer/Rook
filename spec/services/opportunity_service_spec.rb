@@ -7,12 +7,12 @@ describe OpportunityService do
   describe "create method" do
 
     it "creates an opportunity for user" do
-      data = {"title" => "Ruby", "skills" => ["Haha"], "description" => "This is a fake"}
+      data = {"title" => "Ruby", "skills" => "Haha", "description" => "This is a fake"}
 
       user = User.new
       user.stubs(:id).returns(42)
 
-      data_expected = {:title => "Ruby", :skills => ["Haha"], :description => "This is a fake"}
+      data_expected = {:title => "Ruby", :skills => "Haha", :description => "This is a fake"}
       expected = data_expected.merge(:skills => [skill], :user_id => user.id)
       Opportunity.expects(:create).with(expected)
 
@@ -23,7 +23,7 @@ describe OpportunityService do
   describe "update method" do
 
     it "updates an opportunity for user" do
-      data = {"skills" => ["Haha"], "title" => "Ruby", "description" => "This is a fake"}
+      data = {"skills" => "Haha", "title" => "Ruby", "description" => "This is a fake"}
 
       op = stub()
       Opportunity.stubs(:first).with("id" => 3).returns(op)

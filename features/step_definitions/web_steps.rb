@@ -1,18 +1,25 @@
+Given /^I am viewing "(.+)"$/ do |url|
+  visit(url)
+end
+
 Given /^I am signed in with a valid user$/ do
   @current_user = User.gen
   @current_user.activate!
-  visit ('/login')
-  fill_in('username', :with => @current_user.username)
-  fill_in('password', :with => 'doobar')
-  click_button('Submit')
+  login_steps(@current_user)
 end
 
 Given /^I try to log in with an inactive user$/ do
   @current_user = User.gen
-  visit ('/login')
-  fill_in('username', :with => @current_user.username)
-  fill_in('password', :with => 'doobar')
-  click_button('Submit')
+  login_steps(@current_user)
+end
+
+Given /^I click the "([^\"]*)" icon$/ do |text|
+  wait_until { first(:xpath, %Q{//a[contains(., "#{ text }")]}) }
+  click_on(text)
+end
+
+Given /^I am on the index page$/ do
+  visit "/"
 end
 
 Given /^I am on the user page$/ do
@@ -59,7 +66,7 @@ Given /^I click the send button$/ do
 end
 
 Given /^I click the "([^|"]*)" link$/ do |link|
-  click_link(link)
+  click_on(link)
 end
 
 Given /^I click the "([^\"]*)" button$/ do |button|
@@ -84,13 +91,13 @@ Then /^I should be on "([^\"]*)"$/ do |url|
   assert_equal url, page.current_path
 end
 
-Then /^there should only be 10 opportunities$/ do
-  assert_equal 10, page.all(:xpath, '//tbody/tr').length
-end
-
 Then /^I should be on the booked opportunity page$/ do
   expect = '/opportunity/conversation.' + @current_opportunity.id.to_s
   assert_equal expect, page.current_path
+end
+
+Then /^I should see "(.+)"$/ do |text|
+  assert has_content?(text)
 end
 
 def login_steps(user)

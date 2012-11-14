@@ -26,8 +26,8 @@ describe UserService do
       data = {"first_name" => "Jim",
               "last_name" => "Denton",
               "bio" => "I am a sham",
-              "skills_desired" => ["Ruby"],
-              "skills_acquired" => ["Java"] }
+              "skills_desired" => "Ruby",
+              "skills_acquired" => "Java" }
       data_expected = {:first_name => "Jim",
                        :last_name => "Denton",
                        :bio => "I am a sham" }
